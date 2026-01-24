@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challenges</title>
+</head>
+<body>
+<h1>All Challenges</h1>
+<ul id="challenges"></ul>
+</body>
+<script>
+    function getChallenges() {
+        const challengesList = document.getElementById('challenges'); // Display the unorder list
+        console.log(challengesList);
+        fetch("https://codecyprus.org/th/api/list")
+            .then(response => response.json()) //Parse JSON text to JavaScript object
+            .then(jsonObject => {
+
+                const treasureHunts = jsonObject.treasureHunts; // reference to the treasureHunt API
+                for (let i = 0; i < treasureHunts.length; i++) {
+                    let listItem = document.createElement('li'); // Create an element <li>
+                    listItem.innerHTML = "<a href='https://codecyprus.org/th/api/start?player=Nick&app=TreausureHunt&treasure-hunt-id=ag9nfmNvZGVjeXBydXNvcmdyGQsSDFRyZWFzdXJlSHVudBiAgICAvKGCCgw'>" + treasureHunts[i].name + "</a>";
+                    challengesList.append(listItem); // create a new list
+                }
+                console.log(treasureHunts);
+                console.log(jsonObject); //TODO - Success, do something with the data.
+            });
+    }
+    getChallenges();
+</script>
+</html>

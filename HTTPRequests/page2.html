@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page 2</title>
+</head>
+<body>
+<h1>Page 2</h1>
+<p id="num1"></p>
+<p id="num2"></p>
+<p id="sum"></p>
+</body>
+<script>
+    console.log(location.href);
+    console.log(location.search);
+    const params = new URLSearchParams(location.search);
+
+    let num1Exist=params.has("num1");
+    let num2Exist=params.has("num2");
+    if (num1Exist && num2Exist) {
+        let num1=params.get("num1");
+        let num2=params.get("num2");
+
+       let n1 = Number(num1)
+       let n2 = Number(num2)
+
+        let num1R=document.getElementById("num1");
+        let num2R=document.getElementById("num2");
+        let sumR=document.getElementById("sum");
+
+        num1R.textContent = n1;
+        num2R.textContent = n2;
+        sumR.textContent = n1+n2;
+    }
+    else {
+        alert("Both parameters need to be provided");
+    }
+</script>
+</html>
