@@ -11,16 +11,18 @@
 </body>
 <script>
     function getChallenges() {
+        const params = new URLSearchParams(window.location.search);
+        const uuid = params.get("uuid");
         const challengesList = document.getElementById('challenges'); // Display the unorder list
-        console.log(challengesList);
-        fetch("https://codecyprus.org/th/api/list")
+        // console.log(challengesList);
+        fetch(`https://codecyprus.org/th/api/list?start?player=Antreas&app=TeamD&treasure-hunt-id=${uuid}`)
             .then(response => response.json()) //Parse JSON text to JavaScript object
             .then(jsonObject => {
 
                 const treasureHunts = jsonObject.treasureHunts; // reference to the treasureHunt API
                 for (let i = 0; i < treasureHunts.length; i++) {
                     let listItem = document.createElement('li'); // Create an element <li>
-                    listItem.innerHTML = "<a href='https://codecyprus.org/th/api/start?player=Nick&app=TreausureHunt&treasure-hunt-id=ag9nfmNvZGVjeXBydXNvcmdyGQsSDFRyZWFzdXJlSHVudBiAgICAvKGCCgw'>" + treasureHunts[i].name + "</a>";
+                    listItem.innerHTML = "<a href='#'>" + treasureHunts[i].name + "</a>";
                     challengesList.append(listItem); // create a new list
                 }
                 console.log(treasureHunts);
