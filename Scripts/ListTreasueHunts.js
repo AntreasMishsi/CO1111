@@ -54,23 +54,24 @@ class TreasureHunt {
 }
 
 //Request data from api
-function fetchTreasureHunt(url) {
-    const response = fetch(url);
-    const data = response.json();
+async function fetchTreasureHunt(url) {
+    const response = await fetch(url);
+    const data = await response.json();
     return data;
 }
 // convert data into array then display it
-function ListTruasureHunts() {
-    const data = fetchTreasureHunt(API_URL);
+async function ListTruasureHunts() {
+    const data = await fetchTreasureHunt(API_URL);
     const treasureHunts = data.treasureHunts.map(h => new TreasureHunt(h));
 
     const container = document.createElement("div");
     container.className = "container-treasure-hunts";
-
+    console.log(data);
     for(let i = 0; i < treasureHunts.length; i++) {
-        treasureHunts.Display(container);
+        treasureHunts[i].Display(container);
     }
     
+    document.body.appendChild(container);
 
 }
 
