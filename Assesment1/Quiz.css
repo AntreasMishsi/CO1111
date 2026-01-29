@@ -1,0 +1,80 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 1.4vw;
+}
+body{
+    background: grey;
+    .head{
+        background-color: grey;
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 1rem;
+        padding: 1rem;
+        font-size: 1rem;
+    }
+    .head h1{
+        font-size: 1.5rem;
+    }
+}
+.details{
+    display: flex;
+    flex-direction: row;
+    gap:20px;
+    justify-content: center;
+    position: relative;
+    float:right;
+    bottom:15px;
+}
+.body{
+    background-color: lightgrey;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width:100vw;
+    height:100vh;
+}
+.h1 h1{
+    font-size: 5rem;
+    font-family: Arial,sans-serif;
+    font-weight:bold;
+}
+.btn{
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-family: Arial,sans-serif;
+    font-weight: bold;
+    color:black;
+    background-color: white;
+    border: 3px solid black;
+    margin: 2px 4px;
+    padding: 15px 32px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+    position: relative;
+    top: 3rem;
+}
+.btn:hover{
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.6);
+    transform: translateY(-0.1rem);
+}
+.btn-container{
+    box-sizing: border-box;
+}
+/*@media screen and (max-width:900px){*/
+/*    .h1 h1{*/
+/*        font-size: 1rem;*/
+/*    }*/
+/*    .btn{*/
+/*        font-size: 0.5rem;*/
+/*        padding: 8px 16px;*/
+/*        margin: 4px 0;*/
+/*    }*/
+/*    .head h1{*/
+/*        font-size: 0.1rem;*/
+/*    }*/
+/*    .details h3{*/
+/*        font-size: 0.7rem;*/
+/*    }*/
+/*}*/
