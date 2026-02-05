@@ -12,12 +12,17 @@
 .message-container {
     position: absolute;
     top: 10px;
+    left: 800px;
 }
 .meassage {
   margin-top: 20px;
 }
 
 .message-text {}
+
+
+
+
 
 
 /* */

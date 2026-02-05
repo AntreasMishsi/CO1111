@@ -75,16 +75,16 @@ class Message {
 
     Display() {       
         const container = document.getElementById("message-container");
-        container.ad
-        container.className = "message";
-        container.innerText = this.text;
-        document.body.appendChild(container); 
+        const message = document.createElement("div");
+        message.className = "message";
+        message.innerText = this.text;
+        container.appendChild(message);
 
         setTimeout(() => {
-            container.remove();
+            message.remove();
         }, 3000);
 
-        document.body.appendChild(container);
+      
 
     }
 }
@@ -213,39 +213,147 @@ class StartStage extends Stage {
         document.getElementById("startForm").addEventListener("submit", function(event) {
             event.preventDefault();
 
-            const selected = document.querySelector('input[name="treasure_hunt"]:checked');
-            if (selected) {
-                const value = selected.value;
-                
-                app.SetTreasureHuntID(value);
-                
-            } else {
-                // TODO: add some event when nothing is selected
-                tmpMSG = new Message("Please select a treasure hunt");
-                tmpMSG.Display();
-            }
+            const nickname = document.getElementById("nickname-field").value;
 
+            const API_URL_START = `https://codecyprus.org/th/api/start?player=${nickname}&app=TreasureHuntApp&treasure-hunt-id=${app.treasureHuntID}`;
+            const data = fetchData(API_URL_START).then(data => {
+                if(data.status === "OK") {
+                    app.session = data.session;
+                    app.numOfQuestions = data.numOfQuestions;
+                    app.name = nickname;
+
+                    app.ChangeStage();
+                }
+                else {
+                    console.log(data.errorMessages[0]);
+                    const tmpMSG = new Message(data.errorMessages[0]);
+                    tmpMSG.Display();
+                }
+
+            });
+            
 	});
 
 
 	}
 
 	OnEnd() {
+
+        
 	    ClearRenderer();
 	}
 }
+
+/*  Questions */
+
+class Question {
+    constructor({
+        status,
+        completed,
+        questionText,
+        questionType,
+        canBeSkipped,
+        requiresLocation,
+        numOfQuestions,
+        currentQuestionIndex,
+        correctScore,
+        wrongScore,
+        skipScore
+    } = {}) {
+        this.status = status;
+        this.completed = completed;
+        this.questionText = questionText;
+        this.questionType = questionType;
+        this.canBeSkipped = canBeSkipped;
+        this.requiresLocation = requiresLocation;
+        this.numOfQuestions = numOfQuestions;
+        this.currentQuestionIndex = currentQuestionIndex;
+        this.correctScore = correctScore;
+        this.wrongScore = wrongScore;
+        this.skipScore = skipScore;
+    }
+
+
+
+    Display(parentId) {
+        throw new Error("Abstract method 'Display' must be implemented by subclass");
+    }
+}
+
+
+
+
+class BOOLEANQuestion extends Question {
+
+
+    constructor(props) {
+        super(props);
+    }
+
+    Display(parentId) {
+        const container = document.getElementById(parentId);
+        container.innerHTML = `
+            <p>${this.questionText}</p>
+            <input type="radio" id="true" name="boolean_question" value="true">
+            <label for="true">True</label><br>  
+            <input type="radio" id="false" name="boolean_question" value="false">
+            <label for="false">False</label><br>
+            `;
+    }
+}
+
+
+
+
+class QuestionStage extends Stage {
+    OnStart() {
+            const container = document.getElementById(RENDERED_AREA_ID);
+
+            
+            this.AskQuestion();
+        }
+    AskQuestion() {
+        const API_URL_QUESTION = `https://codecyprus.org/th/api/question?session=${app.session}`;
+        const data = fetchData(API_URL_QUESTION).then(data => {
+            if(data.status === "OK") {
+                const question = new BOOLEANQuestion(data);
+                question.Display(RENDERED_AREA_ID);
+            }
+            else {
+                console.log(data.errorMessages[0]);
+                const tmpMSG = new Message(data.errorMessages[0]);
+                tmpMSG.Display();
+            }
+    });
+    }   
+    OnEnd() {
+	    ClearRenderer();
+	}
+}
+
+
+
+
+
+
 /*--------------*/
+
+
+
 
 class App {
 	constructor() {
 		this.session = null;
 		this.name = null;
+        this.numOfQuestions = null;
 		this.treasureHuntID = null;
+
 
 		this.appState = new AppState();
 		this.StageList = [
 			new ListStage(),
-			new StartStage()
+			new StartStage(),
+            new QuestionStage(),
 			// TODO: Add the created stages
 		];
 		this.StageList[this.appState.getCurentStage()].OnStart();
