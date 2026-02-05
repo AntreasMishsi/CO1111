@@ -1,2 +1,23 @@
+
 * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
+
+
+
+
+/* Message here*/
+.message-container {
+    position: absolute;
+    top: 10px;
+}
+.meassage {
+  margin-top: 20px;
+}
+
+.message-text {}
+
+
+/* */

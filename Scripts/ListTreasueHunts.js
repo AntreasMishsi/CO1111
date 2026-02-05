@@ -42,12 +42,14 @@ class TreasureHunt {
         container.innerHTML = `
             <h2>${this.name}</h2>
             <p>${this.description}</p>
+            
             <p>
             From ${new Date(this.startsOn).toLocaleDateString()}
             to ${new Date(this.endsOn).toLocaleDateString()}
             </p>
+            <input type="radio" id="apple" name="trueasure_hunt" value="${this.uuid}">
         `;
-
+        
         parent.appendChild(container);
     }
 
@@ -59,6 +61,7 @@ async function fetchTreasureHunt(url) {
     const data = await response.json();
     return data;
 }
+
 // convert data into array then display it
 async function ListTruasureHunts() {
     const data = await fetchTreasureHunt(API_URL);
@@ -66,7 +69,6 @@ async function ListTruasureHunts() {
 
     const container = document.createElement("div");
     container.className = "container-treasure-hunts";
-    console.log(data);
     for(let i = 0; i < treasureHunts.length; i++) {
         treasureHunts[i].Display(container);
     }
