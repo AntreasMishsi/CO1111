@@ -278,6 +278,10 @@ class Question {
     Display(parentId) {
         throw new Error("Abstract method 'Display' must be implemented by subclass");
     }
+
+    Answear() {
+        throw new Error("Abstract method 'Answear' must be implemented by subclass");
+    }
 }
 
 
@@ -292,13 +296,35 @@ class BOOLEANQuestion extends Question {
 
     Display(parentId) {
         const container = document.getElementById(parentId);
+
+        // Render the form with radio buttons
         container.innerHTML = `
-            <p>${this.questionText}</p>
-            <input type="radio" id="true" name="boolean_question" value="true">
-            <label for="true">True</label><br>  
-            <input type="radio" id="false" name="boolean_question" value="false">
-            <label for="false">False</label><br>
-            `;
+            <form id="booleanForm">
+                <p>${this.questionText}</p>
+                <input type="radio" id="true" name="boolean_question" value="true">
+                <label for="true">True</label><br>
+                <input type="radio" id="false" name="boolean_question" value="false">
+                <label for="false">False</label><br>
+                <button type="button" id="submitAnswer">Submit</button>
+            </form>
+        `;
+
+        // Add click listener for the button to get the answer
+        const submitButton = document.getElementById("submitAnswer");
+        submitButton.addEventListener("click", () => {
+            const selected = document.querySelector('input[name="boolean_question"]:checked');
+            this.Answear(selected.value === "true");
+        });
+    }   
+    
+
+    Answear(isCorrect) {
+        const API_URL_ANSWER = `https://codecyprus.org/th/api/answer?session=${app.session}&answer=${isCorrect}`;
+        const data = fetchData(API_URL_ANSWER).then(data => {
+            console.log(data.correct);
+            
+        });
+
     }
 }
 
@@ -347,7 +373,7 @@ class App {
 		this.name = null;
         this.numOfQuestions = null;
 		this.treasureHuntID = null;
-
+        this.score = 0;
 
 		this.appState = new AppState();
 		this.StageList = [
