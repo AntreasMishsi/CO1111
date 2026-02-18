@@ -7,8 +7,9 @@
 
 /*Body*/
 body{
-    background: grey;
-
+    background-image: url("Treasure hunt adventure map design.png");
+    width:5%;
+    height:20px;
     /*Header*/
     .head{
         background-color: grey;
@@ -35,7 +36,7 @@ body{
 
 /*Main Body*/
 .body{
-    background-color: lightgrey;
+    /*background-color: lightgrey;*/
     display: flex;
     justify-content: center;
     align-items: center;

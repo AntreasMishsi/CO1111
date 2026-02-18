@@ -1,80 +1,133 @@
-*{
+* {
     margin: 0;
     padding: 0;
+}
+
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+    background-color: black;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.head {
+    background-color: black;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    padding: 2vw;
     box-sizing: border-box;
-    font-size: 1.4vw;
 }
-body{
-    background: grey;
-    .head{
-        background-color: grey;
-        font-family: Arial, Helvetica, sans-serif;
-        margin: 1rem;
-        padding: 1rem;
-        font-size: 1rem;
-    }
-    .head h1{
-        font-size: 1.5rem;
-    }
+
+.logo {
+    width: 18vw;
+    height: auto;
 }
-.details{
+/* Treasure Hunt */
+.title {
+    font-size: 4vw;
+    text-align: center;
+    flex: 1;
+    margin-top: 15vw
+}
+
+/* HELP and ABOUT  */
+.details {
     display: flex;
-    flex-direction: row;
-    gap:20px;
-    justify-content: center;
-    position: relative;
-    float:right;
-    bottom:15px;
+    gap: 3vw;
+    font-size: 3vw;
+    margin-top: 6vw;
 }
-.body{
-    background-color: lightgrey;
+
+
+.body {
+    height: calc(100vh - 20vw);
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    width:100vw;
-    height:100vh;
-}
-.h1 h1{
-    font-size: 5rem;
-    font-family: Arial,sans-serif;
-    font-weight:bold;
-}
-.btn{
-    text-decoration: none;
-    font-size: 1.5rem;
-    font-family: Arial,sans-serif;
-    font-weight: bold;
-    color:black;
-    background-color: white;
-    border: 3px solid black;
-    margin: 2px 4px;
-    padding: 15px 32px;
-    cursor: pointer;
-    transition-duration: 0.4s;
-    position: relative;
-    top: 3rem;
-}
-.btn:hover{
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.6);
-    transform: translateY(-0.1rem);
-}
-.btn-container{
+    padding-bottom: 100vw;
     box-sizing: border-box;
 }
-/*@media screen and (max-width:900px){*/
-/*    .h1 h1{*/
-/*        font-size: 1rem;*/
-/*    }*/
-/*    .btn{*/
-/*        font-size: 0.5rem;*/
-/*        padding: 8px 16px;*/
-/*        margin: 4px 0;*/
-/*    }*/
-/*    .head h1{*/
-/*        font-size: 0.1rem;*/
-/*    }*/
-/*    .details h3{*/
-/*        font-size: 0.7rem;*/
-/*    }*/
-/*}*/
+
+/* btn to start game*/
+.btn {
+    font-size: 3.5vw;
+    padding: 1.5vw 6vw;
+    border: 3px solid white;
+    cursor: pointer;
+    transition: 0.3s;
+    color: black;
+    text-decoration: none;
+    border-radius: 40px;
+    background-color: white;
+}
+/*social links */
+.socials {
+    position: absolute;
+    bottom: 3vw;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 5vw;
+}
+
+.icon {
+    width: 6vw;
+    height: auto;
+    cursor: pointer;
+}
+.follow {
+    position: absolute;
+    bottom: 12vw;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 3vw;
+
+}/* ABOUT link */
+.about-link {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: black;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+.modal:target {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    color: black;
+    width: 80vw;
+    padding: 5vw;
+    border-radius: 3vw;
+    text-align: center;
+}
+
+/* Close button */
+.close-btn {
+    display: inline-block;
+    margin-top: 4vw;
+    padding: 2vw 5vw;
+    background: black;
+    color: white;
+    border-radius: 2vw;
+    text-decoration: none;
+}
+.help-link {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
