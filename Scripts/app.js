@@ -84,8 +84,6 @@ class Message {
             message.remove();
         }, 3000);
 
-      
-
     }
 }
 
@@ -284,7 +282,9 @@ class Question {
     }
 }
 
-
+function CorrectAnswearAnimation() {
+    
+}
 
 
 class BOOLEANQuestion extends Question {
@@ -318,8 +318,8 @@ class BOOLEANQuestion extends Question {
     }   
     
 
-    Answear(isCorrect) {
-        const API_URL_ANSWER = `https://codecyprus.org/th/api/answer?session=${app.session}&answer=${isCorrect}`;
+    Answear(answear) {
+        const API_URL_ANSWER = `https://codecyprus.org/th/api/answer?session=${app.session}&answer=${answear}`;
         const data = fetchData(API_URL_ANSWER).then(data => {
             console.log(data.correct);
             
