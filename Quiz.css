@@ -1,133 +1,171 @@
+/* Reset */
 * {
     margin: 0;
-    padding: 0;
 }
 
 html, body {
     width: 100%;
-    overflow-x: hidden;
+    height: 100%;
+    overflow: hidden;
     background-color: black;
     font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Header */
 .head {
-    background-color: black;
-    color: white;
     display: flex;
     justify-content: space-between;
-    padding: 2vw;
-    box-sizing: border-box;
+    color: white;
 }
 
+/* Logo */
 .logo {
-    width: 18vw;
-    height: auto;
-}
-/* Treasure Hunt */
-.title {
-    font-size: 4vw;
-    text-align: center;
-    flex: 1;
-    margin-top: 15vw
+    width: 100px;
+    height: 100px;
 }
 
-/* HELP and ABOUT  */
+/* Help and about */
 .details {
     display: flex;
-    gap: 3vw;
-    font-size: 3vw;
-    margin-top: 6vw;
+    gap: 10px;
+    font-size: 17px;
+    margin-top: 40px;
+    margin-right: 10px;
 }
 
-
+/* Body */
 .body {
-    height: calc(100vh - 20vw);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    padding-bottom: 100vw;
-    box-sizing: border-box;
+    width: 100%;
+    color:white;
 }
 
-/* btn to start game*/
-.btn {
-    font-size: 3.5vw;
-    padding: 1.5vw 6vw;
-    border: 3px solid white;
-    cursor: pointer;
-    transition: 0.3s;
-    color: black;
-    text-decoration: none;
-    border-radius: 40px;
-    background-color: white;
+/* Title */
+.btn_title {
+    color: white;
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 25px;
+
 }
-/*social links */
+/*custom css property*/
+@property --angle{
+    syntax: "<angle>";/*tells the browser that this an angle*/
+    initial-value: 0deg;/*starting from 0*/
+    inherits: false;/*allows it loop every time*/
+}
+
+/* Start button */
+.btn {
+    font-size: 17px;
+    padding: 12px 40px;
+    border-radius: 40px;
+    background: black;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    bottom: 1px;
+    position: relative;
+}
+
+/* Outline effect and the colors */
+.btn::after, .btn::before {
+    content: '';
+    position: absolute;
+    inset: -3.5px; /* outline size */
+    background-image: conic-gradient(from var(--angle),#006aff,#008aff , #8A2BE2,#FF1493 );/*colors*/
+    border-radius: 40px; /* smooth rounded outline */
+    z-index: -1;/*put it behind the button*/
+    animation: spin 3s linear infinite;
+}
+
+/* Glow effect */
+.btn::before {
+    filter: blur(20px);
+    opacity: 0.8; /*shadows*/
+}
+
+/* Rotation */
+@keyframes spin {
+    from {
+        --angle: 0deg
+    }
+    to   {
+        --angle: 360deg;
+    }
+}
+
+/* Follow */
+.follow {
+    position: absolute;
+    bottom: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 20px;
+}
+
+/* Social media icons */
 .socials {
     position: absolute;
-    bottom: 3vw;
+    bottom: 30px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 5vw;
+    gap: 30px;
 }
-
+/*For each icon*/
 .icon {
-    width: 6vw;
-    height: auto;
+    width: 40px;
     cursor: pointer;
 }
-.follow {
-    position: absolute;
-    bottom: 12vw;
-    left: 50%;
-    transform: translateX(-50%);
-    color: white;
-    font-size: 3vw;
 
-}/* ABOUT link */
-.about-link {
+/* Modal */
+.about-link, .help-link {
     color: white;
     text-decoration: none;
     cursor: pointer;
 }
+/*Modal size and position*/
 .modal {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 300px;
     background: black;
     display: none;
     justify-content: center;
     align-items: center;
-    z-index: 999;
 }
+
 .modal:target {
     display: flex;
 }
-
+/*modal content*/
 .modal-content {
     background: white;
     color: black;
-    width: 80vw;
-    padding: 5vw;
-    border-radius: 3vw;
+    width: 65%;
+    max-width: 400px;
+    padding: 20px;
+    border-radius: 20px;
     text-align: center;
 }
-
-/* Close button */
+/*Close btn for modals*/
 .close-btn {
     display: inline-block;
-    margin-top: 4vw;
-    padding: 2vw 5vw;
+    margin-top: 20px;
+    padding: 10px 20px;
     background: black;
     color: white;
-    border-radius: 2vw;
+    border-radius: 10px;
     text-decoration: none;
-}
-.help-link {
-    color: white;
-    text-decoration: none;
-    cursor: pointer;
 }
