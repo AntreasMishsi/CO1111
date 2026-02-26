@@ -285,6 +285,9 @@ class Question {
     Answear() {
         throw new Error("Abstract method 'Answear' must be implemented by subclass");
     }
+    Skip() {
+        this.parentStage.SkipQuestion();
+    }
 }
 
 
@@ -293,6 +296,12 @@ class Question {
 //TODO: fix this - make better design
 
 const animationDuration = 1000;
+
+function getLocation() {
+
+}
+
+
 function playCorrectAnimation() {
         const container = document.getElementById(RENDERED_AREA_ID);
         ClearRenderer();
@@ -366,6 +375,7 @@ class BOOLEANQuestion extends Question {
                 <input type="radio" id="false" name="boolean_question" value="false">
                 <label for="false">False</label><br>
                 <button type="button" id="submitAnswer">Submit</button>
+                ${this.canBeSkipped ? `<button type="button" id="skipButton">Skip</button>` : ''}
             </div>
         `;
         
@@ -375,6 +385,13 @@ class BOOLEANQuestion extends Question {
             const selected = document.querySelector('input[name="boolean_question"]:checked');
             this.Answear(selected.value === "true");
         });
+
+        if(this.canBeSkipped) {
+                const skipButton = document.getElementById("skipButton");
+                skipButton.addEventListener("click", () => {
+                this.Skip();
+        });
+        }
     }   
     
 
@@ -411,6 +428,7 @@ class INTEGERQuestion extends Question {
                 <p>${this.questionText}</p>
                 <input type="number" id="integerInput" name="integer_question" placeholder="Enter an integer number" step="1" oninput="this.value = Math.round(this.value);">
                 <button type="button" id="submitAnswer">Submit</button>
+                ${this.canBeSkipped ? `<button type="button" id="skipButton">Skip</button>` : ''}
             </div>
         `;
 
@@ -425,6 +443,14 @@ class INTEGERQuestion extends Question {
                 alert("Please enter a valid integer.");
             }
         });
+
+
+        if(this.canBeSkipped) {
+                const skipButton = document.getElementById("skipButton");
+                skipButton.addEventListener("click", () => {
+                this.Skip();
+        });
+        }
     }   
     
 
@@ -461,6 +487,7 @@ class NUMERICQuestion extends Question {
                 <p>${this.questionText}</p>
                 <input type="number" id="numericInput" name="numeric_question" placeholder="Enter a number">
                 <button type="button" id="submitAnswer">Submit</button>
+                ${this.canBeSkipped ? `<button type="button" id="skipButton">Skip</button>` : ''}
             </div>
         `;
 
@@ -478,6 +505,13 @@ class NUMERICQuestion extends Question {
 
 
         });
+
+        if(this.canBeSkipped) {
+                const skipButton = document.getElementById("skipButton");
+                skipButton.addEventListener("click", () => {
+                this.Skip();
+        });
+        }
     }   
     
 
@@ -496,6 +530,9 @@ class NUMERICQuestion extends Question {
         await sleep(animationDuration);
         this.parentStage.AskQuestion();
     }
+
+
+    
 }
 
 
@@ -515,6 +552,7 @@ class TEXTquestion extends Question {
                 <p>${this.questionText}</p>
                 <input type="text" id="textInput" name="text_question" placeholder="Enter your answer">
                 <button type="button" id="submitAnswer">Submit</button>
+                ${this.canBeSkipped ? `<button type="button" id="skipButton">Skip</button>` : ''}
             </div>
         `;
 
@@ -529,6 +567,13 @@ class TEXTquestion extends Question {
                 alert("Please enter an answer.");
             }
         });
+        
+        if(this.canBeSkipped) {
+                const skipButton = document.getElementById("skipButton");
+                skipButton.addEventListener("click", () => {
+                this.Skip();
+        });
+        }
     }   
     
 
@@ -572,6 +617,7 @@ class MCQuestion extends Question {
                 <input type="radio" id="D" name="mcq_question" value="D">
                 <label for="D">D</label><br>
                 <button type="button" id="submitAnswer">Submit</button>
+                ${this.canBeSkipped ? `<button type="button" id="skipButton">Skip</button>` : ''}
             </div>
         `;
 
@@ -582,6 +628,13 @@ class MCQuestion extends Question {
             const selected = document.querySelector('input[name="mcq_question"]:checked');
             this.Answear(selected.value);
         });
+        if(this.canBeSkipped) {
+                const skipButton = document.getElementById("skipButton");
+                skipButton.addEventListener("click", () => {
+                this.Skip();
+        });
+        }
+        
     }  
    
 
@@ -600,6 +653,8 @@ class MCQuestion extends Question {
         await sleep(animationDuration);
         this.parentStage.AskQuestion();
     }
+
+    
 }
 
 //endquestions
@@ -638,7 +693,23 @@ class QuestionStage extends Stage {
                 tmpMSG.Display();
             }
     });
-    }   
+    }
+    
+    SkipQuestion() {
+        const API_URL_SKIP_QUESTION = `https://codecyprus.org/th/api/skip?session=${app.session}`;
+        const data = fetchData(API_URL_SKIP_QUESTION).then(data => {
+            if(data.status === "OK") {
+                ClearRenderer();
+                this.AskQuestion();
+            }
+            else {
+                console.log(data.errorMessages[0]); 
+                const tmpMSG = new Message(data.errorMessages[0]);
+                tmpMSG.Display();
+            }
+        });
+
+    }
     OnEnd() {
 	    ClearRenderer();
 	}
