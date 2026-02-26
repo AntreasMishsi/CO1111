@@ -256,7 +256,10 @@ class Question {
         currentQuestionIndex,
         correctScore,
         wrongScore,
-        skipScore
+        skipScore, 
+
+        parentStage = null,
+
     } = {}) {
         this.status = status;
         this.completed = completed;
@@ -269,6 +272,8 @@ class Question {
         this.correctScore = correctScore;
         this.wrongScore = wrongScore;
         this.skipScore = skipScore;
+
+        this.parentStage = parentStage;
     }
 
 
@@ -282,59 +287,64 @@ class Question {
     }
 }
 
-function CorrectAnswearAnimation() {
-    
+
+
+// Questions
+//TODO: fix this - make better design
+
+const animationDuration = 1000;
+function playCorrectAnimation() {
+        const container = document.getElementById(RENDERED_AREA_ID);
+        ClearRenderer();
+        // Create a green checkmark
+        const check = document.createElement("div");
+        check.innerHTML = "✔";
+        check.style.position = "absolute";
+        check.style.fontSize = "50px";
+        check.style.color = "green";
+        check.style.opacity = "0";
+        check.style.transition = "all 0.5s ease-out";
+        container.appendChild(check);
+
+        // Animate the checkmark
+        requestAnimationFrame(() => {
+            check.style.opacity = "1";
+            check.style.transform = "scale(1.5)";
+        });
+
+        // Fade out and remove after 1 second
+        setTimeout(() => {
+            check.style.opacity = "0";
+            check.style.transform = "scale(1)";
+            setTimeout(() => container.removeChild(check), 500);
+        }, animationDuration);
 }
-class MCQuestion extends Question {
 
+function playWrongAnimation() {
+        const container = document.getElementById(RENDERED_AREA_ID);
+        ClearRenderer();
+        // Create a red x
+        const check = document.createElement("div");
+        check.innerHTML = "X";
+        check.style.position = "absolute";
+        check.style.fontSize = "50px";
+        check.style.color = "red";
+        check.style.opacity = "0";
+        check.style.transition = "all 0.5s ease-out";
+        container.appendChild(check);
 
-    constructor(props) {
-        super(props);
-    }
-
-    Display(parentId) {
-        const container = document.getElementById(parentId);
-
-        // Render the form with radio buttons
-        container.innerHTML = `
-            <form id="mcqForm">
-                <p>${this.questionText}</p>
-                <input type="radio" id="A" name="mcq_question" value="A">
-                <label for="A">A</label><br>
-                <input type="radio" id="B" name="mcq_question" value="B">
-                <label for="B">B</label><br>
-                <input type="radio" id="C" name="mcq_question" value="C">
-                <label for="C">C</label><br>
-                <input type="radio" id="D" name="mcq_question" value="D">
-                <label for="D">D</label><br>
-                <button type="button" id="submitAnswer">Submit</button>
-            </form>
-        `;
-
-        // Add click listener for the button to get the answer
-        const submitButton = document.getElementById("submitAnswer");
-        submitButton.addEventListener("click", () => {
-            const selected = document.querySelector('input[name="mcq_question"]:checked');
-            this.Answear(selected.value);
+        // Animate the checkmark
+        requestAnimationFrame(() => {
+            check.style.opacity = "1";
+            check.style.transform = "scale(1.5)";
         });
-    }  
-   
 
-    async Answear(answear) {
-        const API_URL_ANSWER = `https://codecyprus.org/th/api/answer?session=${app.session}&answer=${answear}`;
-        const data = fetchData(API_URL_ANSWER).then(data => {
-            console.log(data.correct);
-            if(data.correct == false) {
-                playWrongAnimation();
-            }
-            else {
-                playCorrectAnimation();
-            }
-           
-        });
-        await sleep(animationDuration);
-        this.parentStage.AskQuestion();
-    }
+        // Fade out and remove after 1 second
+        setTimeout(() => {
+            check.style.opacity = "0";
+            check.style.transform = "scale(1)";
+            setTimeout(() => container.removeChild(check), 500);
+        }, animationDuration);
 }
 
 class BOOLEANQuestion extends Question {
@@ -358,7 +368,7 @@ class BOOLEANQuestion extends Question {
                 <button type="button" id="submitAnswer">Submit</button>
             </form>
         `;
-
+        
         // Add click listener for the button to get the answer
         const submitButton = document.getElementById("submitAnswer");
         submitButton.addEventListener("click", () => {
@@ -368,35 +378,210 @@ class BOOLEANQuestion extends Question {
     }   
     
 
-    Answear(answear) {
+    async Answear(answear) {
         const API_URL_ANSWER = `https://codecyprus.org/th/api/answer?session=${app.session}&answer=${answear}`;
         const data = fetchData(API_URL_ANSWER).then(data => {
             console.log(data.correct);
+            if(data.correct == false) {
+                playWrongAnimation();
+            }
+            else {
+                playCorrectAnimation();
+            }
             
         });
+        await sleep(animationDuration);
+        this.parentStage.AskQuestion();
+    }
+}
 
+class INTEGERQuestion extends Question {
+
+
+    constructor(props) {
+        super(props);
+    }
+
+    Display(parentId) {
+        const container = document.getElementById(parentId);
+
+        // Render the form with radio buttons
+        container.innerHTML = `
+            <form id="integerForm">
+                <p>${this.questionText}</p>
+                <input type="number" id="integerInput" name="integer_question" placeholder="Enter an integer number" step="1" oninput="this.value = Math.round(this.value);">
+                <button type="button" id="submitAnswer">Submit</button>
+            </form>
+        `;
+
+        // Add click listener for the button to get the answer
+        const submitButton = document.getElementById("submitAnswer");
+        submitButton.addEventListener("click", () => {
+            const input = document.getElementById("integerInput").value;
+            const number = parseInt(input, 10); // Convert string to integer
+            if (!isNaN(number)) {
+                this.Answear(number); // Pass the integer to the Answer method
+            } else {
+                alert("Please enter a valid integer.");
+            }
+        });
+    }   
+    
+
+    async Answear(answear) {
+        const API_URL_ANSWER = `https://codecyprus.org/th/api/answer?session=${app.session}&answer=${answear}`;
+        const data = fetchData(API_URL_ANSWER).then(data => {
+            console.log(data.correct);
+            if(data.correct == false) {
+                playWrongAnimation();
+            }
+            else {
+                playCorrectAnimation();
+            }
+            
+        });
+        await sleep(animationDuration);
+        this.parentStage.AskQuestion();
+    }
+}
+
+class NUMERICQuestion extends Question {
+
+
+    constructor(props) {
+        super(props);
+    }
+
+    Display(parentId) {
+        const container = document.getElementById(parentId);
+
+        // Render the form with radio buttons
+        container.innerHTML = `
+            <form id="integerForm">
+                <p>${this.questionText}</p>
+                <input type="number" id="numericInput" name="numeric_question" placeholder="Enter a number">
+                <button type="button" id="submitAnswer">Submit</button>
+            </form>
+        `;
+
+        // Add click listener for the button to get the answer
+        const submitButton = document.getElementById("submitAnswer");
+        submitButton.addEventListener("click", () => {
+            const input = document.getElementById("numericInput").value;
+            const number = parseFloat(input); // Convert string to float
+
+            if (!isNaN(number)) {
+                this.Answear(number); // Pass the float to the Answer method
+            } else {
+                alert("Please enter a valid number.");
+            }
+
+
+        });
+    }   
+    
+
+    async Answear(answear) {
+        const API_URL_ANSWER = `https://codecyprus.org/th/api/answer?session=${app.session}&answer=${answear}`;
+        const data = fetchData(API_URL_ANSWER).then(data => {
+            console.log(data.correct);
+            if(data.correct == false) {
+                playWrongAnimation();
+            }
+            else {
+                playCorrectAnimation();
+            }
+            
+        });
+        await sleep(animationDuration);
+        this.parentStage.AskQuestion();
+    }
+}
+
+
+class TEXTquestion extends Question {
+
+
+    constructor(props) {
+        super(props);
+    }
+
+    Display(parentId) {
+        const container = document.getElementById(parentId);
+
+        // Render the form with radio buttons
+        container.innerHTML = `
+            <form id="textForm">
+                <p>${this.questionText}</p>
+                <input type="text" id="textInput" name="text_question" placeholder="Enter your answer">
+                <button type="button" id="submitAnswer">Submit</button>
+            </form>
+        `;
+
+        // Add click listener for the button to get the answer
+        const submitButton = document.getElementById("submitAnswer");
+        submitButton.addEventListener("click", () => {
+            const input = document.getElementById("textInput").value.trim(); // Remove extra spaces
+
+            if (input !== "") {
+                this.Answear(input); // Pass the text to the Answer method
+            } else {
+                alert("Please enter an answer.");
+            }
+        });
+    }   
+    
+
+    async Answear(answear) {
+        const API_URL_ANSWER = `https://codecyprus.org/th/api/answer?session=${app.session}&answer=${answear}`;
+        const data = fetchData(API_URL_ANSWER).then(data => {
+            console.log(data.correct);
+            if(data.correct == false) {
+                playWrongAnimation();
+            }
+            else {
+                playCorrectAnimation();
+            }
+            
+        });
+        await sleep(animationDuration);
+        this.parentStage.AskQuestion();
     }
 }
 
 
 
+//endquestions
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 class QuestionStage extends Stage {
     OnStart() {
             const container = document.getElementById(RENDERED_AREA_ID);
-
+            this.QuestionTypes = {
+                "INTEGER": INTEGERQuestion,
+                "BOOLEAN": BOOLEANQuestion,
+                "NUMERIC": NUMERICQuestion,
+                "MCQ": MCQuestion,
+                "TEXT": TEXTquestion,
+            };
             
             this.AskQuestion();
         }
+
     AskQuestion() {
+        
         const API_URL_QUESTION = `https://codecyprus.org/th/api/question?session=${app.session}`;
         const data = fetchData(API_URL_QUESTION).then(data => {
             if(data.status === "OK") {
-                const question = new BOOLEANQuestion(data);
+                ClearRenderer();
+                const questionClass = this.QuestionTypes[data.questionType];
+                const question = new questionClass({...data, parentStage: this});
                 question.Display(RENDERED_AREA_ID);
             }
             else {
-                console.log(data.errorMessages[0]);
+                console.log(data.errorMessages[0]); 
                 const tmpMSG = new Message(data.errorMessages[0]);
                 tmpMSG.Display();
             }
