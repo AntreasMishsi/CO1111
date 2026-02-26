@@ -359,14 +359,14 @@ class BOOLEANQuestion extends Question {
 
         // Render the form with radio buttons
         container.innerHTML = `
-            <form id="booleanForm">
+            <div id="booleanForm">
                 <p>${this.questionText}</p>
                 <input type="radio" id="true" name="boolean_question" value="true">
                 <label for="true">True</label><br>
                 <input type="radio" id="false" name="boolean_question" value="false">
                 <label for="false">False</label><br>
                 <button type="button" id="submitAnswer">Submit</button>
-            </form>
+            </div>
         `;
         
         // Add click listener for the button to get the answer
@@ -407,11 +407,11 @@ class INTEGERQuestion extends Question {
 
         // Render the form with radio buttons
         container.innerHTML = `
-            <form id="integerForm">
+            <div id="integerForm">
                 <p>${this.questionText}</p>
                 <input type="number" id="integerInput" name="integer_question" placeholder="Enter an integer number" step="1" oninput="this.value = Math.round(this.value);">
                 <button type="button" id="submitAnswer">Submit</button>
-            </form>
+            </div>
         `;
 
         // Add click listener for the button to get the answer
@@ -457,11 +457,11 @@ class NUMERICQuestion extends Question {
 
         // Render the form with radio buttons
         container.innerHTML = `
-            <form id="integerForm">
+            <div id="integerForm">
                 <p>${this.questionText}</p>
                 <input type="number" id="numericInput" name="numeric_question" placeholder="Enter a number">
                 <button type="button" id="submitAnswer">Submit</button>
-            </form>
+            </div>
         `;
 
         // Add click listener for the button to get the answer
@@ -511,11 +511,11 @@ class TEXTquestion extends Question {
 
         // Render the form with radio buttons
         container.innerHTML = `
-            <form id="textForm">
+            <div id="textForm">
                 <p>${this.questionText}</p>
                 <input type="text" id="textInput" name="text_question" placeholder="Enter your answer">
                 <button type="button" id="submitAnswer">Submit</button>
-            </form>
+            </div>
         `;
 
         // Add click listener for the button to get the answer
@@ -561,7 +561,7 @@ class MCQuestion extends Question {
 
         // Render the form with radio buttons
         container.innerHTML = `
-            <form id="mcqForm">
+            <div id="mcqForm">
                 <p>${this.questionText}</p>
                 <input type="radio" id="A" name="mcq_question" value="A">
                 <label for="A">A</label><br>
@@ -572,12 +572,13 @@ class MCQuestion extends Question {
                 <input type="radio" id="D" name="mcq_question" value="D">
                 <label for="D">D</label><br>
                 <button type="button" id="submitAnswer">Submit</button>
-            </form>
+            </div>
         `;
 
         // Add click listener for the button to get the answer
         const submitButton = document.getElementById("submitAnswer");
         submitButton.addEventListener("click", () => {
+            
             const selected = document.querySelector('input[name="mcq_question"]:checked');
             this.Answear(selected.value);
         });
@@ -624,6 +625,7 @@ class QuestionStage extends Stage {
         
         const API_URL_QUESTION = `https://codecyprus.org/th/api/question?session=${app.session}`;
         const data = fetchData(API_URL_QUESTION).then(data => {
+            console.log(data);
             if(data.status === "OK") {
                 ClearRenderer();
                 const questionClass = this.QuestionTypes[data.questionType];
@@ -665,6 +667,7 @@ class App {
 			new ListStage(),
 			new StartStage(),
             new QuestionStage(),
+            
 			// TODO: Add the created stages
 		];
 		this.StageList[this.appState.getCurentStage()].OnStart();
