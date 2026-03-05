@@ -307,7 +307,30 @@ class QuestionStage extends Stage {
 }
 
 class LeaderBoard extends Stage {
-    
+    OnStart() {
+
+        const container = document.getElementById(RENDERED_AREA_ID);
+
+        container.innerHTML = `
+        //TODO: add button, add div#leaderboard
+        `;
+    }
+
+    DisplayLeaderBoard() {
+        const leaderboard_container = document.getElementById("leaderboard");
+        leaderboard_container.innerHTML = '';
+        const API_URL = `https://codecyprus.org/th/api/leaderboard?session=${app.session}&treasure-hunt-id=${app.treasureHuntID}&sorted&limit=10`;
+
+        const dat = fetchData(API_URL).then(data => {
+            //TODO: go through each data.leaderboards and add it to leaderboard container
+        });
+
+        
+    }
+
+    OnEnd() {
+        ClearRenderer();
+    }
 }
 // #endregion
 
