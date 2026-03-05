@@ -306,6 +306,7 @@ class QuestionStage extends Stage {
 	}
 }
 
+
 class LeaderBoard extends Stage {
     OnStart() {
 
