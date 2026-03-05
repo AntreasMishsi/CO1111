@@ -1,8 +1,10 @@
 
+
+//#region Basic Setup
 /* Constants*/ 
 const API_URL_LIST = 'https://codecyprus.org/th/api/list';
-
 const RENDERED_AREA_ID = 'rendered-area';
+
 
 const Stages = {
 	List: 0,
@@ -12,6 +14,44 @@ const Stages = {
 }
 
 
+// the state of the app
+class AppState {
+    constructor() {
+        this.currentStage = Stages.List;
+    }
+
+	nextStage() {
+        if (this.currentStage < Stages.LeaderBoard) {
+            this.currentStage++;
+        }
+        console.log("Current Stage:", this.currentStage);
+    }
+	getCurentStage() {
+		return this.currentStage;
+	}
+
+}
+
+
+class Message {
+    constructor(text) {
+        this.text = text;
+    }
+
+
+    Display() {       
+        const container = document.getElementById("message-container");
+        const message = document.createElement("div");
+        message.className = "message";
+        message.innerText = this.text;
+        container.appendChild(message);
+
+        setTimeout(() => {
+            message.remove();
+        }, 3000);
+
+    }
+}
 
 
 class TreasureHunt {
@@ -67,52 +107,29 @@ class TreasureHunt {
 
 }
 
-class Message {
-    constructor(text) {
-        this.text = text;
-    }
 
-
-    Display() {       
-        const container = document.getElementById("message-container");
-        const message = document.createElement("div");
-        message.className = "message";
-        message.innerText = this.text;
-        container.appendChild(message);
-
-        setTimeout(() => {
-            message.remove();
-        }, 3000);
-
-    }
+//Request data from api
+async function fetchData(url) {
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
 }
 
 
-// the state of the app
-class AppState {
-    constructor() {
-        this.currentStage = Stages.List;
-    }
-
-	nextStage() {
-        if (this.currentStage < Stages.LeaderBoard) {
-            this.currentStage++;
-        }
-        console.log("Current Stage:", this.currentStage);
-    }
-	getCurentStage() {
-		return this.currentStage;
-	}
-
-}
-
-class User {
-	constructor(session) {
-		this.session = session;
-	}
+function ClearRenderer() {
+    const container = document.getElementById(RENDERED_AREA_ID);
+	container.innerHTML = '';
 }
 
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+//#endregion
+
+
+
+//#region Stages
 class Stage {
 	
 	OnStart() {
@@ -125,14 +142,6 @@ class Stage {
 }
 
 
-//Request data from api
-async function fetchData(url) {
-    const response = await fetch(url);
-    const data = await response.json();
-    return data;
-}
-
-// convert data into array then display it
 async function ListTruasureHunts() {
     const data = await fetchData(API_URL_LIST);
     const treasureHunts = data.treasureHunts.map(h => new TreasureHunt(h));
@@ -175,15 +184,8 @@ async function ListTruasureHunts() {
 	});
 
 }
-//Cleans the renderer before adding 
-function ClearRenderer() {
-    const container = document.getElementById(RENDERED_AREA_ID);
-	container.innerHTML = '';
-}
 
 
-/*  Stages */ 
-// TODO: Complete Stages
 class ListStage extends Stage {
 	OnStart() {
 		ListTruasureHunts();
@@ -193,7 +195,6 @@ class ListStage extends Stage {
 		ClearRenderer();
 	}
 }
-
 
 
 class StartStage extends Stage {
@@ -242,8 +243,129 @@ class StartStage extends Stage {
 	}
 }
 
-/*  Questions */
 
+class QuestionStage extends Stage {
+    OnStart() {
+            const container = document.getElementById(RENDERED_AREA_ID);
+            this.QuestionTypes = {
+                "INTEGER": INTEGERQuestion,
+                "BOOLEAN": BOOLEANQuestion,
+                "NUMERIC": NUMERICQuestion,
+                "MCQ": MCQuestion,
+                "TEXT": TEXTquestion,
+            };
+            
+            this.AskQuestion();
+        }
+
+    AskQuestion() {
+        
+        const API_URL_QUESTION = `https://codecyprus.org/th/api/question?session=${app.session}`;
+        const data = fetchData(API_URL_QUESTION).then(data => {
+            console.log(data);
+            if(data.status === "OK") {
+                ClearRenderer();
+                const questionClass = this.QuestionTypes[data.questionType];
+                const question = new questionClass({...data, parentStage: this});
+                question.Display(RENDERED_AREA_ID);
+            }
+            else {
+                console.log(data.errorMessages[0]); 
+                const tmpMSG = new Message(data.errorMessages[0]);
+                tmpMSG.Display();
+            }
+    });
+    }
+    
+    async SkipQuestion() {
+        const API_URL_SKIP_QUESTION = `https://codecyprus.org/th/api/skip?session=${app.session}`;
+        const data = fetchData(API_URL_SKIP_QUESTION).then(data => {
+            if(data.status === "OK") {
+                ClearRenderer();
+                await app.UpdateScore();
+                this.AskQuestion();
+
+            }
+            else {
+                console.log(data.errorMessages[0]); 
+                const tmpMSG = new Message(data.errorMessages[0]);
+                tmpMSG.Display();
+            }
+        });
+
+    }
+    OnEnd() {
+	    ClearRenderer();
+	}
+}
+// #endregion
+
+
+
+//#region Animation
+const animationDuration = 1000;
+
+
+function playCorrectAnimation() {
+        const container = document.getElementById(RENDERED_AREA_ID);
+        ClearRenderer();
+        // Create a green checkmark
+        const check = document.createElement("div");
+        check.innerHTML = "✔";
+        check.style.position = "absolute";
+        check.style.fontSize = "50px";
+        check.style.color = "green";
+        check.style.opacity = "0";
+        check.style.transition = "all 0.5s ease-out";
+        container.appendChild(check);
+
+        // Animate the checkmark
+        requestAnimationFrame(() => {
+            check.style.opacity = "1";
+            check.style.transform = "scale(1.5)";
+        });
+
+        // Fade out and remove after 1 second
+        setTimeout(() => {
+            check.style.opacity = "0";
+            check.style.transform = "scale(1)";
+            setTimeout(() => container.removeChild(check), 500);
+        }, animationDuration);
+}
+
+
+function playWrongAnimation() {
+        const container = document.getElementById(RENDERED_AREA_ID);
+        ClearRenderer();
+        // Create a red x
+        const check = document.createElement("div");
+        check.innerHTML = "X";
+        check.style.position = "absolute";
+        check.style.fontSize = "50px";
+        check.style.color = "red";
+        check.style.opacity = "0";
+        check.style.transition = "all 0.5s ease-out";
+        container.appendChild(check);
+
+        // Animate the checkmark
+        requestAnimationFrame(() => {
+            check.style.opacity = "1";
+            check.style.transform = "scale(1.5)";
+        });
+
+        // Fade out and remove after 1 second
+        setTimeout(() => {
+            check.style.opacity = "0";
+            check.style.transform = "scale(1)";
+            setTimeout(() => container.removeChild(check), 500);
+        }, animationDuration);
+}
+//#endregion
+
+
+
+//#region Questions
+//TODO: fix this - make better design
 class Question {
     constructor({
         status,
@@ -278,83 +400,18 @@ class Question {
 
 
 
-    Display(parentId) {
+    async Display(parentId) {
         throw new Error("Abstract method 'Display' must be implemented by subclass");
     }
 
     Answear() {
         throw new Error("Abstract method 'Answear' must be implemented by subclass");
     }
-    Skip() {
-        this.parentStage.SkipQuestion();
+    async Skip() {
+        await this.parentStage.SkipQuestion();
     }
 }
 
-
-
-// Questions
-//TODO: fix this - make better design
-
-const animationDuration = 1000;
-
-function getLocation() {
-
-}
-
-
-function playCorrectAnimation() {
-        const container = document.getElementById(RENDERED_AREA_ID);
-        ClearRenderer();
-        // Create a green checkmark
-        const check = document.createElement("div");
-        check.innerHTML = "✔";
-        check.style.position = "absolute";
-        check.style.fontSize = "50px";
-        check.style.color = "green";
-        check.style.opacity = "0";
-        check.style.transition = "all 0.5s ease-out";
-        container.appendChild(check);
-
-        // Animate the checkmark
-        requestAnimationFrame(() => {
-            check.style.opacity = "1";
-            check.style.transform = "scale(1.5)";
-        });
-
-        // Fade out and remove after 1 second
-        setTimeout(() => {
-            check.style.opacity = "0";
-            check.style.transform = "scale(1)";
-            setTimeout(() => container.removeChild(check), 500);
-        }, animationDuration);
-}
-
-function playWrongAnimation() {
-        const container = document.getElementById(RENDERED_AREA_ID);
-        ClearRenderer();
-        // Create a red x
-        const check = document.createElement("div");
-        check.innerHTML = "X";
-        check.style.position = "absolute";
-        check.style.fontSize = "50px";
-        check.style.color = "red";
-        check.style.opacity = "0";
-        check.style.transition = "all 0.5s ease-out";
-        container.appendChild(check);
-
-        // Animate the checkmark
-        requestAnimationFrame(() => {
-            check.style.opacity = "1";
-            check.style.transform = "scale(1.5)";
-        });
-
-        // Fade out and remove after 1 second
-        setTimeout(() => {
-            check.style.opacity = "0";
-            check.style.transform = "scale(1)";
-            setTimeout(() => container.removeChild(check), 500);
-        }, animationDuration);
-}
 
 class BOOLEANQuestion extends Question {
 
@@ -364,10 +421,12 @@ class BOOLEANQuestion extends Question {
     }
 
     Display(parentId) {
+        const API_SCORE = `https://codecyprus.org/th/api/score?session=${app.session}`;
         const container = document.getElementById(parentId);
-
+        let score = getScore();
         // Render the form with radio buttons
         container.innerHTML = `
+        <h2>Score: ${app.score}</h2>
             <div id="booleanForm">
                 <p>${this.questionText}</p>
                 <input type="radio" id="true" name="boolean_question" value="true">
@@ -412,6 +471,7 @@ class BOOLEANQuestion extends Question {
     }
 }
 
+
 class INTEGERQuestion extends Question {
 
 
@@ -419,11 +479,18 @@ class INTEGERQuestion extends Question {
         super(props);
     }
 
-    Display(parentId) {
+    async Display(parentId) {
+        const API_SCORE = `https://codecyprus.org/th/api/score?session=${app.session}`;
         const container = document.getElementById(parentId);
+        let score = await getScore();
 
+
+
+        
+        
         // Render the form with radio buttons
         container.innerHTML = `
+            <h2>Score: ${app.score}</h2>
             <div id="integerForm">
                 <p>${this.questionText}</p>
                 <input type="number" id="integerInput" name="integer_question" placeholder="Enter an integer number" step="1" oninput="this.value = Math.round(this.value);">
@@ -448,7 +515,7 @@ class INTEGERQuestion extends Question {
         if(this.canBeSkipped) {
                 const skipButton = document.getElementById("skipButton");
                 skipButton.addEventListener("click", () => {
-                this.Skip();
+                await this.Skip();
         });
         }
     }   
@@ -471,6 +538,7 @@ class INTEGERQuestion extends Question {
     }
 }
 
+
 class NUMERICQuestion extends Question {
 
 
@@ -479,10 +547,12 @@ class NUMERICQuestion extends Question {
     }
 
     Display(parentId) {
+        
         const container = document.getElementById(parentId);
-
+        let score = getScore();
         // Render the form with radio buttons
         container.innerHTML = `
+        <h2>Score: ${app.score}</h2>
             <div id="integerForm">
                 <p>${this.questionText}</p>
                 <input type="number" id="numericInput" name="numeric_question" placeholder="Enter a number">
@@ -544,10 +614,14 @@ class TEXTquestion extends Question {
     }
 
     Display(parentId) {
+        const API_SCORE = `https://codecyprus.org/th/api/score?session=${app.session}`;
         const container = document.getElementById(parentId);
+        let score = getScore();
 
         // Render the form with radio buttons
+
         container.innerHTML = `
+            <h2>Score: ${app.score}</h2>
             <div id="textForm">
                 <p>${this.questionText}</p>
                 <input type="text" id="textInput" name="text_question" placeholder="Enter your answer">
@@ -594,6 +668,7 @@ class TEXTquestion extends Question {
     }
 }
 
+
 class MCQuestion extends Question {
 
 
@@ -602,10 +677,12 @@ class MCQuestion extends Question {
     }
 
     Display(parentId) {
+        const API_SCORE = `https://codecyprus.org/th/api/score?session=${app.session}`;
         const container = document.getElementById(parentId);
-
+        let score = getScore();
         // Render the form with radio buttons
         container.innerHTML = `
+        <h2>Score: ${app.score}</h2>
             <div id="mcqForm">
                 <p>${this.questionText}</p>
                 <input type="radio" id="A" name="mcq_question" value="A">
@@ -641,6 +718,7 @@ class MCQuestion extends Question {
     async Answear(answear) {
         const API_URL_ANSWER = `https://codecyprus.org/th/api/answer?session=${app.session}&answer=${answear}`;
         const data = fetchData(API_URL_ANSWER).then(data => {
+
             console.log(data.correct);
             if(data.correct == false) {
                 playWrongAnimation();
@@ -656,75 +734,11 @@ class MCQuestion extends Question {
 
     
 }
-
-//endquestions
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-class QuestionStage extends Stage {
-    OnStart() {
-            const container = document.getElementById(RENDERED_AREA_ID);
-            this.QuestionTypes = {
-                "INTEGER": INTEGERQuestion,
-                "BOOLEAN": BOOLEANQuestion,
-                "NUMERIC": NUMERICQuestion,
-                "MCQ": MCQuestion,
-                "TEXT": TEXTquestion,
-            };
-            
-            this.AskQuestion();
-        }
-
-    AskQuestion() {
-        
-        const API_URL_QUESTION = `https://codecyprus.org/th/api/question?session=${app.session}`;
-        const data = fetchData(API_URL_QUESTION).then(data => {
-            console.log(data);
-            if(data.status === "OK") {
-                ClearRenderer();
-                const questionClass = this.QuestionTypes[data.questionType];
-                const question = new questionClass({...data, parentStage: this});
-                question.Display(RENDERED_AREA_ID);
-            }
-            else {
-                console.log(data.errorMessages[0]); 
-                const tmpMSG = new Message(data.errorMessages[0]);
-                tmpMSG.Display();
-            }
-    });
-    }
-    
-    SkipQuestion() {
-        const API_URL_SKIP_QUESTION = `https://codecyprus.org/th/api/skip?session=${app.session}`;
-        const data = fetchData(API_URL_SKIP_QUESTION).then(data => {
-            if(data.status === "OK") {
-                ClearRenderer();
-                this.AskQuestion();
-            }
-            else {
-                console.log(data.errorMessages[0]); 
-                const tmpMSG = new Message(data.errorMessages[0]);
-                tmpMSG.Display();
-            }
-        });
-
-    }
-    OnEnd() {
-	    ClearRenderer();
-	}
-}
+//#endregion
 
 
 
-
-
-
-/*--------------*/
-
-
-
-
+//#region App
 class App {
 	constructor() {
 		this.session = null;
@@ -761,8 +775,13 @@ class App {
 		console.log(this.treasureHuntID);
 		this.ChangeStage();
 	}
+
+    async UpdateScore() {
+        getScore();
+    }
+    
 }
 
 
 app = new App();
-
+//#endregion
