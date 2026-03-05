@@ -261,30 +261,36 @@ class QuestionStage extends Stage {
     AskQuestion() {
         
         const API_URL_QUESTION = `https://codecyprus.org/th/api/question?session=${app.session}`;
-        const data = fetchData(API_URL_QUESTION).then(data => {
-            console.log(data);
-            if(data.status === "OK") {
-                ClearRenderer();
-                const questionClass = this.QuestionTypes[data.questionType];
-                const question = new questionClass({...data, parentStage: this});
-                question.Display(RENDERED_AREA_ID);
-            }
-            else {
-                console.log(data.errorMessages[0]); 
-                const tmpMSG = new Message(data.errorMessages[0]);
-                tmpMSG.Display();
-            }
-    });
+        const API_URL_SCORE = `https://codecyprus.org/th/api/score?session=${app.session}`;
+        
+
+        const data = Promise.all([
+            fetchData(API_URL_QUESTION),
+            fetchData(API_URL_SCORE)])
+            .then(([questionData, scoreData]) => {
+
+                app.score = scoreData.score;
+                
+                if(questionData.status !== "OK") {
+                    console.log(questionData.errorMessages[0]); 
+                    const tmpMSG = new Message(questionData.errorMessages[0]);
+                    tmpMSG.Display();
+                }
+                else {
+                    ClearRenderer();
+                    const questionClass = this.QuestionTypes[questionData.questionType];
+                    const question = new questionClass({...questionData, parentStage: this});
+                    question.Display(RENDERED_AREA_ID);
+                }
+        });
     }
     
-    async SkipQuestion() {
+    SkipQuestion() {
         const API_URL_SKIP_QUESTION = `https://codecyprus.org/th/api/skip?session=${app.session}`;
         const data = fetchData(API_URL_SKIP_QUESTION).then(data => {
             if(data.status === "OK") {
                 ClearRenderer();
-                await app.UpdateScore();
                 this.AskQuestion();
-
             }
             else {
                 console.log(data.errorMessages[0]); 
@@ -294,9 +300,14 @@ class QuestionStage extends Stage {
         });
 
     }
+
     OnEnd() {
 	    ClearRenderer();
 	}
+}
+
+class LeaderBoard extends Stage {
+    
 }
 // #endregion
 
@@ -368,6 +379,7 @@ function playWrongAnimation() {
 //TODO: fix this - make better design
 class Question {
     constructor({
+        // data that is return by api for question
         status,
         completed,
         questionText,
@@ -379,8 +391,10 @@ class Question {
         correctScore,
         wrongScore,
         skipScore, 
-
+        
+        //data that is needed for the question but is not returned by api
         parentStage = null,
+        score = 0,
 
     } = {}) {
         this.status = status;
@@ -396,19 +410,20 @@ class Question {
         this.skipScore = skipScore;
 
         this.parentStage = parentStage;
+        this.score = score;
     }
 
 
 
-    async Display(parentId) {
+    Display(parentId) {
         throw new Error("Abstract method 'Display' must be implemented by subclass");
     }
 
     Answear() {
         throw new Error("Abstract method 'Answear' must be implemented by subclass");
     }
-    async Skip() {
-        await this.parentStage.SkipQuestion();
+    Skip() {
+        this.parentStage.SkipQuestion();
     }
 }
 
@@ -423,7 +438,6 @@ class BOOLEANQuestion extends Question {
     Display(parentId) {
         const API_SCORE = `https://codecyprus.org/th/api/score?session=${app.session}`;
         const container = document.getElementById(parentId);
-        let score = getScore();
         // Render the form with radio buttons
         container.innerHTML = `
         <h2>Score: ${app.score}</h2>
@@ -479,11 +493,9 @@ class INTEGERQuestion extends Question {
         super(props);
     }
 
-    async Display(parentId) {
+    Display(parentId) {
         const API_SCORE = `https://codecyprus.org/th/api/score?session=${app.session}`;
         const container = document.getElementById(parentId);
-        let score = await getScore();
-
 
 
         
@@ -515,7 +527,7 @@ class INTEGERQuestion extends Question {
         if(this.canBeSkipped) {
                 const skipButton = document.getElementById("skipButton");
                 skipButton.addEventListener("click", () => {
-                await this.Skip();
+                this.Skip();
         });
         }
     }   
@@ -549,7 +561,6 @@ class NUMERICQuestion extends Question {
     Display(parentId) {
         
         const container = document.getElementById(parentId);
-        let score = getScore();
         // Render the form with radio buttons
         container.innerHTML = `
         <h2>Score: ${app.score}</h2>
@@ -616,7 +627,6 @@ class TEXTquestion extends Question {
     Display(parentId) {
         const API_SCORE = `https://codecyprus.org/th/api/score?session=${app.session}`;
         const container = document.getElementById(parentId);
-        let score = getScore();
 
         // Render the form with radio buttons
 
@@ -677,9 +687,8 @@ class MCQuestion extends Question {
     }
 
     Display(parentId) {
-        const API_SCORE = `https://codecyprus.org/th/api/score?session=${app.session}`;
+       
         const container = document.getElementById(parentId);
-        let score = getScore();
         // Render the form with radio buttons
         container.innerHTML = `
         <h2>Score: ${app.score}</h2>
@@ -764,6 +773,7 @@ class App {
 		this.appState.nextStage();
 		this.StageList[this.appState.getCurentStage()].OnStart();
 	}
+
 	Reset() {
 		this.session = null;
 		this.name = null;
@@ -776,9 +786,7 @@ class App {
 		this.ChangeStage();
 	}
 
-    async UpdateScore() {
-        getScore();
-    }
+    
     
 }
 
