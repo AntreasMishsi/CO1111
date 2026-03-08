@@ -271,6 +271,12 @@ class QuestionStage extends Stage {
 
                 app.score = scoreData.score;
                 
+				 if(questionData.completed === true){
+					app.ChangeStage();
+						return;
+				}
+	
+				
                 if(questionData.status !== "OK") {
                     console.log(questionData.errorMessages[0]); 
                     const tmpMSG = new Message(questionData.errorMessages[0]);
@@ -308,25 +314,88 @@ class QuestionStage extends Stage {
 
 
 class LeaderBoard extends Stage {
+
     OnStart() {
 
         const container = document.getElementById(RENDERED_AREA_ID);
 
         container.innerHTML = `
-        //TODO: add button, add div#leaderboard
+        <div style="text-align:center;">
+            <h2> Leaderboard</h2>
+
+            <button id="loadLeaderboard" style="
+                padding:10px 20px;
+                font-size:16px;
+                cursor:pointer;
+                margin-bottom:20px;
+            ">
+                Load Leaderboard
+            </button>
+
+            <div id="leaderboard"></div>
+        </div>
         `;
+
+        document.getElementById("loadLeaderboard").addEventListener("click", () => {
+            this.DisplayLeaderBoard();
+        });
     }
 
     DisplayLeaderBoard() {
+
         const leaderboard_container = document.getElementById("leaderboard");
-        leaderboard_container.innerHTML = '';
-        const API_URL = `https://codecyprus.org/th/api/leaderboard?session=${app.session}&treasure-hunt-id=${app.treasureHuntID}&sorted&limit=10`;
 
-        const dat = fetchData(API_URL).then(data => {
-            //TODO: go through each data.leaderboards and add it to leaderboard container
+        const API_URL =
+        `https://codecyprus.org/th/api/leaderboard?session=${app.session}&treasure-hunt-id=${app.treasureHuntID}&sorted&limit=10`;
+
+        fetchData(API_URL).then(data => {
+
+            if(data.status !== "OK"){
+                const tmpMSG = new Message(data.errorMessages[0]);
+                tmpMSG.Display();
+                return;
+            }
+
+            leaderboard_container.innerHTML = `
+            <table style="
+                width:100%;
+                border-collapse:collapse;
+                text-align:center;
+                font-size:18px;
+            ">
+                <thead style="background:#333;color:white;">
+                    <tr>
+                        <th style="padding:10px;border:1px solid #ccc;">Rank</th>
+                        <th style="padding:10px;border:1px solid #ccc;">Player</th>
+                        <th style="padding:10px;border:1px solid #ccc;">Score</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboard-body"></tbody>
+            </table>
+            `;
+
+            const tableBody = document.getElementById("leaderboard-body");
+
+            data.leaderboard.forEach((player, index) => {
+
+                const row = document.createElement("tr");
+
+                row.innerHTML = `
+                <td style="padding:10px;border:1px solid #ccc;">
+                    ${index + 1}
+                </td>
+                <td style="padding:10px;border:1px solid #ccc;">
+                    ${player.player}
+                </td>
+                <td style="padding:10px;border:1px solid #ccc;">
+                    ${player.score}
+                </td>
+                `;
+
+                tableBody.appendChild(row);
+            });
+
         });
-
-        
     }
 
     OnEnd() {
@@ -785,7 +854,7 @@ class App {
 			new ListStage(),
 			new StartStage(),
             new QuestionStage(),
-            
+             new LeaderBoard(),
 			// TODO: Add the created stages
 		];
 		this.StageList[this.appState.getCurentStage()].OnStart();
