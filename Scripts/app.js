@@ -203,10 +203,22 @@ class StartStage extends Stage {
 		const container = document.getElementById(RENDERED_AREA_ID);
 
 		container.innerHTML = `
-		<form id="startForm">
-            <input type="text" name="nickname" id="nickname-field" />
-            <input type="submit" value="Submit" />
-        </form>
+		<!--		<form id="startForm">-->
+<!--            <input type="text" name="nickname" id="nickname-field" />-->
+<!--            <input type="submit" value="Submit" />-->
+<!--        </form>-->
+<div class="form-container">
+<div class="forms">
+    <form id="startForm">
+    <div class="login">
+    <h1>Login</h1>
+</div>
+        <input class="surname" id="nickname-field" type="text" name="Firstname" placeholder="Firstname"><br><br>
+        <input class="lastname" id="nickname-field" type="text" name="Lastname" placeholder="Lastname"><br><br>
+        <input class="submit" type="submit" name="Submit" placeholder="Submit"><br><br>
+    </form>
+</div>
+</div>
 		
 		`
         document.getElementById("startForm").addEventListener("submit", function(event) {
