@@ -181,3 +181,93 @@ html, body {
     width: 100%;
     line-height: 1.4;
 }
+
+#btn{
+     text-align: center;
+ }
+
+ /*Container for user name*/
+ .form-container{
+     position: relative;
+     margin-top: 15rem;
+     text-align: center;
+     top: 25%;
+ }
+
+/*Login Title*/
+h1{
+    color: black;
+    font-size: 2.2rem;
+    text-align: center;
+    position: relative;
+    margin-bottom: 40px;
+}
+
+/*Info box*/
+.surname{
+    border-radius: 23px;
+    outline: none;
+    width: 15%;
+    height: 48px;
+    border: none;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.05);
+    position: relative;
+    margin: 0 0 250px 0;
+    transition: .3s; /*Animation*/
+}
+
+.lastname{
+    border-radius: 23px;
+    outline: none;
+    width: 15%;
+    height: 48px;
+    border: none;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.05);
+    transition: .3s; /*Animation*/
+    position: relative;
+    bottom:200px;
+}
+/*Placeholder for users information*/
+::placeholder {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color: black;
+    font-size: 1rem;
+}
+
+.info:focus {
+    width:20%;
+}
+
+.submit{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    position: relative;
+    cursor: pointer;
+    text-align: center;
+    width: 15%;
+    height: 48px;
+    transition: .3s;
+    bottom: 150px;
+    border-radius: 23px;
+    padding: 10px;
+    background: white;
+    border: none;
+    background: linear-gradient(-45deg, #338AFF, #3CF0C5); /*https://codepen.io/Volorf/pen/qopzaQ*/
+}
+
+/*Submit button*/
+.submit:active{
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.05);
+    transform: translateY(-2px);
+}
+
+
+@media (max-width: 1084px) {
+    .login {
+        font-size: 0.8rem;
+    }
+    .forms{
+        width: 105%;
+    }
+}
