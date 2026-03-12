@@ -271,3 +271,60 @@ h1{
         width: 105%;
     }
 }
+
+ .mcqForm{
+     margin: 180px 350px;
+     border-radius: 10px;
+     border: 2px solid black;
+     padding: 50px;
+     background-color: white;
+ }
+
+.mcqForm h2{
+    margin-bottom: 40px;
+}
+
+.mcqForm p{
+    margin-bottom: 10px;
+}
+
+#A{
+    margin-bottom: 10px;
+}
+#B{
+    margin-bottom: 10px;
+}
+#C{
+    margin-bottom: 10px;
+}
+#D{
+    margin-bottom: 10px;
+}
+
+#submitAnswer{
+    border-radius: 10px;
+    border: none;
+    background-color: lightgrey;
+    padding: 7px;
+    cursor: pointer;
+    display: inline-block;
+    justify-content: space-between;
+    gap: 5px;
+    right:12px;
+}
+
+#skipButton{
+    border: none;
+    border-radius: 10px;
+    padding: 7px;
+    background-color: lightgrey;
+    cursor: pointer;
+}
+
+
+.message-container {
+    position: absolute;
+    top: 50%;
+
+    left: 50%;
+}
