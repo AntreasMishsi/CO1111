@@ -27,6 +27,11 @@ class AppState {
     getCurentStage() {
         return this.currentStage;
     }
+    setStage(newStage) {
+        if (newStage < Stages.LeaderBoard) {
+            this.currentStage = newStage;
+        }
+    }
 
 }
 
@@ -206,20 +211,25 @@ class StartStage extends Stage {
 <!--            <input type="text" name="nickname" id="nickname-field" />-->
 <!--            <input type="submit" value="Submit" />-->
 <!--        </form>-->
-<div class="form-container">
-<div class="forms">
-    <form id="startForm">
-    <div class="login">
-    <h1>Login</h1>
-</div>
-        <input class="surname" id="nickname-field" type="text" name="Firstname" placeholder="Firstname"><br><br>
-        <input class="lastname" id="nickname-field" type="text" name="Lastname" placeholder="Lastname"><br><br>
-        <input class="submit" type="submit" name="Submit" placeholder="Submit"><br><br>
-    </form>
-</div>
-</div>
+        <div class="form-container">
+                <div class="forms">
+                    <form id="startForm">
+                    <div class="login">
+                    <h1>Login</h1>
+                </div>
+                <input class="surname" id="nickname-field" type="text" name="Firstname" placeholder="Firstname"><br><br>
+                <input class="submit" type="submit" name="Submit" placeholder="Submit"><br><br>
+               
+            </form>
+             <button class="load-data-button" id="load-data-buttton">Load data</button>
+        </div>
+        </div>
 		
 		`
+        document.getElementById("load-data-buttton").addEventListener("click", function(event) {
+            app.LoadCookies();
+        });
+
         document.getElementById("startForm").addEventListener("submit", function(event) {
             event.preventDefault();
 
@@ -231,7 +241,8 @@ class StartStage extends Stage {
                     app.session = data.session;
                     app.numOfQuestions = data.numOfQuestions;
                     app.name = nickname;
-
+                    
+                    app.SaveCookies();
                     app.ChangeStage();
                 }
                 else {
@@ -877,13 +888,54 @@ class App {
         this.appState.nextStage();
         this.StageList[this.appState.getCurentStage()].OnStart();
     }
+    
 
     Reset() {
         this.session = null;
         this.name = null;
         this.treasureHuntID = null;
     }
+    SaveCookies() {
+        let data = {
+            session: this.session,
+            name: this.name,
+            treasureHuntID: this.treasureHuntID,
+            score: this.score,
+            stage: this.appState.getCurentStage(),
+        };
 
+        document.cookie = "app=" + JSON.stringify(data) + "; path=/";
+    }
+
+    LoadCookies() {
+        let cookies = document.cookie.split("; ");
+        console.log("Load cookie");
+        for (let c of cookies) {
+            let parts = c.split("=");
+            let key = parts.shift();
+            let value = parts.join("=");
+
+            if (key === "app") {
+                let data = JSON.parse(value);
+                console.log(data);
+                if(!data) return;
+
+                this.session = data.session;
+                this.name = data.name;
+                console.log(data.name);
+                this.treasureHuntID = data.treasureHuntID;
+                this.score = data.score;
+
+                this.appState.setStage(data.stage);
+                this.StageList[this.appState.getCurentStage()].OnStart();
+                return;
+            }
+        }
+        const tmpMSG = new Message("No cookies to load");
+        tmpMSG.Display();
+    }
+
+    
     SetTreasureHuntID(id) {
         this.treasureHuntID = id;
         console.log(this.treasureHuntID);
@@ -897,3 +949,8 @@ class App {
 
 app = new App();
 //#endregion
+
+// when leaving the page save cookies
+window.addEventListener("beforeunload", () => {
+    app.SaveCookies();
+});
