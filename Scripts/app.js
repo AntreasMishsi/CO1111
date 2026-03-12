@@ -1,16 +1,14 @@
-
-
 //#region Basic Setup
-/* Constants*/ 
+/* Constants*/
 const API_URL_LIST = 'https://codecyprus.org/th/api/list';
 const RENDERED_AREA_ID = 'rendered-area';
 
 
 const Stages = {
-	List: 0,
-	Start: 1,
-	Question: 2,
-	LeaderBoard: 3
+    List: 0,
+    Start: 1,
+    Question: 2,
+    LeaderBoard: 3
 }
 
 
@@ -20,15 +18,15 @@ class AppState {
         this.currentStage = Stages.List;
     }
 
-	nextStage() {
+    nextStage() {
         if (this.currentStage < Stages.LeaderBoard) {
             this.currentStage++;
         }
         console.log("Current Stage:", this.currentStage);
     }
-	getCurentStage() {
-		return this.currentStage;
-	}
+    getCurentStage() {
+        return this.currentStage;
+    }
 
 }
 
@@ -39,7 +37,7 @@ class Message {
     }
 
 
-    Display() {       
+    Display() {
         const container = document.getElementById("message-container");
         const message = document.createElement("div");
         message.className = "message";
@@ -56,21 +54,21 @@ class Message {
 
 class TreasureHunt {
     constructor({
-        uuid,
-        name,
-        description,
-        ownerEmail,
-        secretCode,
-        salt,
-        visibility,
-        startsOn,
-        endsOn,
-        maxDuration,
-        shuffled = false,
-        requiresAuthentication = false,
-        emailResults = false,
-        hasPrize = false
-    } = {}) {
+                    uuid,
+                    name,
+                    description,
+                    ownerEmail,
+                    secretCode,
+                    salt,
+                    visibility,
+                    startsOn,
+                    endsOn,
+                    maxDuration,
+                    shuffled = false,
+                    requiresAuthentication = false,
+                    emailResults = false,
+                    hasPrize = false
+                } = {}) {
         this.uuid = uuid;
         this.name = name;
         this.description = description;
@@ -90,7 +88,7 @@ class TreasureHunt {
     Display(parent) {
         const container = document.createElement("div");
         container.className = "treasure-hunt";
-        
+
         container.innerHTML = `
             <h2>${this.name}</h2>
             <p>${this.description}</p>
@@ -101,7 +99,7 @@ class TreasureHunt {
             </p>
             <input type="radio" id="apple" name="treasure_hunt" value="${this.uuid}">
         `;
-        
+
         parent.appendChild(container);
     }
 
@@ -118,7 +116,7 @@ async function fetchData(url) {
 
 function ClearRenderer() {
     const container = document.getElementById(RENDERED_AREA_ID);
-	container.innerHTML = '';
+    container.innerHTML = '';
 }
 
 
@@ -131,13 +129,13 @@ function sleep(ms) {
 
 //#region Stages
 class Stage {
-	
-	OnStart() {
+
+    OnStart() {
         throw new Error("Abstract method 'OnStart' must be implemented by subclass");
     }
-	OnEnd() {
-		throw new Error("Abstract method 'OnEnd' must be implemented by subclass");
-	}
+    OnEnd() {
+        throw new Error("Abstract method 'OnEnd' must be implemented by subclass");
+    }
 
 }
 
@@ -147,62 +145,63 @@ async function ListTruasureHunts() {
     const treasureHunts = data.treasureHunts.map(h => new TreasureHunt(h));
 
     const container = document.getElementById("rendered-area");
-	
-	//crate form
-	const form = document.createElement("form");
-	form.id = "stageForm";
-	container.appendChild(form);
+
+    //crate form
+    const form = document.createElement("form");
+    form.id = "stageForm";
+    container.appendChild(form);
 
     container.className = "container-treasure-hunts";
     for(let i = 0; i < treasureHunts.length; i++) {
         treasureHunts[i].Display(form);
     }
-	
-	
-	// Add submit button
+
+
+    // Add submit button
     const submitBtn = document.createElement("input");
+    submitBtn.className = "submit-btn";
     submitBtn.type = "submit";
     submitBtn.value = "Submit";
     form.appendChild(submitBtn);
 
-	//Handle event for submitting
-	document.getElementById("stageForm").addEventListener("submit", function(event) {
+    //Handle event for submitting
+    document.getElementById("stageForm").addEventListener("submit", function(event) {
         event.preventDefault();
 
-		const selected = document.querySelector('input[name="treasure_hunt"]:checked');
+        const selected = document.querySelector('input[name="treasure_hunt"]:checked');
         if (selected) {
             const value = selected.value;
-            
-			app.SetTreasureHuntID(value);
-            
+
+            app.SetTreasureHuntID(value);
+
         } else {
-			// TODO: add some event when nothing is selected
+            // TODO: add some event when nothing is selected
             tmpMSG = new Message("Please select a treasure hunt");
             tmpMSG.Display();
         }
 
-	});
+    });
 
 }
 
 
 class ListStage extends Stage {
-	OnStart() {
-		ListTruasureHunts();
-	}
+    OnStart() {
+        ListTruasureHunts();
+    }
 
-	OnEnd() {
-		ClearRenderer();
-	}
+    OnEnd() {
+        ClearRenderer();
+    }
 }
 
 
 class StartStage extends Stage {
-	OnStart() {
-		
-		const container = document.getElementById(RENDERED_AREA_ID);
+    OnStart() {
 
-		container.innerHTML = `
+        const container = document.getElementById(RENDERED_AREA_ID);
+
+        container.innerHTML = `
 		<!--		<form id="startForm">-->
 <!--            <input type="text" name="nickname" id="nickname-field" />-->
 <!--            <input type="submit" value="Submit" />-->
@@ -242,39 +241,39 @@ class StartStage extends Stage {
                 }
 
             });
-            
-	});
+
+        });
 
 
-	}
+    }
 
-	OnEnd() {
+    OnEnd() {
 
-        
-	    ClearRenderer();
-	}
+
+        ClearRenderer();
+    }
 }
 
 
 class QuestionStage extends Stage {
     OnStart() {
-            const container = document.getElementById(RENDERED_AREA_ID);
-            this.QuestionTypes = {
-                "INTEGER": INTEGERQuestion,
-                "BOOLEAN": BOOLEANQuestion,
-                "NUMERIC": NUMERICQuestion,
-                "MCQ": MCQuestion,
-                "TEXT": TEXTquestion,
-            };
-            
-            this.AskQuestion();
-        }
+        const container = document.getElementById(RENDERED_AREA_ID);
+        this.QuestionTypes = {
+            "INTEGER": INTEGERQuestion,
+            "BOOLEAN": BOOLEANQuestion,
+            "NUMERIC": NUMERICQuestion,
+            "MCQ": MCQuestion,
+            "TEXT": TEXTquestion,
+        };
+
+        this.AskQuestion();
+    }
 
     AskQuestion() {
-        
+
         const API_URL_QUESTION = `https://codecyprus.org/th/api/question?session=${app.session}`;
         const API_URL_SCORE = `https://codecyprus.org/th/api/score?session=${app.session}`;
-        
+
 
         const data = Promise.all([
             fetchData(API_URL_QUESTION),
@@ -282,15 +281,15 @@ class QuestionStage extends Stage {
             .then(([questionData, scoreData]) => {
 
                 app.score = scoreData.score;
-                
-				 if(questionData.completed === true){
-					app.ChangeStage();
-						return;
-				}
-	
-				
+
+                if(questionData.completed === true){
+                    app.ChangeStage();
+                    return;
+                }
+
+
                 if(questionData.status !== "OK") {
-                    console.log(questionData.errorMessages[0]); 
+                    console.log(questionData.errorMessages[0]);
                     const tmpMSG = new Message(questionData.errorMessages[0]);
                     tmpMSG.Display();
                 }
@@ -300,9 +299,9 @@ class QuestionStage extends Stage {
                     const question = new questionClass({...questionData, parentStage: this});
                     question.Display(RENDERED_AREA_ID);
                 }
-        });
+            });
     }
-    
+
     SkipQuestion() {
         const API_URL_SKIP_QUESTION = `https://codecyprus.org/th/api/skip?session=${app.session}`;
         const data = fetchData(API_URL_SKIP_QUESTION).then(data => {
@@ -311,7 +310,7 @@ class QuestionStage extends Stage {
                 this.AskQuestion();
             }
             else {
-                console.log(data.errorMessages[0]); 
+                console.log(data.errorMessages[0]);
                 const tmpMSG = new Message(data.errorMessages[0]);
                 tmpMSG.Display();
             }
@@ -320,8 +319,8 @@ class QuestionStage extends Stage {
     }
 
     OnEnd() {
-	    ClearRenderer();
-	}
+        ClearRenderer();
+    }
 }
 
 
@@ -358,7 +357,7 @@ class LeaderBoard extends Stage {
         const leaderboard_container = document.getElementById("leaderboard");
 
         const API_URL =
-        `https://codecyprus.org/th/api/leaderboard?session=${app.session}&treasure-hunt-id=${app.treasureHuntID}&sorted&limit=10`;
+            `https://codecyprus.org/th/api/leaderboard?session=${app.session}&treasure-hunt-id=${app.treasureHuntID}&sorted&limit=10`;
 
         fetchData(API_URL).then(data => {
 
@@ -423,58 +422,58 @@ const animationDuration = 1000;
 
 
 function playCorrectAnimation() {
-        const container = document.getElementById(RENDERED_AREA_ID);
-        ClearRenderer();
-        // Create a green checkmark
-        const check = document.createElement("div");
-        check.innerHTML = "✔";
-        check.style.position = "absolute";
-        check.style.fontSize = "50px";
-        check.style.color = "green";
+    const container = document.getElementById(RENDERED_AREA_ID);
+    ClearRenderer();
+    // Create a green checkmark
+    const check = document.createElement("div");
+    check.innerHTML = "✔";
+    check.style.position = "absolute";
+    check.style.fontSize = "50px";
+    check.style.color = "green";
+    check.style.opacity = "0";
+    check.style.transition = "all 0.5s ease-out";
+    container.appendChild(check);
+
+    // Animate the checkmark
+    requestAnimationFrame(() => {
+        check.style.opacity = "1";
+        check.style.transform = "scale(1.5)";
+    });
+
+    // Fade out and remove after 1 second
+    setTimeout(() => {
         check.style.opacity = "0";
-        check.style.transition = "all 0.5s ease-out";
-        container.appendChild(check);
-
-        // Animate the checkmark
-        requestAnimationFrame(() => {
-            check.style.opacity = "1";
-            check.style.transform = "scale(1.5)";
-        });
-
-        // Fade out and remove after 1 second
-        setTimeout(() => {
-            check.style.opacity = "0";
-            check.style.transform = "scale(1)";
-            setTimeout(() => container.removeChild(check), 500);
-        }, animationDuration);
+        check.style.transform = "scale(1)";
+        setTimeout(() => container.removeChild(check), 500);
+    }, animationDuration);
 }
 
 
 function playWrongAnimation() {
-        const container = document.getElementById(RENDERED_AREA_ID);
-        ClearRenderer();
-        // Create a red x
-        const check = document.createElement("div");
-        check.innerHTML = "X";
-        check.style.position = "absolute";
-        check.style.fontSize = "50px";
-        check.style.color = "red";
+    const container = document.getElementById(RENDERED_AREA_ID);
+    ClearRenderer();
+    // Create a red x
+    const check = document.createElement("div");
+    check.innerHTML = "X";
+    check.style.position = "absolute";
+    check.style.fontSize = "50px";
+    check.style.color = "red";
+    check.style.opacity = "0";
+    check.style.transition = "all 0.5s ease-out";
+    container.appendChild(check);
+
+    // Animate the checkmark
+    requestAnimationFrame(() => {
+        check.style.opacity = "1";
+        check.style.transform = "scale(1.5)";
+    });
+
+    // Fade out and remove after 1 second
+    setTimeout(() => {
         check.style.opacity = "0";
-        check.style.transition = "all 0.5s ease-out";
-        container.appendChild(check);
-
-        // Animate the checkmark
-        requestAnimationFrame(() => {
-            check.style.opacity = "1";
-            check.style.transform = "scale(1.5)";
-        });
-
-        // Fade out and remove after 1 second
-        setTimeout(() => {
-            check.style.opacity = "0";
-            check.style.transform = "scale(1)";
-            setTimeout(() => container.removeChild(check), 500);
-        }, animationDuration);
+        check.style.transform = "scale(1)";
+        setTimeout(() => container.removeChild(check), 500);
+    }, animationDuration);
 }
 //#endregion
 
@@ -484,24 +483,24 @@ function playWrongAnimation() {
 //TODO: fix this - make better design
 class Question {
     constructor({
-        // data that is return by api for question
-        status,
-        completed,
-        questionText,
-        questionType,
-        canBeSkipped,
-        requiresLocation,
-        numOfQuestions,
-        currentQuestionIndex,
-        correctScore,
-        wrongScore,
-        skipScore, 
-        
-        //data that is needed for the question but is not returned by api
-        parentStage = null,
-        score = 0,
+                    // data that is return by api for question
+                    status,
+                    completed,
+                    questionText,
+                    questionType,
+                    canBeSkipped,
+                    requiresLocation,
+                    numOfQuestions,
+                    currentQuestionIndex,
+                    correctScore,
+                    wrongScore,
+                    skipScore,
 
-    } = {}) {
+                    //data that is needed for the question but is not returned by api
+                    parentStage = null,
+                    score = 0,
+
+                } = {}) {
         this.status = status;
         this.completed = completed;
         this.questionText = questionText;
@@ -545,18 +544,18 @@ class BOOLEANQuestion extends Question {
         const container = document.getElementById(parentId);
         // Render the form with radio buttons
         container.innerHTML = `
+<div class="booleanForm">
         <h2>Score: ${app.score}</h2>
-            <div id="booleanForm">
                 <p>${this.questionText}</p>
                 <input type="radio" id="true" name="boolean_question" value="true">
-                <label for="true">True</label><br>
+                <label id="true1" for="true">True</label><br>
                 <input type="radio" id="false" name="boolean_question" value="false">
                 <label for="false">False</label><br>
                 <button type="button" id="submitAnswer">Submit</button>
                 ${this.canBeSkipped ? `<button type="button" id="skipButton">Skip</button>` : ''}
             </div>
         `;
-        
+
         // Add click listener for the button to get the answer
         const submitButton = document.getElementById("submitAnswer");
         submitButton.addEventListener("click", () => {
@@ -565,13 +564,13 @@ class BOOLEANQuestion extends Question {
         });
 
         if(this.canBeSkipped) {
-                const skipButton = document.getElementById("skipButton");
-                skipButton.addEventListener("click", () => {
+            const skipButton = document.getElementById("skipButton");
+            skipButton.addEventListener("click", () => {
                 this.Skip();
-        });
+            });
         }
-    }   
-    
+    }
+
 
     async Answear(answear) {
         const API_URL_ANSWER = `https://codecyprus.org/th/api/answer?session=${app.session}&answer=${answear}`;
@@ -583,7 +582,7 @@ class BOOLEANQuestion extends Question {
             else {
                 playCorrectAnimation();
             }
-            
+
         });
         await sleep(animationDuration);
         this.parentStage.AskQuestion();
@@ -603,8 +602,8 @@ class INTEGERQuestion extends Question {
         const container = document.getElementById(parentId);
 
 
-        
-        
+
+
         // Render the form with radio buttons
         container.innerHTML = `
             <h2>Score: ${app.score}</h2>
@@ -630,13 +629,13 @@ class INTEGERQuestion extends Question {
 
 
         if(this.canBeSkipped) {
-                const skipButton = document.getElementById("skipButton");
-                skipButton.addEventListener("click", () => {
+            const skipButton = document.getElementById("skipButton");
+            skipButton.addEventListener("click", () => {
                 this.Skip();
-        });
+            });
         }
-    }   
-    
+    }
+
 
     async Answear(answear) {
         const API_URL_ANSWER = `https://codecyprus.org/th/api/answer?session=${app.session}&answer=${answear}`;
@@ -648,7 +647,7 @@ class INTEGERQuestion extends Question {
             else {
                 playCorrectAnimation();
             }
-            
+
         });
         await sleep(animationDuration);
         this.parentStage.AskQuestion();
@@ -664,7 +663,7 @@ class NUMERICQuestion extends Question {
     }
 
     Display(parentId) {
-        
+
         const container = document.getElementById(parentId);
         // Render the form with radio buttons
         container.innerHTML = `
@@ -693,13 +692,13 @@ class NUMERICQuestion extends Question {
         });
 
         if(this.canBeSkipped) {
-                const skipButton = document.getElementById("skipButton");
-                skipButton.addEventListener("click", () => {
+            const skipButton = document.getElementById("skipButton");
+            skipButton.addEventListener("click", () => {
                 this.Skip();
-        });
+            });
         }
-    }   
-    
+    }
+
 
     async Answear(answear) {
         const API_URL_ANSWER = `https://codecyprus.org/th/api/answer?session=${app.session}&answer=${answear}`;
@@ -711,14 +710,14 @@ class NUMERICQuestion extends Question {
             else {
                 playCorrectAnimation();
             }
-            
+
         });
         await sleep(animationDuration);
         this.parentStage.AskQuestion();
     }
 
 
-    
+
 }
 
 
@@ -756,15 +755,15 @@ class TEXTquestion extends Question {
                 alert("Please enter an answer.");
             }
         });
-        
+
         if(this.canBeSkipped) {
-                const skipButton = document.getElementById("skipButton");
-                skipButton.addEventListener("click", () => {
+            const skipButton = document.getElementById("skipButton");
+            skipButton.addEventListener("click", () => {
                 this.Skip();
-        });
+            });
         }
-    }   
-    
+    }
+
 
     async Answear(answear) {
         const API_URL_ANSWER = `https://codecyprus.org/th/api/answer?session=${app.session}&answer=${answear}`;
@@ -776,7 +775,7 @@ class TEXTquestion extends Question {
             else {
                 playCorrectAnimation();
             }
-            
+
         });
         await sleep(animationDuration);
         this.parentStage.AskQuestion();
@@ -792,12 +791,12 @@ class MCQuestion extends Question {
     }
 
     Display(parentId) {
-       
+
         const container = document.getElementById(parentId);
         // Render the form with radio buttons
         container.innerHTML = `
+<div class="mcqForm">
         <h2>Score: ${app.score}</h2>
-            <div id="mcqForm">
                 <p>${this.questionText}</p>
                 <input type="radio" id="A" name="mcq_question" value="A">
                 <label for="A">A</label><br>
@@ -815,19 +814,19 @@ class MCQuestion extends Question {
         // Add click listener for the button to get the answer
         const submitButton = document.getElementById("submitAnswer");
         submitButton.addEventListener("click", () => {
-            
+
             const selected = document.querySelector('input[name="mcq_question"]:checked');
             this.Answear(selected.value);
         });
         if(this.canBeSkipped) {
-                const skipButton = document.getElementById("skipButton");
-                skipButton.addEventListener("click", () => {
+            const skipButton = document.getElementById("skipButton");
+            skipButton.addEventListener("click", () => {
                 this.Skip();
-        });
+            });
         }
-        
-    }  
-   
+
+    }
+
 
     async Answear(answear) {
         const API_URL_ANSWER = `https://codecyprus.org/th/api/answer?session=${app.session}&answer=${answear}`;
@@ -840,13 +839,13 @@ class MCQuestion extends Question {
             else {
                 playCorrectAnimation();
             }
-           
+
         });
         await sleep(animationDuration);
         this.parentStage.AskQuestion();
     }
 
-    
+
 }
 //#endregion
 
@@ -854,45 +853,45 @@ class MCQuestion extends Question {
 
 //#region App
 class App {
-	constructor() {
-		this.session = null;
-		this.name = null;
+    constructor() {
+        this.session = null;
+        this.name = null;
         this.numOfQuestions = null;
-		this.treasureHuntID = null;
+        this.treasureHuntID = null;
         this.score = 0;
 
-		this.appState = new AppState();
-		this.StageList = [
-			new ListStage(),
-			new StartStage(),
+        this.appState = new AppState();
+        this.StageList = [
+            new ListStage(),
+            new StartStage(),
             new QuestionStage(),
-             new LeaderBoard(),
-			// TODO: Add the created stages
-		];
-		this.StageList[this.appState.getCurentStage()].OnStart();
-	}
+            new LeaderBoard(),
+            // TODO: Add the created stages
+        ];
+        this.StageList[this.appState.getCurentStage()].OnStart();
+    }
 
-	ChangeStage() {
-		this.StageList[this.appState.getCurentStage()].OnEnd();
-		this.StageList[this.appState.getCurentStage()] = null;
-		this.appState.nextStage();
-		this.StageList[this.appState.getCurentStage()].OnStart();
-	}
+    ChangeStage() {
+        this.StageList[this.appState.getCurentStage()].OnEnd();
+        this.StageList[this.appState.getCurentStage()] = null;
+        this.appState.nextStage();
+        this.StageList[this.appState.getCurentStage()].OnStart();
+    }
 
-	Reset() {
-		this.session = null;
-		this.name = null;
-		this.treasureHuntID = null;
-	}
+    Reset() {
+        this.session = null;
+        this.name = null;
+        this.treasureHuntID = null;
+    }
 
-	SetTreasureHuntID(id) {
-		this.treasureHuntID = id;
-		console.log(this.treasureHuntID);
-		this.ChangeStage();
-	}
+    SetTreasureHuntID(id) {
+        this.treasureHuntID = id;
+        console.log(this.treasureHuntID);
+        this.ChangeStage();
+    }
 
-    
-    
+
+
 }
 
 
