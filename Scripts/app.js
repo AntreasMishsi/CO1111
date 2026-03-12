@@ -90,20 +90,26 @@ class TreasureHunt {
         this.hasPrize = hasPrize;
     }
 
-    Display(parent) {
-        const container = document.createElement("div");
+   Display(parent) {
+        const container = document.createElement("label");
         container.className = "treasure-hunt";
 
         container.innerHTML = `
-            <h2>${this.name}</h2>
-            <p>${this.description}</p>
-            
-            <p>
-            From ${new Date(this.startsOn).toLocaleDateString()}
-            to ${new Date(this.endsOn).toLocaleDateString()}
+        <div class="th-content">
+            <h2 class="th-title">${this.name}</h2>
+            <p class="th-description">${this.description}</p>
+
+            <p class="th-dates">
+                From ${new Date(this.startsOn).toLocaleDateString()}
+                to ${new Date(this.endsOn).toLocaleDateString()}
             </p>
-            <input type="radio" id="apple" name="treasure_hunt" value="${this.uuid}">
-        `;
+        </div>
+
+        <div class="th-radio-wrapper">
+            <input type="radio" class="th-radio" name="treasure_hunt" value="${this.uuid}">
+            
+        </div>
+    `;
 
         parent.appendChild(container);
     }
@@ -150,10 +156,12 @@ async function ListTruasureHunts() {
     const treasureHunts = data.treasureHunts.map(h => new TreasureHunt(h));
 
     const container = document.getElementById("rendered-area");
+	container.className = "TreasureHuntList";
 
     //crate form
     const form = document.createElement("form");
     form.id = "stageForm";
+	form.className = "TreasureHuntForm";
     container.appendChild(form);
 
     container.className = "container-treasure-hunts";
@@ -167,6 +175,7 @@ async function ListTruasureHunts() {
     submitBtn.className = "submit-btn";
     submitBtn.type = "submit";
     submitBtn.value = "Submit";
+	submitBtn.className = "submit-btn";
     form.appendChild(submitBtn);
 
     //Handle event for submitting
