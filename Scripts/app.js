@@ -90,9 +90,17 @@ class TreasureHunt {
         this.hasPrize = hasPrize;
     }
 
-   Display(parent) {
-        const container = document.createElement("label");
+    Display(parent) {
+        const container = document.createElement("div");
         container.className = "treasure-hunt";
+
+        const now= new Date();
+        const start =new Date(this.startsOn);
+        const end=new Date (this.endsOn);
+
+        let status="active";
+        if(now < start) status = "upcoming";
+        if(now > end) status = "expired";
 
         container.innerHTML = `
         <div class="th-content">
@@ -105,14 +113,25 @@ class TreasureHunt {
             </p>
         </div>
 
-        <div class="th-radio-wrapper">
-            <input type="radio" class="th-radio" name="treasure_hunt" value="${this.uuid}">
-            
-        </div>
+        <input type="radio" class="th-radio" name="treasure_hunt" value="${this.uuid}">
     `;
+        if (status !== "active") {
+            container.classList.add("disabled");
+        }else {
 
+            container.addEventListener("click", () => {
+                container.querySelector(".th-radio").checked = true;
+
+                document.querySelectorAll(".treasure-hunt").forEach(box => {
+                    box.classList.remove("selected");
+                });
+
+                container.classList.add("selected");
+            });
+        }
         parent.appendChild(container);
     }
+
 
 }
 
@@ -158,10 +177,16 @@ async function ListTruasureHunts() {
     const container = document.getElementById("rendered-area");
 	container.className = "TreasureHuntList";
 
+    //heading
+    const heading=document.createElement("div");
+    heading.className = "TreasureHuntHeading";
+    heading.innerHTML = "Please select a Treasure Hunt";
+    container.appendChild(heading);
     //crate form
     const form = document.createElement("form");
     form.id = "stageForm";
 	form.className = "TreasureHuntForm";
+
     container.appendChild(form);
 
     container.className = "container-treasure-hunts";
@@ -175,7 +200,6 @@ async function ListTruasureHunts() {
     submitBtn.className = "submit-btn";
     submitBtn.type = "submit";
     submitBtn.value = "Submit";
-	submitBtn.className = "submit-btn";
     form.appendChild(submitBtn);
 
     //Handle event for submitting
@@ -223,11 +247,11 @@ class StartStage extends Stage {
         <div class="form-container">
                 <div class="forms">
                     <form id="startForm">
-                    <div class="login">
-                    <h1>Login</h1>
+                    <div class="Name">
+                    <h1>Enter your Name</h1>
                 </div>
-                <input class="surname" id="nickname-field" type="text" name="Firstname" placeholder="Firstname"><br><br>
-                <input class="submit" type="submit" name="Submit" placeholder="Submit"><br><br>
+                <input class="surname" id="nickname-field" type="text" name="Firstname" placeholder="Name"><br><br>
+                <input class="submit-btn" type="submit" name="Submit" placeholder="Submit"><br><br>
                
             </form>
              <button class="load-data-button" id="load-data-buttton">Load data</button>
@@ -273,7 +297,6 @@ class StartStage extends Stage {
         ClearRenderer();
     }
 }
-
 
 class QuestionStage extends Stage {
     OnStart() {
