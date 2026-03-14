@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QrCodeScan</title>
+    <!-- camera library-->
+     <script src="js/instascan.min.js"> </script>
+     
+</head>
+<body>
+    <!-- camera preview-->
+     <video id="preview"></video>
+     <!-- QR result link-->
+      <div id="Code">
+        <a href="#"> Scan the QR code !!</a>
+      </div>
+
+
+    <script>
+        // scanner options
+        var opts= {
+            continuous: true,
+            video: document.getElementById('preview'),
+            mirror: true,
+            captureImage: false,
+            backgroundScan: true,
+            refractoryPeriod: 5000,
+            scanPeriod: 1
+        };
+        
+        // create scanner
+        var scanner= new Instascan.Scanner(opts);
+        // finding available cmeras
+        Instascan.Camera.getCameras().then(function(allcams){
+            cameras= allcams;
+
+            if(cameras.length === 0){
+                alert("No cameras found");
+                return;
+            }
+
+            // activates first camera
+            scanner.start(cameras[0]);
+
+        }).catch(function(e){
+            console.error(e);
+        });
+
+
+        scanner.addListener('scan',function(Code){
+            console.log(Code);
+            document.getElementById("Code").innerHTML= Code;
+        });
+    </script>
+    
+</body>
+</html>
