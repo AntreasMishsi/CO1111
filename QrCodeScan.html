@@ -4,54 +4,119 @@
     <meta charset="UTF-8">
     <title>QrCodeScan</title>
     <!-- camera library-->
-     <script src="js/instascan.min.js"> </script>
-     
+    <script src="QR Code Reader/QR Code Reader/js/instascan.min.js"></script>
+
+    <style>
+        body, html {
+            background-color: #000;
+        }
+
+        /*============
+        INSTA CAMERA
+        ==============*/
+        #preview {
+            position: relative;
+            max-width: 800px;
+            width: 90%;
+            display: block;
+            height: auto;
+            margin: auto auto 50px;
+            border-radius: 10px;
+            border: 5px solid #4FC3F7;
+        }
+
+        /*============
+        QR CODE BUTTON
+        ==============*/
+        #Code{
+            max-width: 1000px;
+            display: block;
+            margin: 40px auto;
+            text-align: center;
+            height: auto;
+        }
+
+        /*============
+        QR CODE LINK
+        ==============*/
+        #Code a{
+            text-decoration: none;
+            font-size: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: aliceblue;
+            background-color: black;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 0 10px #4FC3F7;
+        }
+
+        .QRCode{
+            margin-top: 22.5vh;
+            text-align: center;
+        }
+
+        /*==============
+        VISUAL FEEDBACK
+        ==============*/
+        p{
+            color: white;
+            text-align: center;
+            font-size: 30px;
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 50px auto 100px;
+            position: relative;
+            text-shadow: 2px 2px 5px #4FC3F7,2px 2px 5px #4FC3F7;
+        }
+    </style>
 </head>
 <body>
-    <!-- camera preview-->
-     <video id="preview"></video>
-     <!-- QR result link-->
-      <div id="Code">
-        <a href="#"> Scan the QR code !!</a>
-      </div>
+<p>Place your phone screen into the camera and scan your QR Code</p>
+<div class="QRCode">
+<!-- camera preview-->
+<video id="preview"></video>
+<!-- QR result link-->
+<div id="Code">
+    <a href="#"> Scan the QR code !!</a>
+</div>
+
+</div>
+
+<script>
+    // scanner options
+    var opts= {
+        continuous: true,
+        video: document.getElementById('preview'),
+        mirror: true,
+        captureImage: false,
+        backgroundScan: true,
+        refractoryPeriod: 5000,
+        scanPeriod: 1
+    };
+
+    // create scanner
+    var scanner= new Instascan.Scanner(opts);
+    // finding available cmeras
+    Instascan.Camera.getCameras().then(function(allcams){
+        cameras= allcams;
+
+        if(cameras.length === 0){
+            alert("No cameras found");
+            return;
+        }
+
+        // activates first camera
+        scanner.start(cameras[0]);
+
+    }).catch(function(e){
+        console.error(e);
+    });
 
 
-    <script>
-        // scanner options
-        var opts= {
-            continuous: true,
-            video: document.getElementById('preview'),
-            mirror: true,
-            captureImage: false,
-            backgroundScan: true,
-            refractoryPeriod: 5000,
-            scanPeriod: 1
-        };
-        
-        // create scanner
-        var scanner= new Instascan.Scanner(opts);
-        // finding available cmeras
-        Instascan.Camera.getCameras().then(function(allcams){
-            cameras= allcams;
+    scanner.addListener('scan',function(Code){
+        console.log(Code);
+        document.getElementById("Code").innerHTML= Code;
+    });
+</script>
 
-            if(cameras.length === 0){
-                alert("No cameras found");
-                return;
-            }
-
-            // activates first camera
-            scanner.start(cameras[0]);
-
-        }).catch(function(e){
-            console.error(e);
-        });
-
-
-        scanner.addListener('scan',function(Code){
-            console.log(Code);
-            document.getElementById("Code").innerHTML= Code;
-        });
-    </script>
-    
 </body>
 </html>
