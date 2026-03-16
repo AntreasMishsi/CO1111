@@ -275,7 +275,7 @@ class StartStage extends Stage {
                     app.numOfQuestions = data.numOfQuestions;
                     app.name = nickname;
                     
-                    app.SaveCookies();
+                    app.SaveData();
                     app.ChangeStage();
                 }
                 else {
@@ -338,7 +338,10 @@ class QuestionStage extends Stage {
                 }
                 else {
                     ClearRenderer();
+                    app.SaveData();
+                    
                     const questionClass = this.QuestionTypes[questionData.questionType];
+                    app.currentQuestion = questionClass;
                     const question = new questionClass({...questionData, parentStage: this});
                     question.Display(RENDERED_AREA_ID);
                 }
@@ -902,6 +905,7 @@ class App {
         this.numOfQuestions = null;
         this.treasureHuntID = null;
         this.score = 0;
+        this.currentQuestion = null;
 
         this.appState = new AppState();
         this.StageList = [
@@ -927,7 +931,7 @@ class App {
         this.name = null;
         this.treasureHuntID = null;
     }
-    SaveCookies() {
+    SaveData() {
         let data = {
             session: this.session,
             name: this.name,
@@ -984,5 +988,10 @@ app = new App();
 
 // when leaving the page save cookies
 window.addEventListener("beforeunload", () => {
+<<<<<<< Updated upstream
     app.SaveCookies();
 });
+=======
+    app.SaveData();
+});
+>>>>>>> Stashed changes
