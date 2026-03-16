@@ -988,10 +988,7 @@ app = new App();
 
 // when leaving the page save cookies
 window.addEventListener("beforeunload", () => {
-<<<<<<< Updated upstream
-    app.SaveCookies();
-});
-=======
+
     app.SaveData();
 });
->>>>>>> Stashed changes
+
