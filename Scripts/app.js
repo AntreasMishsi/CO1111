@@ -309,7 +309,14 @@ class QuestionStage extends Stage {
             "TEXT": TEXTquestion,
         };
 
-        this.AskQuestion();
+        if (app.currentQuestionData) {
+            const questionClass = this.QuestionTypes[app.currentQuestionData.questionType];
+            const question = new questionClass({...app.currentQuestionData, parentStage: this});
+            question.Display(RENDERED_AREA_ID);
+        } else {
+            this.AskQuestion();
+        }
+        
     }
 
     AskQuestion() {
@@ -339,6 +346,8 @@ class QuestionStage extends Stage {
                 else {
                     ClearRenderer();
                     app.SaveData();
+                    
+                    app.currentQuestionData = questionData;
                     
                     const questionClass = this.QuestionTypes[questionData.questionType];
                     app.currentQuestion = questionClass;
@@ -902,10 +911,14 @@ class App {
     constructor() {
         this.session = null;
         this.name = null;
+
         this.numOfQuestions = null;
         this.treasureHuntID = null;
+
         this.score = 0;
+
         this.currentQuestion = null;
+        this.currentQuestionData = null;
 
         this.appState = new AppState();
         this.StageList = [
@@ -938,6 +951,7 @@ class App {
             treasureHuntID: this.treasureHuntID,
             score: this.score,
             stage: this.appState.getCurentStage(),
+            questionData: this.questionData
         };
 
         document.cookie = "app=" + JSON.stringify(data) + "; path=/";
@@ -950,7 +964,7 @@ class App {
             let parts = c.split("=");
             let key = parts.shift();
             let value = parts.join("=");
-
+            
             if (key === "app") {
                 let data = JSON.parse(value);
                 console.log(data);
@@ -963,6 +977,9 @@ class App {
                 this.score = data.score;
 
                 this.appState.setStage(data.stage);
+
+                this.currentQuestionData = data.question;
+
                 this.StageList[this.appState.getCurentStage()].OnStart();
                 return;
             }
