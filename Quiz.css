@@ -11,20 +11,26 @@ html, body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Header */
+/*===============
+HEADER
+================*/
 .head {
     display: flex;
     justify-content: space-between;
     color: white;
 }
 
-/* Logo */
+/*===============
+LOGO
+================*/
 .logo {
     width: 100px;
     height: 100px;
 }
 
-/* Help and about */
+/*===============
+HELP AND ABOUT DETAILS
+================*/
 .details {
     display: flex;
     gap: 10px;
@@ -33,7 +39,9 @@ html, body {
     margin-right: 10px;
 }
 
-/* Body */
+/*===============
+      BODY
+================*/
 .body {
     position: absolute;
     top: 50%;
@@ -46,7 +54,9 @@ html, body {
     color:white;
 }
 
-/* Title */
+/*===============
+     TITLE
+================*/
 .btn_title {
     color: white;
     font-size: 18px;
@@ -54,14 +64,18 @@ html, body {
     margin-bottom: 25px;
 
 }
-/*custom css property*/
+/*===============
+CUSTOM CSS PROPERTY
+================*/
 @property --angle{
     syntax: "<angle>";/*tells the browser that this an angle*/
     initial-value: 0deg;/*starting from 0*/
     inherits: false;/*allows it loop every time*/
 }
 
-/* Start button */
+/*===============
+START BUTTON
+================*/
 .btn {
     font-size: 17px;
     padding: 12px 40px;
@@ -74,7 +88,9 @@ html, body {
     position: relative;
 }
 
-/* Outline effect and the colors */
+/*========================
+OUTLINE EFFECT AND COLORS
+========================*/
 .btn::after, .btn::before {
     content: '';
     position: absolute;
@@ -85,13 +101,17 @@ html, body {
     animation: spin 3s linear infinite;
 }
 
-/* Glow effect */
+/*===============
+GLOW EFFECT
+================*/
 .btn::before {
     filter: blur(20px);
     opacity: 0.8; /*shadows*/
 }
 
-/* Rotation */
+/*===============
+ROTATION
+================*/
 @keyframes spin {
     from {
         --angle: 0deg
@@ -101,7 +121,9 @@ html, body {
     }
 }
 
-/* Follow */
+/*===============
+FOLLOW
+================*/
 .follow {
     position: absolute;
     bottom: 190px;
@@ -111,7 +133,9 @@ html, body {
     font-size: 20px;
 }
 
-/* Social media icons */
+/*===============
+SOCIAL MEDIA ICONS
+================*/
 .socials {
     position: absolute;
     bottom:120px;
@@ -120,7 +144,10 @@ html, body {
     display: flex;
     gap: 30px;
 }
-/*For each icon*/
+
+/*===============
+ICONS
+================*/
 .icon {
     width: 40px;
     cursor: pointer;
@@ -183,148 +210,338 @@ html, body {
 }
 
 #btn{
-     text-align: center;
- }
-
- /*Container for user name*/
- .form-container{
-     position: relative;
-     margin-top: 15rem;
-     text-align: center;
-     top: 25%;
- }
-
-/*Login Title*/
-h1{
-    color: black;
-    font-size: 2.2rem;
     text-align: center;
-    position: relative;
-    margin-bottom: 40px;
 }
 
-/*Info box*/
-.surname{
-    border-radius: 23px;
-    outline: none;
-    width: 15%;
-    height: 48px;
-    border: none;
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.05);
-    position: relative;
-    margin: 0 0 250px 0;
-    transition: .3s; /*Animation*/
+.TreasureHuntForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 20px;
+    width: 100%;
 }
 
-.lastname{
-    border-radius: 23px;
-    outline: none;
-    width: 15%;
-    height: 48px;
+.submit-btn {
+    width: 250px;
+    padding: 12px 15px;
+    background: #4FC3F7;
     border: none;
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.05);
-    transition: .3s; /*Animation*/
-    position: relative;
-    bottom:200px;
-}
-/*Placeholder for users information*/
-::placeholder {
-    font-family: Arial, Helvetica, sans-serif;
+    border-radius: 10px;
+    color: white;
+    font-size: 20px;
     font-weight: bold;
-    color: black;
-    font-size: 1rem;
+    cursor: pointer;
 }
 
-.info:focus {
-    width:20%;
+.submit-btn:hover,.submit-btn:active {
+    background: red;
+    color: white;
+    transform: translateY(-2px);
 }
 
+/* Default box */
+.treasure-hunt {
+    background: #0f0f0f;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    padding: 18px;
+    border-radius: 12px;
+    color: white;
+    width: 80%;
+    height: auto;
+    max-width: 500px;
+    cursor: pointer;
+    transition: 0.25s ease;
+    margin:10px;
+    font-size: 25px;
+}
+
+/* Selected box stays highlighted */
+.treasure-hunt.selected {
+    border-color: #4FC3F7;
+    box-shadow: 0 0 10px #4FC3F7;
+    transform: translateY(-2px);
+}
+
+input[type=radio]{
+    cursor: pointer;
+}
+
+.treasure-hunt:hover {
+    cursor: pointer;
+    border-color: #4FC3F7;
+}
+
+.treasure-hunt.disabled {
+    opacity: 0.4;
+    pointer-events: none;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 360px) {
+    .TreasureHuntForm{
+        gap: 10px;
+        width:80%;
+        padding: 14px;
+    }
+    .submit-btn{
+        font-size: 16px;
+        padding: 12px;
+    }
+}
+
+@media (min-width: 360px) and (max-width: 800px) {
+    .treasure-hunt {
+        width:90%;
+        font-size: 18px;
+    }
+    .submit-btn{
+        width:90%;
+    }
+}
+
+/*===========================
+FORM CONTAINER
+===========================*/
+.login{
+    width:100%;
+    display: flex;
+    justify-content: center;
+}
+
+/*=============
+USER NAME INPUT
+==============*/
+#nickname-field {
+    width: 90%;
+    max-width: 350px;
+    padding: 12px 15px;
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    background: #0f0f0f;
+    color: white;
+    font-size: 16px;
+    outline: none;
+    transition: 0.25s ease;
+    margin: 10px 0 40px;
+}
+
+#nickname-field:focus {
+    border-color: #4FC3F7;
+    box-shadow: 0 0 10px #4FC3F7;
+}
+
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100dvh;
+}
+
+.forms {
+    text-align: center;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    gap:15px;
+}
+
+/*===============
+SUBMIT BUTTON
+================*/
 .submit{
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
     position: relative;
     cursor: pointer;
     text-align: center;
-    width: 15%;
-    height: 48px;
+    width: 90%;
+    max-width: 350px;
     transition: .3s;
-    bottom: 150px;
+    margin:0;
     border-radius: 23px;
-    padding: 10px;
+    padding: 18px;
     background: white;
     border: none;
-    background: linear-gradient(-45deg, #338AFF, #3CF0C5); /*https://codepen.io/Volorf/pen/qopzaQ*/
 }
 
-/*Submit button*/
+/*=======================
+INTERACTIVE SUBMIT BUTTON
+=========================*/
 .submit:active{
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.05);
     transform: translateY(-2px);
 }
 
-
-@media (max-width: 1084px) {
-    .login {
-        font-size: 0.8rem;
-    }
-    .forms{
-        width: 105%;
-    }
+/*=======================
+LOAD DATA BUTTON(COOKIES)
+========================*/
+#load-data-button{
+    border: none;
+    cursor: pointer;
+    background: #4FC3F7;
+    color: white;
+    border-radius: 10px;
+    padding: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    font-weight: bold;
 }
 
- .mcqForm{
-     margin: 180px 350px;
-     border-radius: 10px;
-     border: 2px solid black;
-     padding: 50px;
-     background-color: white;
- }
-
-.mcqForm h2{
-    margin-bottom: 40px;
+/*==========================
+INTERACTIVE LOAD DATA BUTTON
+============================*/
+#load-data-button:active, #load-data-button:hover{
+    transform: translateY(-2px);
+    background-color: red;
 }
 
-.mcqForm p{
-    margin-bottom: 10px;
+/*================
+INTEGER QUESTION
+==================*/
+.integerForm{
+    color: white;
+    border-radius: 10px;
+    border: #4FC3F7 solid 3px;
+    width: 50%;
+    height: auto;
+    min-width: 500px;
+    padding: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    position: relative;
+    margin: 15rem auto;
 }
 
-#A{
-    margin-bottom: 10px;
-}
-#B{
-    margin-bottom: 10px;
-}
-#C{
-    margin-bottom: 10px;
-}
-#D{
-    margin-bottom: 10px;
+/*================
+SOLUTION CONTAINER
+==================*/
+#integerInput{
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    position: relative;
+    margin-top: 20px;
+    cursor: pointer;
 }
 
+/*=====================
+TRUE OR FALSE QUESTION
+======================*/
+.booleanForm{
+    color: white;
+    border-radius: 10px;
+    border: 3px solid #4FC3F7;
+    width: 50%;
+    padding: 5px;
+    height: 210px;
+    margin: 10rem auto 1.5rem;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+/*==================
+HTML QUOTES QUESTION
+===================*/
+.mcqForm{
+    color: white;
+    border-radius: 10px;
+    border: 3px solid #4FC3F7;
+    width: 50%;
+    min-width: 500px;
+    padding: 10px;
+    height: 280px;
+    margin: 10rem auto;
+}
+
+.mcq_question{
+    position: relative;
+    margin-top: 10px;
+}
+
+/*============================
+UCLAN CYPRUS ENTRANCE QUESTION
+==============================*/
+.textForm{
+    color: white;
+    border-radius: 10px;
+    border: 3px solid #4FC3F7;
+    width: 50%;
+    height: auto;
+    padding: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    position: relative;
+    margin: 15rem auto;
+}
+
+/*================
+SOLUTION CONTAINER
+==================*/
+#textInput{
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+/*================
+SUBMIT BUTTON
+==================*/
 #submitAnswer{
     border-radius: 10px;
     border: none;
-    background-color: lightgrey;
-    padding: 7px;
+    background: #4FC3F7;
+    padding: 10px;
+    margin: 4rem auto;
     cursor: pointer;
     display: inline-block;
     justify-content: space-between;
     gap: 5px;
-    right:12px;
+    width: 100px;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
 }
 
+/*=======================
+INTERACTIVE SUBMIT BUTTON
+=========================*/
+#submitAnswer:hover,#submitAnswer:active{
+    background: red;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/*================
+SKIP BUTTON BUTTON
+==================*/
 #skipButton{
     border: none;
     border-radius: 10px;
-    padding: 7px;
-    background-color: lightgrey;
+    padding: 10px;
+    background: #4FC3F7;
     cursor: pointer;
+    margin: 10px auto;
+    width: 100px;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
 }
 
+/*=====================
+INTERACTIVE SKIP BUTTON
+=======================*/
+#skipButton:active, #skipButton:hover{
+    background: red;
+    color: white;
+    transform: translateY(-2px);
+}
 
 .message-container {
     position: absolute;
     top: 50%;
-
     left: 50%;
 }
