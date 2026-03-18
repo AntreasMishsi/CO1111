@@ -4,6 +4,7 @@ const API_URL_LIST = 'https://codecyprus.org/th/api/list';
 const RENDERED_AREA_ID = 'rendered-area';
 
 
+
 const Stages = {
     List: 0,
     Start: 1,
@@ -13,127 +14,13 @@ const Stages = {
 
 
 // the state of the app
-class AppState {
-    constructor() {
-        this.currentStage = Stages.List;
-    }
-
-    nextStage() {
-        if (this.currentStage < Stages.LeaderBoard) {
-            this.currentStage++;
-        }
-        console.log("Current Stage:", this.currentStage);
-    }
-    getCurentStage() {
-        return this.currentStage;
-    }
-    setStage(newStage) {
-        if (newStage < Stages.LeaderBoard) {
-            this.currentStage = newStage;
-        }
-    }
-
-}
 
 
-class Message {
-    constructor(text) {
-        this.text = text;
-    }
 
 
-    Display() {
-        const container = document.getElementById("message-container");
-        const message = document.createElement("div");
-        message.className = "message";
-        message.innerText = this.text;
-        container.appendChild(message);
-
-        setTimeout(() => {
-            message.remove();
-        }, 3000);
-
-    }
-}
 
 
-class TreasureHunt {
-    constructor({
-                    uuid,
-                    name,
-                    description,
-                    ownerEmail,
-                    secretCode,
-                    salt,
-                    visibility,
-                    startsOn,
-                    endsOn,
-                    maxDuration,
-                    shuffled = false,
-                    requiresAuthentication = false,
-                    emailResults = false,
-                    hasPrize = false
-                } = {}) {
-        this.uuid = uuid;
-        this.name = name;
-        this.description = description;
-        this.ownerEmail = ownerEmail;
-        this.secretCode = secretCode;
-        this.salt = salt;
-        this.visibility = visibility;
-        this.startsOn = startsOn;
-        this.endsOn = endsOn;
-        this.maxDuration = maxDuration;
-        this.shuffled = shuffled;
-        this.requiresAuthentication = requiresAuthentication;
-        this.emailResults = emailResults;
-        this.hasPrize = hasPrize;
-    }
 
-    Display(parent) {
-        const container = document.createElement("div");
-        container.className = "treasure-hunt";
-
-        const now= new Date();
-        const start =new Date(this.startsOn);
-        const end=new Date (this.endsOn);
-
-        let status="active";
-        if(now < start) status = "upcoming";
-        if(now > end) status = "expired";
-
-        container.innerHTML = `
-        <div class="th-content">
-            <h2 class="th-title">${this.name}</h2>
-            <p class="th-description">${this.description}</p>
-
-            <p class="th-dates">
-                From ${new Date(this.startsOn).toLocaleDateString()}
-                to ${new Date(this.endsOn).toLocaleDateString()}
-            </p>
-        </div>
-
-        <input type="radio" class="th-radio" name="treasure_hunt" value="${this.uuid}">
-    `;
-        if (status !== "active") {
-            container.classList.add("disabled");
-        }else {
-
-            container.addEventListener("click", () => {
-                container.querySelector(".th-radio").checked = true;
-
-                document.querySelectorAll(".treasure-hunt").forEach(box => {
-                    box.classList.remove("selected");
-                });
-
-                container.classList.add("selected");
-            });
-        }
-        parent.appendChild(container);
-    }
-
-
-}
 
 
 //Request data from api
@@ -144,10 +31,7 @@ async function fetchData(url) {
 }
 
 
-function ClearRenderer() {
-    const container = document.getElementById(RENDERED_AREA_ID);
-    container.innerHTML = '';
-}
+
 
 
 function sleep(ms) {
@@ -907,105 +791,10 @@ class MCQuestion extends Question {
 
 
 //#region App
-class App {
-    constructor() {
-        this.session = null;
-        this.name = null;
-
-        this.numOfQuestions = null;
-        this.treasureHuntID = null;
-
-        this.score = 0;
-
-        this.currentQuestion = null;
-        this.currentQuestionData = null;
-
-        this.appState = new AppState();
-        this.StageList = [
-            new ListStage(),
-            new StartStage(),
-            new QuestionStage(),
-            new LeaderBoard(),
-            // TODO: Add the created stages
-        ];
-        this.StageList[this.appState.getCurentStage()].OnStart();
-    }
-
-    ChangeStage() {
-        this.StageList[this.appState.getCurentStage()].OnEnd();
-        this.StageList[this.appState.getCurentStage()] = null;
-        this.appState.nextStage();
-        this.StageList[this.appState.getCurentStage()].OnStart();
-    }
-    
-
-    Reset() {
-        this.session = null;
-        this.name = null;
-        this.treasureHuntID = null;
-    }
-    SaveData() {
-        let data = {
-            session: this.session,
-            name: this.name,
-            treasureHuntID: this.treasureHuntID,
-            score: this.score,
-            stage: this.appState.getCurentStage(),
-            questionData: this.questionData
-        };
-
-        document.cookie = "app=" + JSON.stringify(data) + "; path=/";
-    }
-
-    LoadCookies() {
-        let cookies = document.cookie.split("; ");
-        console.log("Load cookie");
-        for (let c of cookies) {
-            let parts = c.split("=");
-            let key = parts.shift();
-            let value = parts.join("=");
-            
-            if (key === "app") {
-                let data = JSON.parse(value);
-                console.log(data);
-                if(!data) return;
-
-                this.session = data.session;
-                this.name = data.name;
-                console.log(data.name);
-                this.treasureHuntID = data.treasureHuntID;
-                this.score = data.score;
-
-                this.appState.setStage(data.stage);
-
-                this.currentQuestionData = data.question;
-
-                this.StageList[this.appState.getCurentStage()].OnStart();
-                return;
-            }
-        }
-        const tmpMSG = new Message("No cookies to load");
-        tmpMSG.Display();
-    }
-
-    
-    SetTreasureHuntID(id) {
-        this.treasureHuntID = id;
-        console.log(this.treasureHuntID);
-        this.ChangeStage();
-    }
 
 
 
-}
-
-
-app = new App();
 //#endregion
 
 // when leaving the page save cookies
-window.addEventListener("beforeunload", () => {
-
-    app.SaveData();
-});
 
