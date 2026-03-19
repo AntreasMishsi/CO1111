@@ -1,0 +1,30 @@
+
+
+.message-container {
+    position: absolute;
+    float: right;
+}
+.message {
+    border-radius: 10px;
+    border: #F7AB4F 2px solid;
+    background-color: #fff;
+    transition: all 0.3s ease;
+
+ 
+
+    margin-left: -100%;
+    width: 300px;
+
+    padding: 15px 20px 15px 20px;
+    margin-top: 15px;
+
+    /* Shadow */
+    box-shadow: 1px 2px 15px -1px rgba(0,0,0,0.39);
+    -webkit-box-shadow: 1px 2px 15px -1px rgba(0,0,0,0.39);
+    -moz-box-shadow: 1px 2px 15px -1px rgba(0,0,0,0.39);
+}
+
+.message.received {
+    margin-left: 0%;
+
+}

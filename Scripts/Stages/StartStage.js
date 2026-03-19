@@ -3,8 +3,10 @@
 import { app } from '../App/App.js';
 import { Stage } from './Stage.js';
 
+//utils
 import { ClearRenderer, RENDERED_AREA_ID } from '../Utils/ClearRenderer.js';
 import { fetchData } from '../Utils/Utils.js';
+import { Message } from '../Utils/Message.js';
 
 export class StartStage extends Stage {
     OnStart() {

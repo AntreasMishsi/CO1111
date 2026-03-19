@@ -1,11 +1,13 @@
 import { app } from '../App/App.js';
+
 import { Stage } from './Stage.js';
+
+//utils
 import { Message } from '../Utils/Message.js';
 import { RENDERED_AREA_ID, ClearRenderer } from '../Utils/ClearRenderer.js';
 import { fetchData } from '../Utils/Utils.js';
 
 export class LeaderBoardStage extends Stage {
-
     OnStart() {
 
         const container = document.getElementById(RENDERED_AREA_ID);

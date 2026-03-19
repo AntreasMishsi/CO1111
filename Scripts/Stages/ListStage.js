@@ -46,12 +46,13 @@ class TreasureHunt {
     }
 
     Display(parent) {
+        
         const container = document.createElement("div");
         container.className = "treasure-hunt";
 
         const now= new Date();
-        const start =new Date(this.startsOn);
-        const end=new Date (this.endsOn);
+        const start = new Date(this.startsOn);
+        const end= new Date (this.endsOn);
 
         let status="active";
         if(now < start) status = "upcoming";
@@ -91,6 +92,7 @@ class TreasureHunt {
 }
 
 async function ListTruasureHunts() {
+    ClearRenderer();
     const data = await fetchData(API_URL_LIST);
     const treasureHunts = data.treasureHunts.map(h => new TreasureHunt(h));
 

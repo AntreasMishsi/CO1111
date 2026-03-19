@@ -9,6 +9,7 @@ import { StartStage } from '../Stages/StartStage.js';
 import { QuestionStage } from '../Stages/QuestionStage.js';
 import { LeaderBoardStage } from '../Stages/LeaderBoardStage.js';
 
+import { Message } from '../Utils/Message.js';
 
 
 
@@ -37,7 +38,7 @@ export class App {
 
     ChangeStage() {
         this.StageList[this.appState.getCurentStage()].OnEnd();
-        this.StageList[this.appState.getCurentStage()] = null;
+        
         this.appState.nextStage();
         this.StageList[this.appState.getCurentStage()].OnStart();
     }
@@ -55,7 +56,7 @@ export class App {
             treasureHuntID: this.treasureHuntID,
             score: this.score,
             stage: this.appState.getCurentStage(),
-            questionData: this.questionData
+            questionData: this.currentQuestionData,
         };
 
         document.cookie = "app=" + JSON.stringify(data) + "; path=/";
@@ -70,9 +71,13 @@ export class App {
             let value = parts.join("=");
             
             if (key === "app") {
+
                 let data = JSON.parse(value);
                 console.log(data);
                 if(!data) return;
+                if(data.session === null) {
+                    break;
+                }
 
                 this.session = data.session;
                 this.name = data.name;
@@ -81,6 +86,7 @@ export class App {
                 this.score = data.score;
 
                 this.appState.setStage(data.stage);
+                console.log("Stage: " + this.appState.getCurentStage());
 
                 this.currentQuestionData = data.question;
 

@@ -9,6 +9,7 @@ import { playCorrectAnimation, playWrongAnimation, animationDuration } from "../
 
 
 import { sleep } from "../Utils/Utils.js";
+import { Message } from "../Utils/Message.js";
 
 export class IntegerQuestion extends Question {
 
@@ -43,7 +44,8 @@ export class IntegerQuestion extends Question {
             if (!isNaN(number)) {
                 this.Answear(number); // Pass the integer to the Answer method
             } else {
-                alert("Please enter a valid integer.");
+                const tmpMSG = new Message("Please enter a valid integer.");
+                tmpMSG.Display();
             }
         });
 
