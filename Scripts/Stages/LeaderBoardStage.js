@@ -1,8 +1,5 @@
 import { app } from '../App/App.js';
-
 import { Stage } from './Stage.js';
-
-//utils
 import { Message } from '../Utils/Message.js';
 import { RENDERED_AREA_ID, ClearRenderer } from '../Utils/ClearRenderer.js';
 import { fetchData } from '../Utils/Utils.js';
@@ -14,7 +11,7 @@ export class LeaderBoardStage extends Stage {
 
         container.innerHTML = `
         <div style="text-align:center;" class="fade-in">
-            <h2> Leaderboard</h2>
+            <h2>Leaderboard</h2>
 
             <button id="loadLeaderboard" style="
                 padding:10px 20px;
@@ -66,21 +63,28 @@ export class LeaderBoardStage extends Stage {
                 <tbody id="leaderboard-body"></tbody>
             </table>
             `;
-
             const tableBody = document.getElementById("leaderboard-body");
+
+            const playerName=new Set();
 
             data.leaderboard.forEach((player, index) => {
 
                 const row = document.createElement("tr");
 
+                //Does not allow duplicate names
+                if(playerName.has(player.player)){
+                    return;
+                }
+                playerName.add(player.player);
+
                 row.innerHTML = `
-                <td style="padding:10px;border:1px solid #ccc;">
-                    ${index + 1}
+                <td style=" color:white;padding:10px;border:1px solid #ccc;">
+                    ${playerName.size}
                 </td>
-                <td style="padding:10px;border:1px solid #ccc;">
+                <td style="color:white;padding:10px;border:1px solid #ccc;">
                     ${player.player}
                 </td>
-                <td style="padding:10px;border:1px solid #ccc;">
+                <td style="color:white;padding:10px;border:1px solid #ccc;">
                     ${player.score}
                 </td>
                 `;
