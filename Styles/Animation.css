@@ -43,6 +43,40 @@
     }
 }
 
+
+.wrong-animation-container {
+    width: 300px;
+    height: 300px;
+    justify-content: center;
+    display: auto;
+    animation-duration: 2s;
+    animation-iteration-count: 1;
+    animation-name: wrongAnimation;
+    opacity: 0;
+}
+
+@keyframes wrongAnimation {
+    0% {
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+     0%, 20%, 40%, 60%, 80% {
+        transform: translateX(-20%);
+     }
+     10%, 30%, 50%, 70%, 90% {
+        transform: translateX(20%);
+     }
+     80% {
+        opacity: 1;
+     }
+      100% {
+          opacity: 0;
+      }
+}
+
+/*#region Fade */
 .fade-in {
   opacity: 0;
   animation: fadeIn 1s ease forwards;
@@ -63,3 +97,5 @@
     opacity: 0;
   }
 }
+
+/*#endregion */

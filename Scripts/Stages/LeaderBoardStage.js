@@ -3,20 +3,21 @@ import { Stage } from './Stage.js';
 import { Message } from '../Utils/Message.js';
 import { RENDERED_AREA_ID, ClearRenderer } from '../Utils/ClearRenderer.js';
 import { fetchData } from '../Utils/Utils.js';
+import { FadeIn, FadeOut } from '../Animations/AfterQuestionAnims.js';
 
 export class LeaderBoardStage extends Stage {
-    OnStart() {
-
+    async OnStart() {
+        FadeIn();
         const container = document.getElementById(RENDERED_AREA_ID);
 
         container.innerHTML = `
         <div style="text-align:center;">
             <h2>Leaderboard</h2>
 
-<form>
-      <input type="text" id="limit" value="leaderboard">
-      <input type="checkbox" id="sorted" value="leaderboard2">
-</form>
+            <form>
+                <input type="text" id="limit" value="leaderboard">
+                <input type="checkbox" id="sorted" value="leaderboard2">
+            </form>
 
             <button id="loadLeaderboard" style="
                 padding:10px 20px;
@@ -83,6 +84,7 @@ export class LeaderBoardStage extends Stage {
             data.leaderboard.forEach((player, index) => {
 
                 const row = document.createElement("tr");
+                row.classList.add("fade-in");
 
                 row.innerHTML = `
                 <td style=" color:white;padding:10px;border:1px solid #ccc;">
@@ -102,7 +104,8 @@ export class LeaderBoardStage extends Stage {
         });
     }
 
-    OnEnd() {
+    async OnEnd() {
+        await FadeOut();
         ClearRenderer();
     }
 }

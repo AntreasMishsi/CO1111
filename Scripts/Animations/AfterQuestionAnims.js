@@ -4,7 +4,10 @@ import { ClearRenderer, RENDERED_AREA_ID } from "../Utils/ClearRenderer.js";
 
 import { sleep } from "../Utils/Utils.js";
 
-export const animationDuration = 2000;
+
+//users A, B, C didnt like the rotatitating animation, 
+//users A, B found animations slow
+export const animationDuration = 1500;
 
 export const FADE_IN_DURATION = 500;
 export const FADE_OUT_DURATION = 500;
@@ -32,17 +35,13 @@ export function playWrongAnimation() {
     ClearRenderer();
     // Create a red x
     const check = document.createElement("div");
-    check.innerHTML = "X";
-    check.style.fontSize = "50px";
-    check.style.color = "red";
-    check.style.opacity = "0";
-    check.style.transition = "all 0.5s ease-out";
+    check.className = "wrong-animation-container";
+    check.innerHTML = `<img src=../Resources/icons/x.svg alt="wrong icon" style="width:300px; height: 300px;">`;
+
     container.appendChild(check);
 
     // Animate the checkmark
-    requestAnimationFrame(() => {
-        
-    });
+    
 
     // Fade out and remove after 1 second
     setTimeout(() => {

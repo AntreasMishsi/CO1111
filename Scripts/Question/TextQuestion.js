@@ -5,6 +5,7 @@ import { Question } from "./Question.js";
 import { playCorrectAnimation, playWrongAnimation, animationDuration, FadeOut } from "../Animations/AfterQuestionAnims.js";
 import { fetchData } from "../Utils/Utils.js";
 import { sleep } from "../Utils/Utils.js";
+import { Message } from "../Utils/Message.js";
 export class TextQuestion extends Question {
 
 
@@ -20,7 +21,7 @@ export class TextQuestion extends Question {
 
         container.innerHTML = `
             <h2>Score: ${app.score}</h2>
-            <div id="textForm" class="fade-in">
+            <div id="textForm">
                 <p>${this.questionText}</p>
                 <input type="text" id="textInput" name="text_question" placeholder="Enter your answer">
                 <button type="button" id="submitAnswer">Submit</button>
@@ -36,7 +37,8 @@ export class TextQuestion extends Question {
             if (input !== "") {
                 this.Answear(input); // Pass the text to the Answer method
             } else {
-                alert("Please enter an answer.");
+                const tmpMSG = new Message("Please enter an answer.");
+                tmpMSG.Display();
             }
         });
 

@@ -5,6 +5,7 @@ import { Question } from "./Question.js";
 import { playCorrectAnimation, playWrongAnimation, animationDuration, FadeOut } from "../Animations/AfterQuestionAnims.js";
 import { fetchData } from "../Utils/Utils.js";
 import { sleep } from "../Utils/Utils.js";
+import { Message } from "../Utils/Message.js";
 export class NumericQuestion extends Question {
 
 
@@ -18,7 +19,7 @@ export class NumericQuestion extends Question {
         // Render the form with radio buttons
         container.innerHTML = `
         <h2>Score: ${app.score}</h2>
-            <div id="integerForm" class="fade-in">
+            <div id="integerForm">
                 <p>${this.questionText}</p>
                 <input type="number" id="numericInput" name="numeric_question" placeholder="Enter a number">
                 <button type="button" id="submitAnswer">Submit</button>
@@ -35,7 +36,8 @@ export class NumericQuestion extends Question {
             if (!isNaN(number)) {
                 this.Answear(number); // Pass the float to the Answer method
             } else {
-                alert("Please enter a valid number.");
+                const tmpMSG = new Message("Please enter a valid number.");
+                tmpMSG.Display();
             }
 
 
