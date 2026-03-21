@@ -4,10 +4,10 @@
 
 export class Stage {
 
-    OnStart() {
+    async OnStart() {
         throw new Error("Abstract method 'OnStart' must be implemented by subclass");
     }
-    OnEnd() {
+    async OnEnd() {
         throw new Error("Abstract method 'OnEnd' must be implemented by subclass");
     }
 

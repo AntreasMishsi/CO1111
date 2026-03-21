@@ -2,7 +2,7 @@ import { app } from "../App/App.js";
 
 import { Question } from "./Question.js";
 
-import { playCorrectAnimation, playWrongAnimation, animationDuration } from "../Animations/AfterQuestionAnims.js";
+import { playCorrectAnimation, playWrongAnimation, animationDuration, FadeOut } from "../Animations/AfterQuestionAnims.js";
 import { fetchData } from "../Utils/Utils.js";
 import { sleep } from "../Utils/Utils.js";
 export class MCQQuestion extends Question {
@@ -52,19 +52,24 @@ export class MCQQuestion extends Question {
 
     async Answear(answear) {
         const API_URL_ANSWER = `https://codecyprus.org/th/api/answer?session=${app.session}&answer=${answear}`;
-        const data = fetchData(API_URL_ANSWER).then(data => {
 
-            console.log(data.correct);
-            if(data.correct == false) {
-                playWrongAnimation();
-            }
-            else {
-                playCorrectAnimation();
-            }
+        // Promise that we will get the data
+        const dataPromise = fetchData(API_URL_ANSWER);
+        
+        // start the animation
+        await FadeOut();
 
-        });
+        // wait till we get the data
+        const data = await dataPromise;
+
+        if (data.correct == false) {
+            playWrongAnimation();
+        } else {
+            playCorrectAnimation();
+        }
+        
         await sleep(animationDuration);
-        this.parentStage.AskQuestion();
+        this.parentStage.AskQuestion();  
     }
 
 

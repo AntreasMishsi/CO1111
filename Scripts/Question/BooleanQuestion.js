@@ -2,10 +2,12 @@ import { app } from "../App/App.js";
 
 import { Question } from "./Question.js";
 
-import { playCorrectAnimation, playWrongAnimation, animationDuration } from "../Animations/AfterQuestionAnims.js";
+import { playCorrectAnimation, playWrongAnimation, animationDuration, FADE_OUT_DURATION, FadeOut } from "../Animations/AfterQuestionAnims.js";
 
 import { fetchData } from "../Utils/Utils.js";
 import { sleep } from "../Utils/Utils.js";
+
+import { RENDERED_AREA_ID } from "../Utils/ClearRenderer.js";
 
 export class BooleanQuestion extends Question {
     constructor(props) {
@@ -17,7 +19,7 @@ export class BooleanQuestion extends Question {
         const container = document.getElementById(parentId);
         // Render the form with radio buttons
         container.innerHTML = `
-            <div class="booleanForm fade-in">
+            <div id="booleanForm" class="booleanForm fade-in">
                     <h2>Score: ${app.score}</h2>
                     <p>${this.questionText}</p>
                     <input type="radio" id="true" name="boolean_question" value="true">
@@ -48,14 +50,22 @@ export class BooleanQuestion extends Question {
 
     async Answear(answear) {
         const API_URL_ANSWER = `https://codecyprus.org/th/api/answer?session=${app.session}&answer=${answear}`;
-        const data = fetchData(API_URL_ANSWER).then((data) => {
-            console.log(data.correct);
-            if (data.correct == false) {
-                playWrongAnimation();
-            } else {
-                playCorrectAnimation();
-            }
-        });
+
+        // Promise that we will get the data
+        const dataPromise = fetchData(API_URL_ANSWER);
+        
+        // start the animation
+        await FadeOut();
+
+        // wait till we get the data
+        const data = await dataPromise;
+
+        if (data.correct == false) {
+            playWrongAnimation();
+        } else {
+            playCorrectAnimation();
+        }
+        
         await sleep(animationDuration);
         this.parentStage.AskQuestion();
     }

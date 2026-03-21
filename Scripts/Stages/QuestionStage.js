@@ -15,9 +15,11 @@ import { NumericQuestion } from '../Question/NumericQuestion.js';
 import { MCQQuestion } from '../Question/MCQQuestion.js';
 import { TextQuestion } from '../Question/TextQuestion.js';
 
+import { FadeIn, FadeOut } from '../Animations/AfterQuestionAnims.js';
+
 
 export class QuestionStage extends Stage {
-    OnStart() {
+    async OnStart() {
         const container = document.getElementById(RENDERED_AREA_ID);
         this.QuestionTypes = {
             "INTEGER": IntegerQuestion,
@@ -38,6 +40,7 @@ export class QuestionStage extends Stage {
     }
 
     AskQuestion() {
+        FadeIn();
 
         const API_URL_QUESTION = `https://codecyprus.org/th/api/question?session=${app.session}`;
         const API_URL_SCORE = `https://codecyprus.org/th/api/score?session=${app.session}`;
@@ -91,7 +94,8 @@ export class QuestionStage extends Stage {
 
     }
 
-    OnEnd() {
+    async OnEnd() {
+        await FadeOut();
         ClearRenderer();
     }
 }

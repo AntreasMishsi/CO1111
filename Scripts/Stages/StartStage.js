@@ -7,10 +7,11 @@ import { Stage } from './Stage.js';
 import { ClearRenderer, RENDERED_AREA_ID } from '../Utils/ClearRenderer.js';
 import { fetchData } from '../Utils/Utils.js';
 import { Message } from '../Utils/Message.js';
+import { FadeIn, FadeOut } from '../Animations/AfterQuestionAnims.js';
 
 export class StartStage extends Stage {
-    OnStart() {
-
+    async OnStart() {
+        FadeIn();
         const container = document.getElementById(RENDERED_AREA_ID);
 
         container.innerHTML = `
@@ -60,7 +61,8 @@ export class StartStage extends Stage {
 
     }
 
-    OnEnd() {
+    async OnEnd() {
+        await FadeOut();
         ClearRenderer();
     }
 }

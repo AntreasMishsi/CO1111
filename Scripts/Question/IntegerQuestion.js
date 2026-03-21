@@ -5,8 +5,9 @@ import { Question } from "./Question.js";
 
 import { fetchData } from "../Utils/Utils.js";
 
-import { playCorrectAnimation, playWrongAnimation, animationDuration } from "../Animations/AfterQuestionAnims.js";
+import { playCorrectAnimation, playWrongAnimation, animationDuration, FadeOut, FADE_OUT_DURATION} from "../Animations/AfterQuestionAnims.js";
 
+import { RENDERED_AREA_ID } from "../Utils/ClearRenderer.js";
 
 import { sleep } from "../Utils/Utils.js";
 import { Message } from "../Utils/Message.js";
@@ -28,7 +29,7 @@ export class IntegerQuestion extends Question {
         // Render the form with radio buttons
         container.innerHTML = `
             <h2>Score: ${app.score}</h2>
-            <div id="integerForm fade-in">
+            <div id="integerForm" class="fade-in">
                 <p>${this.questionText}</p>
                 <input type="number" id="integerInput" name="integer_question" placeholder="Enter an integer number" step="1" oninput="this.value = Math.round(this.value);">
                 <button type="button" id="submitAnswer">Submit</button>
@@ -61,17 +62,23 @@ export class IntegerQuestion extends Question {
 
     async Answear(answear) {
         const API_URL_ANSWER = `https://codecyprus.org/th/api/answer?session=${app.session}&answer=${answear}`;
-        const data = fetchData(API_URL_ANSWER).then(data => {
-            console.log(data.correct);
-            if(data.correct == false) {
-                playWrongAnimation();
-            }
-            else {
-                playCorrectAnimation();
-            }
 
-        });
+        // Promise that we will get the data
+        const dataPromise = fetchData(API_URL_ANSWER);
+        
+        // start the animation
+        await FadeOut();
+
+        // wait till we get the data
+        const data = await dataPromise;
+
+        if (data.correct == false) {
+            playWrongAnimation();
+        } else {
+            playCorrectAnimation();
+        }
+        
         await sleep(animationDuration);
-        this.parentStage.AskQuestion();
+        this.parentStage.AskQuestion();        
     }
 }

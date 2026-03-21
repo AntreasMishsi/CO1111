@@ -8,6 +8,7 @@
     animation-duration: 2s;
     animation-iteration-count: 1;
     animation-name: correctAnimation;
+    opacity: 0;
 }
 
 @keyframes correctAnimation {
@@ -50,5 +51,15 @@
 @keyframes fadeIn {
   to {
     opacity: 1;
+  }
+}
+
+.fade-out {
+  animation: fadeOut 0.5s ease forwards;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
   }
 }

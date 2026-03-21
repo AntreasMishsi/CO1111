@@ -36,11 +36,11 @@ export class App {
         this.StageList[this.appState.getCurentStage()].OnStart();
     }
 
-    ChangeStage() {
-        this.StageList[this.appState.getCurentStage()].OnEnd();
+    async ChangeStage() {
+        await this.StageList[this.appState.getCurentStage()].OnEnd();
         
         this.appState.nextStage();
-        this.StageList[this.appState.getCurentStage()].OnStart();
+        await this.StageList[this.appState.getCurentStage()].OnStart();
     }
     
 

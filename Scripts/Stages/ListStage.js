@@ -5,6 +5,7 @@ import { fetchData } from '../Utils/Utils.js';
 
 import { app } from '../App/App.js';
 import { Message } from '../Utils/Message.js';
+import { FadeIn, FadeOut } from '../Animations/AfterQuestionAnims.js';
 
 
 const API_URL_LIST = 'https://codecyprus.org/th/api/list';
@@ -109,6 +110,7 @@ async function ListTruasureHunts() {
     const form = document.createElement("form");
     form.id = "stageForm";
 	form.className = "TreasureHuntForm";
+    form.classList.add("fade-in");
 
     container.appendChild(form);
 
@@ -137,7 +139,7 @@ async function ListTruasureHunts() {
 
         } else {
             // TODO: add some event when nothing is selected
-            tmpMSG = new Message("Please select a treasure hunt");
+            const tmpMSG = new Message("Please select a treasure hunt");
             tmpMSG.Display();
         }
 
@@ -147,11 +149,13 @@ async function ListTruasureHunts() {
 
 
 export class ListStage extends Stage {
-    OnStart() {
+    async OnStart() {
+        FadeIn();
         ListTruasureHunts();
     }
 
-    OnEnd() {
+    async OnEnd() {
+        await FadeOut();
         ClearRenderer();
     }
 }
