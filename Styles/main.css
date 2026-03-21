@@ -1,8 +1,98 @@
-
 body {
-    background-color: #fff;
+    background-color: black;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;   /* horizontal center */
+    align-items: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+/*Header*/
+.head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    width: 100%;
+    color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 999;
+}
+/*Logo*/
+.logo {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
 }
 
+/* help and about */
+.details {
+    display: flex;
+    gap: 10px;
+    font-size: 17px;
+    margin-right: 25px;
+}
+
+.details a {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+/*modals*/
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: auto;
+    background: black;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999; /* always on top */
+    padding: 20px;
+}
+
+/* Show modal when targeted */
+.modal:target {
+    display: flex;
+}
+/* Modal content box */
+.modal-content {
+    background: white;
+    color: black;
+    width: 80%;
+    max-width: 400px;
+    padding: 20px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+/* Close button */
+.close-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: black;
+    color: white;
+    border-radius: 10px;
+    text-decoration: none;
+}
+
+/* Main container that holds everything */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    width: 100%;
+    max-width: 500px;
+}
 .TreasureHuntForm {
     display: flex;
     flex-direction: column;
@@ -11,25 +101,25 @@ body {
     gap: 20px;
     width: 100%;
 }
-.container {
-    margin: auto;
-}
-.container-treasure-hunts {
-    justify-content: center;
+
+/* Heading */
+.TreasureHuntHeading {
+    color: white;
     text-align: center;
-    display: flex;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 10px;
 }
 
-.submit-btn {
-    width: 250px;
-    padding: 12px 15px;
-    background: #4FC3F7;
-    border: none;
-    border-radius: 10px;
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
+/* Treasure hunt list container */
+.container-treasure-hunts {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    align-items: center;
 }
+
 /* Default box */
 .treasure-hunt {
     background: #0f0f0f;
@@ -50,20 +140,28 @@ body {
     border-color: #4FC3F7;
     box-shadow: 0 0 10px #4FC3F7;
 }
-.th-radio {
-    display: none;
-}
-.TreasureHuntHeading {
-    color: white;
-    text-align: center;
-    font-size: 25px;
-    margin-top: 140px;
-    margin-bottom: 30px;
-}
+
+/* Disabled box */
 .treasure-hunt.disabled {
     opacity: 0.4;
     pointer-events: none;
     border-color: rgba(255, 255, 255, 0.1);
+}
+.th-radio {
+    display: none;
+}
+
+/* Submit button */
+.submit-btn {
+    width: 250px;
+    padding: 12px 15px;
+    background: #4FC3F7;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 #nickname-field {
@@ -91,4 +189,190 @@ body {
 .forms {
     text-align: center;
     color: white;
+}
+/*================
+INTEGER QUESTION
+==================*/
+.integerForm {
+    color: white;
+    border-radius: 10px;
+    border: #4FC3F7 solid 3px;
+    width: 50%;
+    min-width: 500px;
+    padding: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    margin: 140px auto 0; /* push down */
+}
+
+/*=====================
+INTEGER INPUT
+======================*/
+#integerInput {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+/*=====================
+TRUE OR FALSE QUESTION
+======================*/
+.booleanForm {
+    color: white;
+    border-radius: 10px;
+    border: 3px solid #4FC3F7;
+    width: 50%;
+    min-width: 500px;
+    padding: 20px;
+    font-size: 20px;
+    margin: 140px auto 0; /* push down */
+    cursor: pointer;
+}
+
+/*==================
+MULTIPLE CHOICE
+===================*/
+.mcqForm {
+    color: white;
+    border-radius: 10px;
+    border: 3px solid #4FC3F7;
+    width: 50%;
+    min-width: 500px;
+    padding: 20px;
+    margin: 140px auto 0; /* push down */
+}
+
+.mcq_question {
+    margin-top: 10px;
+}
+
+/*============================
+TEXT INPUT QUESTION
+==============================*/
+.textForm {
+    color: white;
+    border-radius: 10px;
+    border: 3px solid #4FC3F7;
+    width: 50%;
+    min-width: 500px;
+    padding: 20px;
+    font-size: 18px;
+    margin: 140px auto 0; /* push down */
+}
+
+/*================
+TEXT INPUT FIELD
+==================*/
+#textInput {
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+/*================
+SUBMIT BUTTON
+==================*/
+#submitAnswer {
+    border-radius: 10px;
+    border: none;
+    background: #4FC3F7;
+    padding: 10px;
+    margin: 40px auto 0;
+    cursor: pointer;
+    width: 100px;
+    color: white;
+    font-size: 20px;
+}
+
+/*=======================
+INTERACTIVE SUBMIT BUTTON
+=========================*/
+#submitAnswer:hover,
+#submitAnswer:active {
+    background: red;
+    transform: translateY(-2px);
+}
+
+/*================
+SKIP BUTTON
+==================*/
+#skipButton {
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    background: #4FC3F7;
+    cursor: pointer;
+    margin: 20px auto 0;
+    width: 100px;
+    color: white;
+    font-size: 20px;
+}
+
+/*=====================
+INTERACTIVE SKIP BUTTON
+=======================*/
+#skipButton:hover,
+#skipButton:active {
+    background: red;
+    transform: translateY(-2px);
+}
+/*================
+INTEGER QUESTION (VISIBLE)
+==================*/
+#integerForm {
+    color: white;
+    border-radius: 10px;
+    border: 3px solid #4FC3F7;
+    width: 50%;
+    min-width: 500px;
+    padding: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    margin: 140px auto 0; /* push down below header */
+    background: #0f0f0f; /* visible on black */
+}
+
+/*================
+NUMERIC INPUT FIELD
+==================*/
+#numericInput {
+    width: 90%;
+    border: none;
+    border-radius: 10px;
+    padding: 12px;
+    margin-top: 15px;
+    font-size: 16px;
+    background: white;
+    color: black;
+}
+/*============================
+TEXT INPUT QUESTION (VISIBLE)
+==============================*/
+#textForm {
+    color: white;
+    border-radius: 10px;
+    border: 3px solid #4FC3F7;
+    width: 50%;
+    min-width: 500px;
+    padding: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    margin: 140px auto 0; /* pushes it down */
+    background: #0f0f0f; /* visible on black */
+}
+
+/*================
+TEXT INPUT FIELD
+==================*/
+#textInput {
+    width: 90%;
+    border: none;
+    border-radius: 10px;
+    padding: 12px;
+    margin-top: 15px;
+    font-size: 16px;
+    background: white;
+    color: black;
 }
