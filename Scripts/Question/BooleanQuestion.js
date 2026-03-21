@@ -17,7 +17,7 @@ export class BooleanQuestion extends Question {
         const container = document.getElementById(parentId);
         // Render the form with radio buttons
         container.innerHTML = `
-            <div class="booleanForm">
+            <div class="booleanForm fade-in">
                     <h2>Score: ${app.score}</h2>
                     <p>${this.questionText}</p>
                     <input type="radio" id="true" name="boolean_question" value="true">

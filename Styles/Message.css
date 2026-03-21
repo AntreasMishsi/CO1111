@@ -10,6 +10,8 @@
     background-color: #fff;
     transition: all 0.3s ease;
 
+    color: #000;
+
  
 
     margin-left: -100%;
@@ -19,9 +21,9 @@
     margin-top: 15px;
 
     /* Shadow */
-    box-shadow: 1px 2px 15px -1px rgba(0,0,0,0.39);
-    -webkit-box-shadow: 1px 2px 15px -1px rgba(0,0,0,0.39);
-    -moz-box-shadow: 1px 2px 15px -1px rgba(0,0,0,0.39);
+    box-shadow: 1px 2px 15px -1px rgba(0, 0, 0, 0.39);
+    -webkit-box-shadow: 1px 2px 15px -1px rgba(0, 0, 0, 0.39);
+    -moz-box-shadow: 1px 2px 15px -1px rgba(0, 0, 0, 0.39);
 }
 
 .message.received {

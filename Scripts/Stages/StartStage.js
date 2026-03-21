@@ -14,7 +14,7 @@ export class StartStage extends Stage {
         const container = document.getElementById(RENDERED_AREA_ID);
 
         container.innerHTML = `
-        <div class="form-container">
+        <div class="form-container fade-in">
                 <div class="forms">
                     <form id="startForm">
                         <div class="Name">

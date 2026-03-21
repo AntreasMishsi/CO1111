@@ -11,6 +11,14 @@ body {
     gap: 20px;
     width: 100%;
 }
+.container {
+    margin: auto;
+}
+.container-treasure-hunts {
+    justify-content: center;
+    text-align: center;
+    display: flex;
+}
 
 .submit-btn {
     width: 250px;

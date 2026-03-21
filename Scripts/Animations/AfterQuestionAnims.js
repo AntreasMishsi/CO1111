@@ -2,7 +2,7 @@
 
 import { ClearRenderer, RENDERED_AREA_ID } from "../Utils/ClearRenderer.js";
 
-export const animationDuration = 1000;
+export const animationDuration = 2000;
 
 
 export function playCorrectAnimation() {
@@ -10,25 +10,22 @@ export function playCorrectAnimation() {
     ClearRenderer();
     // Create a green checkmark
     const check = document.createElement("div");
-    check.innerHTML = "✔";
-    check.style.position = "absolute";
+    check.className = "correct-animation-container";
+    check.innerHTML = `<img src=../Resources/icons/check.svg alt="correct icon" style="width:300px; height: 300px;">`;
     check.style.fontSize = "50px";
     check.style.color = "green";
-    check.style.opacity = "0";
     check.style.transition = "all 0.5s ease-out";
     container.appendChild(check);
 
     // Animate the checkmark
     requestAnimationFrame(() => {
-        check.style.opacity = "1";
-        check.style.transform = "scale(1.5)";
+       
     });
 
     // Fade out and remove after 1 second
     setTimeout(() => {
-        check.style.opacity = "0";
-        check.style.transform = "scale(1)";
-        setTimeout(() => container.removeChild(check), 500);
+       
+        
     }, animationDuration);
 }
 
@@ -39,7 +36,6 @@ export function playWrongAnimation() {
     // Create a red x
     const check = document.createElement("div");
     check.innerHTML = "X";
-    check.style.position = "absolute";
     check.style.fontSize = "50px";
     check.style.color = "red";
     check.style.opacity = "0";
@@ -48,14 +44,11 @@ export function playWrongAnimation() {
 
     // Animate the checkmark
     requestAnimationFrame(() => {
-        check.style.opacity = "1";
-        check.style.transform = "scale(1.5)";
+        
     });
 
     // Fade out and remove after 1 second
     setTimeout(() => {
-        check.style.opacity = "0";
-        check.style.transform = "scale(1)";
-        setTimeout(() => container.removeChild(check), 500);
+        container.removeChild(check);
     }, animationDuration);
 }

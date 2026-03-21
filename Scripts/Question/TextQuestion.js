@@ -20,7 +20,7 @@ export class TextQuestion extends Question {
 
         container.innerHTML = `
             <h2>Score: ${app.score}</h2>
-            <div id="textForm">
+            <div id="textForm fade-in">
                 <p>${this.questionText}</p>
                 <input type="text" id="textInput" name="text_question" placeholder="Enter your answer">
                 <button type="button" id="submitAnswer">Submit</button>

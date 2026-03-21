@@ -13,7 +13,7 @@ export class LeaderBoardStage extends Stage {
         const container = document.getElementById(RENDERED_AREA_ID);
 
         container.innerHTML = `
-        <div style="text-align:center;">
+        <div style="text-align:center;" class="fade-in">
             <h2> Leaderboard</h2>
 
             <button id="loadLeaderboard" style="

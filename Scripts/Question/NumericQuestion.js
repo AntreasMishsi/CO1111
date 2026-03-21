@@ -18,7 +18,7 @@ export class NumericQuestion extends Question {
         // Render the form with radio buttons
         container.innerHTML = `
         <h2>Score: ${app.score}</h2>
-            <div id="integerForm">
+            <div id="integerForm fade-in">
                 <p>${this.questionText}</p>
                 <input type="number" id="numericInput" name="numeric_question" placeholder="Enter a number">
                 <button type="button" id="submitAnswer">Submit</button>

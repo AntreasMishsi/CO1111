@@ -98,6 +98,7 @@ async function ListTruasureHunts() {
 
     const container = document.getElementById("rendered-area");
 	container.className = "TreasureHuntList";
+    container.classList.add("fade-in");
 
     //heading
     const heading=document.createElement("div");
