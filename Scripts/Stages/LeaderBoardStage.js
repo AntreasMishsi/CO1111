@@ -10,6 +10,8 @@ export class LeaderBoardStage extends Stage {
         FadeIn();
         const container = document.getElementById(RENDERED_AREA_ID);
 
+
+        
         container.innerHTML = `
         <div style="text-align:center;">
             <h2>Leaderboard</h2>
