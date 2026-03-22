@@ -17,10 +17,11 @@ export class BooleanQuestion extends Question {
     Display(parentId) {
         const API_SCORE = `https://codecyprus.org/th/api/score?session=${app.session}`;
         const container = document.getElementById(parentId);
+
+        container.appendChild(this.parentStage.GenerateNavBar());
         // Render the form with radio buttons
-        container.innerHTML = `
+        container.innerHTML += `
             <div id="booleanForm" class="booleanForm">
-                    <h2>Score: ${app.score}</h2>
                     <p>${this.questionText}</p>
                     <input type="radio" id="true" name="boolean_question" value="true">
                     <label id="true1" for="true">True</label><br>

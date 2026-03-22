@@ -22,7 +22,7 @@ export class StartStage extends Stage {
                             <h1>Enter your Name</h1>
                         </div>
                         <input class="surname" id="nickname-field" type="text" name="Firstname" placeholder="Name"><br><br>
-                        <input class="submit-btn" type="submit" name="Submit" placeholder="Submit"><br><br>
+                        <input class="submit-btn" type="submit" name="Submit" placeholder="Submit" id="submit-name-button"><br><br>
                     </form>
                     <button class="load-data-button" id="load-data-buttton">Load data</button>
                 </div>
@@ -30,6 +30,7 @@ export class StartStage extends Stage {
 		`
         
         document.getElementById("load-data-buttton").addEventListener("click", function(event) {
+            
             app.LoadCookies();
         });
 
@@ -37,6 +38,7 @@ export class StartStage extends Stage {
             event.preventDefault();
 
             const nickname = document.getElementById("nickname-field").value;
+            document.getElementById("submit-name-button").disabled = true;
 
             const API_URL_START = `https://codecyprus.org/th/api/start?player=${nickname}&app=TreasureHuntApp&treasure-hunt-id=${app.treasureHuntID}`;
             const data = fetchData(API_URL_START).then(data => {
@@ -49,6 +51,8 @@ export class StartStage extends Stage {
                     app.ChangeStage();
                 }
                 else {
+                    document.getElementById("submit-name-button").disabled = false;
+
                     console.log(data.errorMessages[0]);
                     const tmpMSG = new Message(data.errorMessages[0]);
                     tmpMSG.Display();

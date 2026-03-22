@@ -61,3 +61,19 @@ export async function FadeOut() {
     await sleep(FADE_OUT_DURATION);
     document.getElementById(RENDERED_AREA_ID).classList.remove("fade-out");
 }
+
+export async function FadeInForElementWithId(ID) {
+    document.getElementById(ID).classList.add("fade-in");
+    document.getElementById(ID).classList.remove("fade-out");
+    await sleep(FADE_IN_DURATION);
+    document.getElementById(ID).classList.remove("fade-in");
+}
+
+export async function FadeOutForElementWithId(ID) {
+    document.getElementById(ID).classList.add("fade-out");
+    document.getElementById(ID).classList.remove("fade-in");
+    await sleep(FADE_OUT_DURATION);
+    document.getElementById(ID).classList.remove("fade-out");
+}
+
+

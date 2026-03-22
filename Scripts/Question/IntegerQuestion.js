@@ -23,11 +23,10 @@ export class IntegerQuestion extends Question {
         const container = document.getElementById(parentId);
 
 
-
+        container.appendChild(this.parentStage.GenerateNavBar());
 
         // Render the form with radio buttons
-        container.innerHTML = `
-            <h2>Score: ${app.score}</h2>
+        container.innerHTML += `
             <div id="integerForm">
                 <p>${this.questionText}</p>
                 <input type="number" id="integerInput" name="integer_question" placeholder="Enter an integer number" step="1" oninput="this.value = Math.round(this.value);">

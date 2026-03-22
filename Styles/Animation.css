@@ -6,7 +6,7 @@
     height: 300px;
     justify-content: center;
     display: auto;
-    animation-duration: 2s;
+    animation-duration: 1.5s;
     animation-iteration-count: 1;
     animation-name: correctAnimation;
     opacity: 0;

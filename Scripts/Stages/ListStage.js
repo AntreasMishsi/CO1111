@@ -130,7 +130,7 @@ async function ListTruasureHunts() {
     //Handle event for submitting
     document.getElementById("stageForm").addEventListener("submit", function(event) {
         event.preventDefault();
-
+        submitBtn.disabled = true;
         const selected = document.querySelector('input[name="treasure_hunt"]:checked');
         if (selected) {
             const value = selected.value;
@@ -138,7 +138,8 @@ async function ListTruasureHunts() {
             app.SetTreasureHuntID(value);
 
         } else {
-            // TODO: add some event when nothing is selected
+            //allow user to submit with a button again
+            submitBtn.disabled = false;
             const tmpMSG = new Message("Please select a treasure hunt");
             tmpMSG.Display();
         }

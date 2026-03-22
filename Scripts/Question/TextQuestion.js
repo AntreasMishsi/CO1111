@@ -16,10 +16,10 @@ export class TextQuestion extends Question {
     Display(parentId) {
         const API_SCORE = `https://codecyprus.org/th/api/score?session=${app.session}`;
         const container = document.getElementById(parentId);
-
+        container.appendChild(this.parentStage.GenerateNavBar());
         // Render the form with radio buttons
 
-        container.innerHTML = `
+        container.innerHTML += `
             <h2>Score: ${app.score}</h2>
             <div id="textForm">
                 <p>${this.questionText}</p>

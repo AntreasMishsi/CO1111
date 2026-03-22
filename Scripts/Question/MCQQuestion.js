@@ -15,8 +15,10 @@ export class MCQQuestion extends Question {
     Display(parentId) {
 
         const container = document.getElementById(parentId);
+
+        container.appendChild(this.parentStage.GenerateNavBar());
         // Render the form with radio buttons
-        container.innerHTML = `
+        container.innerHTML += `
 <div class="mcqForm">
         <h2>Score: ${app.score}</h2>
                 <p>${this.questionText}</p>
