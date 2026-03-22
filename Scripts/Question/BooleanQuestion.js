@@ -53,7 +53,7 @@ export class BooleanQuestion extends Question {
 
         // Promise that we will get the data
         const dataPromise = fetchData(API_URL_ANSWER);
-        
+
         // start the animation
         await FadeOut();
 
@@ -65,7 +65,7 @@ export class BooleanQuestion extends Question {
         } else {
             playCorrectAnimation();
         }
-        
+
         await sleep(animationDuration);
         this.parentStage.AskQuestion();
     }
