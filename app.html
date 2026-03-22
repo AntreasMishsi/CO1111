@@ -9,12 +9,49 @@
     <title>App</title>
 </head>
 <body>
-    
+<div class="head">
+    <img src="Resources/pictures/logo.png" class="logo" alt="Logo" />
+    <div class="details">
+        <p><a href="#help-modal" class="help-link">HELP</a></p>
+        <p><a href="#about-modal" class="about-link">ABOUT</a></p>
+    </div>
+</div>
+<div id="about-modal" class="modal">
+    <div class="modal-content">
+        <h2>About the App</h2>
+        <p>This our Treasure Hunt game created by Map Breakers.</p>
+        <p>We are Team D </p>
+        <p>Members:</p>
+        <p>Andreas Mishis</p>
+        <p>Michalis Andreou</p>
+        <p>Andreas Georgiou</p>
+        <p>Pavlo Masliuk</p>
+        <a href="#" class="close-btn">Close</a>
+    </div>
+</div>
+
+<div id="help-modal" class="modal">
+    <div class="modal-content">
+        <h2>Help</h2>
+        <p>Treasure Hunt is a location-based quiz game with multiple levels of difficulty.</p>
+        <p>Each stop can have different types of questions:</p>
+        <p>Multiple choice questions</p>
+        <p>Text answer questions</p>
+        <p>QR code scanner questions</p>
+        <p>Location check-in tasks</p>
+        <p>You can skip some questions if you get stuck, but you’ll earn more points by answering correctly.</p>
+        <a href="#" class="close-btn">Close</a>
+    </div>
+</div>
+
     <div class="message-container" id="message-container">
 
     </div>
     <div class="container">
         <div class="camera-button"></div>
+        <div id="progress-dots"></div>
+        <p id="question-label"></p>
+        <p id="score-label"></p>
         <div class="rendered-area fade-in" id="rendered-area">
             
         </div>

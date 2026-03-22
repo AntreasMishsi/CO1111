@@ -20,14 +20,14 @@ export function playCorrectAnimation() {
     // Create a green checkmark
     const check = document.createElement("div");
     check.className = "correct-animation-container";
-    check.innerHTML = `<img src=../Resources/icons/check.svg alt="correct icon" style="width:300px; height: 300px; color: color: #4FC3F7;">`;
+    check.innerHTML = `<img src=../Resources/icons/check.svg alt="correct icon" style="width:300px; height: 300px;">`;
     check.style.fontSize = "50px";
     check.style.color = "green";
     container.appendChild(check);
 
-    
 
-    
+
+
 }
 
 
@@ -37,8 +37,7 @@ export function playWrongAnimation() {
     // Create a red x
     const check = document.createElement("div");
     check.className = "wrong-animation-container";
-    check.innerHTML = `<img src=../Resources/icons/x.svg alt="wrong icon" style="width:300px; height: 300px;">`;
-
+    check.innerHTML = `<img src="Resources/icons/x.png" alt="correct icon" style="width:300px; height:300px;">`;
     container.appendChild(check);
 
     // Animate the checkmark
