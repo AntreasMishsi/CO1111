@@ -1,66 +1,76 @@
-import { nextDot } from '../progress-dots.js';
 import { app } from "../App/App.js";
+
 import { Question } from "./Question.js";
+
 import { playCorrectAnimation, playWrongAnimation, animationDuration, FadeOut } from "../Animations/AfterQuestionAnims.js";
 import { fetchData } from "../Utils/Utils.js";
 import { sleep } from "../Utils/Utils.js";
-
 export class MCQQuestion extends Question {
+
+
     constructor(props) {
         super(props);
     }
 
     Display(parentId) {
+
         const container = document.getElementById(parentId);
+        // Render the form with radio buttons
         container.innerHTML = `
-            <div class="question-card">
-                <p class="question-text">${this.questionText}</p>
-                <div class="option-group">
-                    <div class="option-btn" data-value="A">A</div>
-                    <div class="option-btn" data-value="B">B</div>
-                    <div class="option-btn" data-value="C">C</div>
-                    <div class="option-btn" data-value="D">D</div>
-                </div>
-                <div class="question-buttons">
-                    <button type="button" id="submitAnswer" class="btn-submit">Submit</button>
-                    ${this.canBeSkipped ? `<button type="button" id="skipButton" class="btn-skip">Skip</button>` : ''}
-                </div>
+<div class="mcqForm">
+        <h2>Score: ${app.score}</h2>
+                <p>${this.questionText}</p>
+                <input type="radio" id="A" name="mcq_question" value="A">
+                <label for="A">A</label><br>
+                <input type="radio" id="B" name="mcq_question" value="B">
+                <label for="B">B</label><br>
+                <input type="radio" id="C" name="mcq_question" value="C">
+                <label for="C">C</label><br>
+                <input type="radio" id="D" name="mcq_question" value="D">
+                <label for="D">D</label><br>
+                <button type="button" id="submitAnswer">Submit</button>
+                ${this.canBeSkipped ? `<button type="button" id="skipButton">Skip</button>` : ''}
             </div>
         `;
 
-        let selected = null;
-        document.querySelectorAll('.option-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
-                btn.classList.add('selected');
-                selected = btn.dataset.value;
-            });
-        });
+        // Add click listener for the button to get the answer
+        const submitButton = document.getElementById("submitAnswer");
+        submitButton.addEventListener("click", () => {
 
-        document.getElementById('submitAnswer').addEventListener('click', () => {
-            if (selected !== null) this.Answear(selected);
+            const selected = document.querySelector('input[name="mcq_question"]:checked');
+            this.Answear(selected.value);
         });
-
-        if (this.canBeSkipped) {
-            document.getElementById('skipButton').addEventListener('click', () => {
+        if(this.canBeSkipped) {
+            const skipButton = document.getElementById("skipButton");
+            skipButton.addEventListener("click", () => {
                 this.Skip();
             });
         }
+
     }
+
 
     async Answear(answear) {
         const API_URL_ANSWER = `https://codecyprus.org/th/api/answer?session=${app.session}&answer=${answear}`;
+
+        // Promise that we will get the data
         const dataPromise = fetchData(API_URL_ANSWER);
+
+        // start the animation
         await FadeOut();
+
+        // wait till we get the data
         const data = await dataPromise;
+
         if (data.correct == false) {
             playWrongAnimation();
-        }
-        else {
+        } else {
             playCorrectAnimation();
-            nextDot();
         }
+
         await sleep(animationDuration);
         this.parentStage.AskQuestion();
     }
+
+
 }
