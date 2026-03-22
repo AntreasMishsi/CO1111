@@ -1,4 +1,4 @@
-
+import { initDots, setActiveDot, nextDot,getCurrentStep,updateScore } from '../progress-dots.js';
 import { app } from '../App/App.js';
 import { Stage } from './Stage.js';
 
@@ -20,6 +20,7 @@ import { FadeIn, FadeOut } from '../Animations/AfterQuestionAnims.js';
 
 export class QuestionStage extends Stage {
     async OnStart() {
+        initDots('progress-dots', app.numOfQuestions);
         const container = document.getElementById(RENDERED_AREA_ID);
         this.QuestionTypes = {
             "INTEGER": IntegerQuestion,
@@ -52,6 +53,7 @@ export class QuestionStage extends Stage {
             .then(([questionData, scoreData]) => {
 
                 app.score = scoreData.score;
+                updateScore(app.score);
 
                 if(questionData.completed === true){
                     app.ChangeStage();
@@ -83,6 +85,7 @@ export class QuestionStage extends Stage {
         const data = fetchData(API_URL_SKIP_QUESTION).then(data => {
             if(data.status === "OK") {
                 ClearRenderer();
+                nextDot();
                 this.AskQuestion();
             }
             else {
@@ -97,5 +100,8 @@ export class QuestionStage extends Stage {
     async OnEnd() {
         await FadeOut();
         ClearRenderer();
+        document.getElementById('progress-dots').style.display = 'none';
+        document.getElementById('question-label').style.display = 'none';
+        document.getElementById('score-label').style.display = 'none';
     }
 }

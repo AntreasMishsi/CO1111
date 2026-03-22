@@ -1,13 +1,19 @@
+html, body {
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
 body {
     background-color: black;
     margin: 0;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
-    justify-content: center;   /* horizontal center */
+    justify-content: center;
     align-items: center;
     font-family: Arial, Helvetica, sans-serif;
 }
-/*Header*/
+
+/*header*/
 .head {
     display: flex;
     justify-content: space-between;
@@ -20,14 +26,13 @@ body {
     left: 0;
     z-index: 999;
 }
-/*Logo*/
+
 .logo {
     width: 100px;
     height: 100px;
     object-fit: contain;
 }
 
-/* help and about */
 .details {
     display: flex;
     gap: 10px;
@@ -41,8 +46,7 @@ body {
     cursor: pointer;
 }
 
-
-/*modals*/
+/* modals */
 .modal {
     position: fixed;
     top: 50%;
@@ -54,15 +58,14 @@ body {
     display: none;
     justify-content: center;
     align-items: center;
-    z-index: 99999; /* always on top */
+    z-index: 99999;
     padding: 20px;
 }
 
-/* Show modal when targeted */
 .modal:target {
     display: flex;
 }
-/* Modal content box */
+
 .modal-content {
     background: white;
     color: black;
@@ -73,7 +76,6 @@ body {
     text-align: center;
 }
 
-/* Close button */
 .close-btn {
     display: inline-block;
     margin-top: 20px;
@@ -84,84 +86,64 @@ body {
     text-decoration: none;
 }
 
-/* Main container that holds everything */
+/* main container */
 .container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 25px;
+    gap: 12px;
     width: 100%;
     max-width: 500px;
-}
-.TreasureHuntForm {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 20px;
-    width: 100%;
+    padding-top: 110px;
+    box-sizing: border-box;
 }
 
-/* Heading */
-.TreasureHuntHeading {
-    color: white;
-    text-align: center;
-    font-size: 28px;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-/* Treasure hunt list container */
-.container-treasure-hunts {
+/*dots moving progress */
+#progress-dots {
     display: flex;
-    flex-direction: column;
     gap: 15px;
-    width: 100%;
-    align-items: center;
+    justify-content: center;
+    margin-bottom: 4px;
 }
 
-/* Default box */
-.treasure-hunt {
-    background: #0f0f0f;
-    border: 2px solid rgba(255, 255, 255, 0.15);
-    padding: 18px;
-    border-radius: 12px;
-    color: white;
-    width: 80%;
-    max-width: 350px;
-    cursor: pointer;
+.progress-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid #378ADD;
+    background: transparent;
+    transition: background 0.2s;
+}
+
+.progress-dot.active    { background: #378ADD; }
+.progress-dot.completed { background: #378ADD; opacity: 0.4; }
+
+/*question and score label */
+#question-label {
     text-align: center;
-    transition: 0.25s ease;
-    font-size: 14px;
+    font-size: 16px;
+    color: #fff;
+    margin: 0;
 }
 
-/* Selected box stays highlighted */
-.treasure-hunt.selected {
-    border-color: #4FC3F7;
-    box-shadow: 0 0 10px #4FC3F7;
+#score-label {
+    text-align: center;
+    font-size: 16px;
+    color: #4FC3F7;
+    margin: 0;
 }
 
-/* Disabled box */
-.treasure-hunt.disabled {
-    opacity: 0.4;
-    pointer-events: none;
-    border-color: rgba(255, 255, 255, 0.1);
-}
-.th-radio {
-    display: none;
+/* start point and name */
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
-/* Submit button */
-.submit-btn {
-    width: 250px;
-    padding: 12px 15px;
-    background: #4FC3F7;
-    border: none;
-    border-radius: 10px;
+.forms {
+    text-align: center;
     color: white;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
 }
 
 #nickname-field {
@@ -180,200 +162,275 @@ body {
     border-color: #4FC3F7;
     box-shadow: 0 0 10px #4FC3F7;
 }
-.form-container {
+
+.submit-btn {
+    width: 250px;
+    padding: 12px 15px;
+    background: #4FC3F7;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/*Treasure hunt list  */
+.TreasureHuntForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 20px;
+    width: 100%;
+}
+
+.TreasureHuntHeading {
+    color: white;
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.container-treasure-hunts {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    align-items: center;
+}
+
+.treasure-hunt {
+    background: #0f0f0f;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    padding: 18px;
+    border-radius: 12px;
+    color: white;
+    width: 80%;
+    max-width: 350px;
+    cursor: pointer;
+    text-align: center;
+    transition: 0.25s ease;
+    font-size: 14px;
+}
+
+.treasure-hunt.selected {
+    border-color: #4FC3F7;
+    box-shadow: 0 0 10px #4FC3F7;
+}
+
+.treasure-hunt.disabled {
+    opacity: 0.4;
+    pointer-events: none;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.th-radio {
+    display: none;
+}
+
+/* question card - visibility */
+.question-card {
+    background: #0f0f0f;
+    border: 3px solid #4FC3F7;
+    border-radius: 16px;
+    padding: 30px 24px;
+    width: 90%;
+    max-width: 500px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    color: white;
+    box-sizing: border-box;
+}
+
+.question-text {
+    font-size: 18px;
+    line-height: 1.6;
+    text-align: center;
+    color: white;
+    margin: 0;
+}
+
+.question-input {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    background: #1a1a1a;
+    color: white;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.25s;
+    box-sizing: border-box;
+}
+
+.question-input:focus {
+    border-color: #4FC3F7;
+}
+
+/* remove the dot for true and mcq questions*/
+.option-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.option-btn {
+    padding: 14px;
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.option-btn:hover {
+    border-color: #4FC3F7;
+    background: rgba(79, 195, 247, 0.08);
+}
+
+.option-btn.selected {
+    border-color: #4FC3F7;
+    background: rgba(79, 195, 247, 0.2);
+    font-weight: bold;
+}
+
+/*buttons skip and submit */
+.question-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    width: 100%;
+}
+
+.btn-submit,
+.btn-skip {
+    flex: 1;
+    max-width: 160px;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    color: white;
+}
+
+.btn-submit { background: #4FC3F7; }
+.btn-skip   { background: #444; }
+
+/*animations for tick  and x */
+.correct-animation-container,
+.wrong-animation-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    height: 100%;
 }
-.forms {
+/*leaderboard */
+.leaderboard-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 90%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.leaderboard-title {
+    color: #4FC3F7;
+    font-size: 24px;
+    margin: 0;
+}
+
+.leaderboard-btn {
+    width: 100%;
+    padding: 12px;
+    background: #4FC3F7;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.leaderboard-btn:hover,
+.leaderboard-btn:active {
+    background: #0288d1;
+}
+
+.lb-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: white;
+    font-size: 15px;
+    table-layout: fixed;
+}
+
+.lb-table th {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 2px solid #4FC3F7;
+    color: #4FC3F7;
+    font-size: 14px;
+}
+
+.lb-table td {
+    padding: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/*sets the width of the column to be small */
+.lb-table th:nth-child(1),
+.lb-table td:nth-child(1) {
+    width: 40px;
+}
+/* player name column takes up all the leftover space */
+.lb-table th:nth-child(2),
+.lb-table td:nth-child(2) {
+    width: auto;
+}
+
+.lb-table th:nth-child(3),
+.lb-table td:nth-child(3) {
+    width: 80px; text-align: right;
+}
+/*score on leaderboard*/
+.your-score-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    background: rgba(79, 195, 247, 0.1);
+    border: 2px solid #4FC3F7;
+    border-radius: 14px;
+    padding: 16px 32px;
+    width: 100%;
+    box-sizing: border-box;
     text-align: center;
-    color: white;
-}
-/*================
-INTEGER QUESTION
-==================*/
-.integerForm {
-    color: white;
-    border-radius: 10px;
-    border: #4FC3F7 solid 3px;
-    width: 50%;
-    min-width: 500px;
-    padding: 30px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 18px;
-    margin: 140px auto 0; /* push down */
 }
 
-/*=====================
-INTEGER INPUT
-======================*/
-#integerInput {
-    padding: 10px;
-    border-radius: 10px;
-    border: none;
-    margin-top: 20px;
-    cursor: pointer;
+.your-score-label {
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
 }
 
-/*=====================
-TRUE OR FALSE QUESTION
-======================*/
-.booleanForm {
-    color: white;
-    border-radius: 10px;
-    border: 3px solid #4FC3F7;
-    width: 50%;
-    min-width: 500px;
-    padding: 20px;
-    font-size: 20px;
-    margin: 140px auto 0; /* push down */
-    cursor: pointer;
-}
-
-/*==================
-MULTIPLE CHOICE
-===================*/
-.mcqForm {
-    color: white;
-    border-radius: 10px;
-    border: 3px solid #4FC3F7;
-    width: 50%;
-    min-width: 500px;
-    padding: 20px;
-    margin: 140px auto 0; /* push down */
-}
-
-.mcq_question {
-    margin-top: 10px;
-}
-
-/*============================
-TEXT INPUT QUESTION
-==============================*/
-.textForm {
-    color: white;
-    border-radius: 10px;
-    border: 3px solid #4FC3F7;
-    width: 50%;
-    min-width: 500px;
-    padding: 20px;
-    font-size: 18px;
-    margin: 140px auto 0; /* push down */
-}
-
-/*================
-TEXT INPUT FIELD
-==================*/
-#textInput {
-    border: none;
-    border-radius: 10px;
-    padding: 10px;
-}
-
-/*================
-SUBMIT BUTTON
-==================*/
-#submitAnswer {
-    border-radius: 10px;
-    border: none;
-    background: #4FC3F7;
-    padding: 10px;
-    margin: 40px auto 0;
-    cursor: pointer;
-    width: 100px;
-    color: white;
-    font-size: 20px;
-}
-
-/*=======================
-INTERACTIVE SUBMIT BUTTON
-=========================*/
-#submitAnswer:hover,
-#submitAnswer:active {
-    background: red;
-    transform: translateY(-2px);
-}
-
-/*================
-SKIP BUTTON
-==================*/
-#skipButton {
-    border: none;
-    border-radius: 10px;
-    padding: 10px;
-    background: #4FC3F7;
-    cursor: pointer;
-    margin: 20px auto 0;
-    width: 100px;
-    color: white;
-    font-size: 20px;
-}
-
-/*=====================
-INTERACTIVE SKIP BUTTON
-=======================*/
-#skipButton:hover,
-#skipButton:active {
-    background: red;
-    transform: translateY(-2px);
-}
-/*================
-INTEGER QUESTION (VISIBLE)
-==================*/
-#integerForm {
-    color: white;
-    border-radius: 10px;
-    border: 3px solid #4FC3F7;
-    width: 50%;
-    min-width: 500px;
-    padding: 30px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 18px;
-    margin: 140px auto 0; /* push down below header */
-    background: #0f0f0f; /* visible on black */
-}
-
-/*================
-NUMERIC INPUT FIELD
-==================*/
-#numericInput {
-    width: 90%;
-    border: none;
-    border-radius: 10px;
-    padding: 12px;
-    margin-top: 15px;
-    font-size: 16px;
-    background: white;
-    color: black;
-}
-/*============================
-TEXT INPUT QUESTION (VISIBLE)
-==============================*/
-#textForm {
-    color: white;
-    border-radius: 10px;
-    border: 3px solid #4FC3F7;
-    width: 50%;
-    min-width: 500px;
-    padding: 20px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 18px;
-    margin: 140px auto 0; /* pushes it down */
-    background: #0f0f0f; /* visible on black */
-}
-
-/*================
-TEXT INPUT FIELD
-==================*/
-#textInput {
-    width: 90%;
-    border: none;
-    border-radius: 10px;
-    padding: 12px;
-    margin-top: 15px;
-    font-size: 16px;
-    background: white;
-    color: black;
-
+.your-score-value {
+    font-size: 32px;
+    font-weight: bold;
+    color: #4FC3F7;
 }

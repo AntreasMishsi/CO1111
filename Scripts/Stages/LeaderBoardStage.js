@@ -11,96 +11,57 @@ export class LeaderBoardStage extends Stage {
         const container = document.getElementById(RENDERED_AREA_ID);
 
         container.innerHTML = `
-        <div style="text-align:center;">
-            <h2>Leaderboard</h2>
-
-            <form>
-                <input type="text" id="limit" value="leaderboard">
-                <input type="checkbox" id="sorted" value="leaderboard2">
-            </form>
-
-            <button id="loadLeaderboard" style="
-                padding:10px 20px;
-                font-size:16px;
-                cursor:pointer;
-                margin-bottom:20px;
-            ">
-                Load Leaderboard
-            </button>
-
-            <div id="leaderboard"></div>
+    <div class="leaderboard-wrapper">
+        <div class="your-score-box">
+            <span class="your-score-label">You scored</span>
+            <span class="your-score-value">${app.score} pts</span>
         </div>
-        `;
+        <h2 class="leaderboard-title">Leaderboard</h2>
+        <button id="loadLeaderboard" class="leaderboard-btn">Load Leaderboard</button>
+        <div id="leaderboard"></div>
+    </div>
+`;
 
         document.getElementById("loadLeaderboard").addEventListener("click", () => {
-
-            let limit = document.getElementById("limit").value;
-            let sorted = document.getElementById("sorted").checked;
-
-            if(sorted){
-                sorted="&sorted";
-            }else{
-                sorted="";
-            }
-            this.DisplayLeaderBoard(limit, sorted);
-
+            this.DisplayLeaderBoard();
         });
     }
 
-    DisplayLeaderBoard(limit,sorted) {
-
+    DisplayLeaderBoard() {
         const leaderboard_container = document.getElementById("leaderboard");
-
-        const API_URL =
-            `https://codecyprus.org/th/api/leaderboard?session=${app.session}${sorted}&limit=${limit}`;
+        const API_URL = `https://codecyprus.org/th/api/leaderboard?session=${app.session}&sorted&limit=1000000000000000000000`;
 
         fetchData(API_URL).then(data => {
-
-            if(data.status !== "OK"){
+            console.log(data);
+            if (data.status !== "OK") {
                 const tmpMSG = new Message(data.errorMessages[0]);
                 tmpMSG.Display();
                 return;
             }
 
             leaderboard_container.innerHTML = `
-            <table style="
-                width:100%;
-                border-collapse:collapse;
-                text-align:center;
-                font-size:18px;
-            ">
-                <thead style="background:#333;color:white;">
-                    <tr>
-                        <th style="padding:10px;border:1px solid #ccc;">Rank</th>
-                        <th style="padding:10px;border:1px solid #ccc;">Player</th>
-                        <th style="padding:10px;border:1px solid #ccc;">Score</th>
-                    </tr>
-                </thead>
-                <tbody id="leaderboard-body"></tbody>
-            </table>
+                <table class="lb-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Player</th>
+                            <th>Score</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lb-body"></tbody>
+                </table>
             `;
-            const tableBody = document.getElementById("leaderboard-body");
 
+            const tbody = document.getElementById("lb-body");
             data.leaderboard.forEach((player, index) => {
-
                 const row = document.createElement("tr");
-                row.classList.add("fade-in");
-
                 row.innerHTML = `
-                <td style=" color:white;padding:10px;border:1px solid #ccc;">
-                    ${index+1}
-                </td>
-                <td style="color:white;padding:10px;border:1px solid #ccc;">
-                    ${player.player}
-                </td>
-                <td style="color:white;padding:10px;border:1px solid #ccc;">
-                    ${player.score}
-                </td>
+                    <td>${index + 1}</td>
+                    <td>${player.player}</td>
+                    <td>${player.score} pts</td>
                 `;
-
-                tableBody.appendChild(row);
+                tbody.appendChild(row);
             });
-
         });
     }
 
