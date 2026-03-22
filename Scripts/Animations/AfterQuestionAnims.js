@@ -7,6 +7,7 @@ import { sleep } from "../Utils/Utils.js";
 
 //users A, B, C didnt like the rotatitating animation, 
 //users A, B found animations slow
+// user C found a bag that changed animation from correct to wrong, it was due to fact that submit button could be pressed multiple times during fade out
 export const animationDuration = 1500;
 
 export const FADE_IN_DURATION = 500;
@@ -19,7 +20,7 @@ export function playCorrectAnimation() {
     // Create a green checkmark
     const check = document.createElement("div");
     check.className = "correct-animation-container";
-    check.innerHTML = `<img src=../Resources/icons/check.svg alt="correct icon" style="width:300px; height: 300px;">`;
+    check.innerHTML = `<img src=../Resources/icons/check.svg alt="correct icon" style="width:300px; height: 300px; color: color: #4FC3F7;">`;
     check.style.fontSize = "50px";
     check.style.color = "green";
     container.appendChild(check);

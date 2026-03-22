@@ -43,6 +43,8 @@ export class IntegerQuestion extends Question {
             const input = document.getElementById("integerInput").value;
             const number = parseInt(input, 10); // Convert string to integer
             if (!isNaN(number)) {
+                //disable the button, in order to avoid repeiting request during fade-out animation
+                submitButton.disabled = true;
                 this.Answear(number); // Pass the integer to the Answer method
             } else {
                 const tmpMSG = new Message("Please enter a valid integer.");
@@ -54,6 +56,8 @@ export class IntegerQuestion extends Question {
         if(this.canBeSkipped) {
             const skipButton = document.getElementById("skipButton");
             skipButton.addEventListener("click", () => {
+                //disable the button, in order to avoid repeiting request during fade-out animation
+                submitButton.disabled = true;
                 this.Skip();
             });
         }

@@ -1,8 +1,10 @@
 
 body {
-    background-color: #fff;
+    background-color: #000;
 }
-
+* {
+    color: #fff;
+}
 .TreasureHuntForm {
     display: flex;
     flex-direction: column;
@@ -20,7 +22,7 @@ body {
     display: flex;
 }
 
-.submit-btn {
+.submit-btn, button {
     width: 250px;
     padding: 12px 15px;
     background: #4FC3F7;

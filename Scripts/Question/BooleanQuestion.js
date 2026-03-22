@@ -43,6 +43,7 @@ export class BooleanQuestion extends Question {
         if (this.canBeSkipped) {
             const skipButton = document.getElementById("skipButton");
             skipButton.addEventListener("click", () => {
+                
                 this.Skip();
             });
         }
