@@ -15,7 +15,7 @@ export class AppState {
     getCurentStage() { return this.currentStage; }
 
     setStage(newStage) {
-        if (newStage < Stages.LeaderBoard) {
+        if (newStage <= Stages.LeaderBoard) {
             this.currentStage = newStage;
         }
     }

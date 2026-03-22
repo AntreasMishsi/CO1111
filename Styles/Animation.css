@@ -1,6 +1,7 @@
 
 
 .correct-animation-container {
+    color: #4FC3F7;
     width: 300px;
     height: 300px;
     justify-content: center;
@@ -45,6 +46,7 @@
 
 
 .wrong-animation-container {
+    color: #4FC3F7;
     width: 300px;
     height: 300px;
     justify-content: center;
