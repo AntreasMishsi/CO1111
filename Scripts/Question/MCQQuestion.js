@@ -22,7 +22,6 @@ export class MCQQuestion extends Question {
         // Render the form with radio buttons
         container.innerHTML += `
 <div class="mcqForm">
-        <h2>Score: ${app.score}</h2>
                 <p>${this.questionText}</p>
                 <input type="radio" id="A" name="mcq_question" value="A">
                 <label for="A">A</label><br>
