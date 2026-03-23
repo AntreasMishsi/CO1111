@@ -46,12 +46,7 @@ body {
     margin: 0;
 }
 
-#score-label {
-    text-align: center;
-    font-size: 16px;
-    color: #4FC3F7;
-    margin: 0;
-}
+
 
 /* start point and name */
 .form-container {
@@ -80,8 +75,6 @@ body {
     width: 250px;
     padding: 12px 15px;
     border-radius: 10px;
-    
-    background: #0f0f0f;
     color: #E8E8E8;
     font-size: 16px;
     outline: none;
@@ -92,7 +85,6 @@ body {
                 inset -2px -2px 10px #505050;
         
     margin-bottom: 40px;
-    transition: all 500ms b ease-in-out;
 }
 #nickname-field::placeholder {
     color: #E8E8E8;
@@ -170,7 +162,7 @@ body {
 .treasure-hunt.selected {
     border-color: #4FC3F7;
     box-shadow: 0 0 10px #4FC3F7
-    12px 12px 24px #050505,
+     12px 12px 24px #050505,
     -12px -12px 24px #1a1a1a;
 }
 
@@ -391,4 +383,127 @@ body {
     font-size: 32px;
     font-weight: bold;
     color: #4FC3F7;
+}
+/* class card for questions */
+.booleanForm,
+.integerForm,
+.numericForm,
+.textForm,
+.mcqForm {
+    width: 260px;
+    min-height: 360px;
+    background: rgba(255, 255, 255, 0.13);
+    backdrop-filter: blur(50px);
+    -webkit-backdrop-filter: blur(50px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow:
+            0 8px 32px rgba(0, 0, 0, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.5),
+            inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+            inset 0 0 14px 7px rgba(255, 255, 255, 0.7);
+    position: relative;
+    overflow: hidden;
+    padding: 20px;
+    margin: 20px auto;
+    text-align: center;
+}
+
+/* Top glowing line */
+.booleanForm::before,
+.integerForm::before,
+.numericForm::before,
+.textForm::before,
+.mcqForm::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.8),
+            transparent
+    );
+}
+
+/* Left glowing line */
+.booleanForm::after,
+.integerForm::after,
+.numericForm::after,
+.textForm::after,
+.mcqForm::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.8),
+            transparent,
+            rgba(255, 255, 255, 0.3)
+    );
+}
+.booleanForm *,
+.integerForm *,
+.numericForm *,
+.textForm *,
+.mcqForm * {
+    color: white !important;
+}
+
+/* button styling*/
+.booleanForm button,
+.integerForm button,
+.numericForm button,
+.textForm button,
+.mcqForm button {
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.4);
+    padding: 10px 18px;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-top: 12px;
+    font-size: 16px;
+    transition: 0.2s;
+}
+/* Remove radio dots */
+.booleanForm input[type="radio"],
+.mcqForm input[type="radio"] {
+    appearance: none;
+    position: absolute;
+}
+
+/* labels for boolean and mcq */
+.booleanForm label,
+.mcqForm label {
+    display: block;
+    padding: 10px 12px;
+    margin-left: 28px;
+    font-size: 16px;
+    cursor: pointer;
+    width:70%;
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 10px;
+    transition: 0.2s;
+}
+
+/* Selected effect */
+.booleanForm input[type="radio"]:checked + label,
+.mcqForm input[type="radio"]:checked + label {
+    background: rgba(255,255,255,0.5);
+    border-color: white;
+    color: black;
+    font-weight: bold;
+}
+/* inputs boxes */
+.textInput,.numericInput,.integerInput {
+    color: black !important;
+    border: 6px solid #ccc;
+    border-radius: 10px;
 }
