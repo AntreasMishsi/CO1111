@@ -14,6 +14,7 @@ export class LeaderBoardStage extends Stage {
         FadeIn();
         const container = document.getElementById(RENDERED_AREA_ID);
 
+
         container.innerHTML = `
         <div style="text-align:center;">
             <h2>Leaderboard</h2>
@@ -25,9 +26,13 @@ export class LeaderBoardStage extends Stage {
                 <button id="share-to-twitter-button">ShareToTwitter</button>
             
             </div>
+            
+            
             <form>
-                <input type="text" id="limit" value="leaderboard">
-                <input type="checkbox" id="sorted" value="leaderboard2">
+            <input type="number" id="integerInput" name="integer_question" placeholder="Enter an integer number" step="1" oninput="this.value = Math.round(this.value);">
+<!--            <input id="limit">-->
+            <input type="checkbox" id="sorted">
+            
             </form>
 
             <button id="loadLeaderboard" style="
@@ -37,23 +42,32 @@ export class LeaderBoardStage extends Stage {
                 margin-bottom:20px;
             ">
                 Load Leaderboard
-            </button>
+            </button> 
 
 
             <div id="leaderboard"></div>
         </div>
         `;
 
+        // Share button
+        document.getElementById("share-to-twitter-button").addEventListener("click", () => {
+            ShareToTwitter();
+        });
+
         document.getElementById("loadLeaderboard").addEventListener("click", () => {
 
-            let limit = document.getElementById("limit").value;
+            // let limit = document.getElementById("limit").value;
             let sorted = document.getElementById("sorted").checked;
 
+            let limit = document.getElementById("integerInput").value;
+            let number = parseInt(limit); // Converts strings to integers
+            
             if(sorted){
                 sorted="&sorted";
             }else{
                 sorted="";
             }
+
             this.DisplayLeaderBoard(limit, sorted);
 
         });
@@ -99,7 +113,7 @@ export class LeaderBoardStage extends Stage {
             `;
             const tableBody = document.getElementById("leaderboard-body");
 
-            data.leaderboard.forEach((player, index) => {
+            data.leaderboard.slice(0,limit).forEach((player, index) => {
 
                 const row = document.createElement("tr");
                 row.classList.add("fade-in");
