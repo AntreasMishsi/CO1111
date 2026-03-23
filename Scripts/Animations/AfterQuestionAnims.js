@@ -73,7 +73,7 @@ export async function FadeOutForElementWithId(ID) {
     document.getElementById(ID).classList.add("fade-out");
     document.getElementById(ID).classList.remove("fade-in");
     await sleep(FADE_OUT_DURATION);
-    document.getElementById(ID).classList.remove("fade-out");
+   
 }
 
 

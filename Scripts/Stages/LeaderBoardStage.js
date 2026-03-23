@@ -1,9 +1,13 @@
 import { app } from '../App/App.js';
 import { Stage } from './Stage.js';
+
 import { Message } from '../Utils/Message.js';
 import { RENDERED_AREA_ID, ClearRenderer } from '../Utils/ClearRenderer.js';
 import { fetchData } from '../Utils/Utils.js';
+import { ShareToTwitter } from '../Utils/ShareOnSocial.js';
+
 import { FadeIn, FadeOut } from '../Animations/AfterQuestionAnims.js';
+
 
 export class LeaderBoardStage extends Stage {
     async OnStart() {
@@ -13,7 +17,14 @@ export class LeaderBoardStage extends Stage {
         container.innerHTML = `
         <div style="text-align:center;">
             <h2>Leaderboard</h2>
-
+            <div>
+                <h2>Name: ${app.name}</h2>
+                <h2>Score: ${app.score}</h2>
+            </div>
+            <div class="share-buttons-wrapper"> 
+                <button id="share-to-twitter-button">ShareToTwitter</button>
+            
+            </div>
             <form>
                 <input type="text" id="limit" value="leaderboard">
                 <input type="checkbox" id="sorted" value="leaderboard2">
@@ -27,6 +38,7 @@ export class LeaderBoardStage extends Stage {
             ">
                 Load Leaderboard
             </button>
+
 
             <div id="leaderboard"></div>
         </div>
@@ -44,6 +56,12 @@ export class LeaderBoardStage extends Stage {
             }
             this.DisplayLeaderBoard(limit, sorted);
 
+        });
+
+
+        // share to other social buttons
+        document.getElementById("share-to-twitter-button").addEventListener("click", () => {
+            ShareToTwitter();
         });
     }
 

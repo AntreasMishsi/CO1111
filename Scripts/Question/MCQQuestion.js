@@ -5,6 +5,8 @@ import { Question } from "./Question.js";
 import { playCorrectAnimation, playWrongAnimation, animationDuration, FadeOut } from "../Animations/AfterQuestionAnims.js";
 import { fetchData } from "../Utils/Utils.js";
 import { sleep } from "../Utils/Utils.js";
+
+// Tester C didnt select any of ABCD options, and the app dint notify him
 export class MCQQuestion extends Question {
 
 

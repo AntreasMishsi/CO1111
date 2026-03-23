@@ -70,7 +70,7 @@ class TreasureHunt {
             </p>
         </div>
 
-        <input type="radio" class="th-radio" name="treasure_hunt" value="${this.uuid}">
+        <input type="radio" class="th-radio" name="treasure_hunt" value="${this.uuid}" data-name="${this.name}">
     `;
         if (status !== "active") {
             container.classList.add("disabled");
@@ -136,6 +136,8 @@ async function ListTruasureHunts() {
             const value = selected.value;
 
             app.SetTreasureHuntID(value);
+            app.treasureHuntName = selected.dataset.name;
+
 
         } else {
             //allow user to submit with a button again

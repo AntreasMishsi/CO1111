@@ -4,7 +4,7 @@ html, body {
 }
 
 body {
-    background-color: #fff;
+    background-color: #383838;
 }
 
 .TreasureHuntForm {
@@ -65,34 +65,62 @@ body {
     text-align: center;
     color: white;
 }
+.start-form {
+    padding : 40px 30px;
+    border-radius: 20px;
+    background: #383838;
+
+    box-shadow:  
+        -20px 20px 100px #161616,
+        20px -20px 100px #5a5a5a;
+}
+
 
 #nickname-field {
     width: 250px;
     padding: 12px 15px;
     border-radius: 10px;
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    
     background: #0f0f0f;
-    color: white;
+    color: #E8E8E8;
     font-size: 16px;
     outline: none;
     transition: 0.25s ease;
+    border: none;
+    background: #383838;
+    box-shadow: inset 2px 2px 10px #202020,
+                inset -2px -2px 10px #505050;
+        
+    margin-bottom: 40px;
+    transition: all 500ms b ease-in-out;
+}
+#nickname-field::placeholder {
+    color: #E8E8E8;
+    transition: color 0.25s ease;
+}
+#nickname-field:focus::placeholder {
+    color: #fff;
+}
+#nickname-field:focus {
+    color: #fff;
+    
 }
 
-#nickname-field:focus {
-    border-color: #4FC3F7;
-    box-shadow: 0 0 10px #4FC3F7;
-}
+
 
 .submit-btn, button {
-    width: 250px;
+    width: 200px;
     padding: 12px 15px;
-    background: #4FC3F7;
+    color:  #E8E8E8;
     border: none;
     border-radius: 10px;
-    color: white;
-    font-size: 18px;
+    font-size: 14px;
     font-weight: bold;
     cursor: pointer;
+    margin-bottom: 15px;
+    background: #383838;
+    box-shadow:  5px 5px 12px #2b2b2b,
+             -5px -5px 12px #454545;
 }
 
 /*Treasure hunt list  */
@@ -122,7 +150,7 @@ body {
 }
 
 .treasure-hunt {
-    background: #0f0f0f;
+    background: linear-gradient(145deg, #101010, #0a0a0a);
     border: 2px solid rgba(255, 255, 255, 0.15);
     padding: 18px;
     border-radius: 12px;
@@ -133,17 +161,27 @@ body {
     text-align: center;
     transition: 0.25s ease;
     font-size: 14px;
+
+    box-shadow:
+    12px 12px 24px #050505,
+    -12px -12px 24px #1a1a1a;
 }
 
 .treasure-hunt.selected {
     border-color: #4FC3F7;
-    box-shadow: 0 0 10px #4FC3F7;
+    box-shadow: 0 0 10px #4FC3F7
+    12px 12px 24px #050505,
+    -12px -12px 24px #1a1a1a;
 }
 
 .treasure-hunt.disabled {
     opacity: 0.4;
     pointer-events: none;
     border-color: rgba(255, 255, 255, 0.1);
+
+    box-shadow:
+    12px 12px 24px #050505,
+    -12px -12px 24px #1a1a1a;
 }
 
 .th-radio {

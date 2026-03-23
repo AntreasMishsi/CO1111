@@ -19,6 +19,7 @@ export class App {
         this.name = null;
 
         this.numOfQuestions = null;
+        this.treasureHuntName = null;
         this.treasureHuntID = null;
 
         this.score = 0;

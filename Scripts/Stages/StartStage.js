@@ -16,7 +16,7 @@ export class StartStage extends Stage {
 
         container.innerHTML = `
         <div class="form-container fade-in">
-                <div class="forms">
+                <div class="forms start-form">
                     <form id="startForm">
                         <div class="Name">
                             <h1>Enter your Name</h1>
