@@ -28,6 +28,12 @@ export class TextQuestion extends Question {
             </div>
         `;
 
+        // go through all a and make it so they all open another page
+        container.querySelectorAll("a").forEach(a => {
+            a.target = "_blank";
+            a.rel = "noopener noreferrer";
+        });
+
         // Add click listener for the button to get the answer
         const submitButton = document.getElementById("submitAnswer");
         submitButton.addEventListener("click", () => {

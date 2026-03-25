@@ -31,6 +31,11 @@ export class BooleanQuestion extends Question {
                     ${this.canBeSkipped ? `<button type="button" id="skipButton">Skip</button>` : ""}
             </div>
         `;
+        // go through all a and make it so they all open another page
+        container.querySelectorAll("a").forEach(a => {
+            a.target = "_blank";
+            a.rel = "noopener noreferrer";
+        });
 
         // Add click listener for the button to get the answer
         const submitButton = document.getElementById("submitAnswer");
@@ -63,6 +68,8 @@ export class BooleanQuestion extends Question {
         const data = await dataPromise;
 
         if (data.correct == false) {
+            const submitButton = document.getElementById("submitAnswer");
+            submitButton.disabled = false;
             playWrongAnimation();
         } else {
             playCorrectAnimation();
