@@ -1,17 +1,114 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+@ -6,12 +6,107 @@
     <title>Testing</title>
 </head>
 <body>
     <div class="container">
         <!-- This area changes, when stage changes-->
         <div class="rendered-area" id="rendered-area">
+       <h1>Testing</h1>
+       
+    <section>
+        
+       <h3> Unit Testing </h3>
+        <label for="unitTestInput">Unit Test Input:</label>
+        <input id="unitTestInput" placeholder="Enter unit test input here">
+        <button id="runUnitTestList">Run Unit Test</button>
+        <div id="container-list-unit-test"></div>
+    
+        
 
         </div>
     </div>
     <script src="Scripts/app.js"></script>
+    </section>
+    
+    <section>
+    
+    <h2> Acceptance Testing </h2>
+        <input id="QrScanner" placeholder="Paste the QR code here !!" >
+        <button id="scanQR">Scan QR Code</button>
+
+
+    </section>
+
+    <section>
+        <h3> 3rd Testing </h3>
+
+
+    </section>
+
+    <script type="module">
+       
+       const API_URL = "https://codecyprus.org/th/test-api/list?number-of-ths=2";
+       import { fetchData } from "/Scripts/Utils/Utils.js";
+       
+       import {TreasureHunt} from "/Scripts/Stages/ListStage.js";
+
+
+
+
+       async function ListTruasureHuntsTest() {
+
+    //ClearRenderer();
+    const data = await fetchData(API_URL);
+    const treasureHunts = data.treasureHunts.map(h => new TreasureHunt(h));
+
+    const container = document.getElementById("container-list-unit-test");
+    container.className = "TreasureHuntList";
+    container.classList.add("fade-in");
+
+    //heading
+    const heading=document.createElement("div");
+    heading.className = "TreasureHuntHeading";
+    heading.innerHTML = "Please select a Treasure Hunt";
+    container.appendChild(heading);
+    //crate form
+    const form = document.createElement("form");
+    form.id = "stageForm";
+    form.className = "TreasureHuntForm";
+    form.classList.add("fade-in");
+
+    container.appendChild(form);
+
+    container.className = "container-treasure-hunts";
+    for(let i = 0; i < treasureHunts.length; i++) {
+        treasureHunts[i].Display(form);
+    }
+
+
+    // Add submit button
+    const submitBtn = document.createElement("input");
+    submitBtn.className = "submit-btn";
+    submitBtn.type = "submit";
+    submitBtn.value = "Submit";
+    form.appendChild(submitBtn);
+
+    //Handle event for submitting
+    document.getElementById("stageForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        submitBtn.disabled = true;
+        const selected = document.querySelector('input[name="treasure_hunt"]:checked');
+        if (selected) {
+            const value = selected.value;
+
+            //app.SetTreasureHuntID(value);
+            //app.treasureHuntName = selected.dataset.name;
+
+
+        } else {
+            //allow user to submit with a button again
+            submitBtn.disabled = false;
+            const tmpMSG = new Message("Please select a treasure hunt");
+            tmpMSG.Display();
+        }
+
+    });
+
+}
+ 
+ document.getElementById("runUnitTestList").addEventListener("click", ListTruasureHunts);
+
+
+    </script>
 </body>
 </html>
