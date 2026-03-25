@@ -35,6 +35,7 @@ export class BooleanQuestion extends Question {
         // Add click listener for the button to get the answer
         const submitButton = document.getElementById("submitAnswer");
         submitButton.addEventListener("click", () => {
+            submitButton.disabled = true;
             const selected = document.querySelector(
                 'input[name="boolean_question"]:checked',
             );
