@@ -27,9 +27,9 @@ export class IntegerQuestion extends Question {
 
         // Render the form with radio buttons
         container.innerHTML += `
-            <div id="integerForm">
+            <div id="integerForm" class="integerForm">
                 <p>${this.questionText}</p>
-                <input type="number" id="integerInput" name="integer_question" placeholder="Enter an integer number" step="1" oninput="this.value = Math.round(this.value);">
+                <input type="number" id="integerInput" class="integerInput" name="integer_question" placeholder="Enter an integer number" step="1" oninput="this.value = Math.round(this.value);">
                 <button type="button" id="submitAnswer">Submit</button>
                 ${this.canBeSkipped ? `<button type="button" id="skipButton">Skip</button>` : ''}
             </div>

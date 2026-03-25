@@ -15,6 +15,7 @@ export class LeaderBoardStage extends Stage {
         const container = document.getElementById(RENDERED_AREA_ID);
 
 
+
         container.innerHTML = `
         <div style="text-align:center;">
             <h2>Leaderboard</h2>
@@ -26,10 +27,13 @@ export class LeaderBoardStage extends Stage {
                 <button id="share-to-twitter-button">ShareToTwitter</button>
             
             </div>
+            
+            
             <form>
             <input type="number" id="integerInput" name="integer_question" placeholder="Enter an integer number" step="1" oninput="this.value = Math.round(this.value);">
-                <input type="text" id="limit">
-                <input type="checkbox" id="sorted">
+<!--            <input id="limit">-->
+            <input type="checkbox" id="sorted">
+            
             </form>
 
             <button id="loadLeaderboard" style="
@@ -53,19 +57,19 @@ export class LeaderBoardStage extends Stage {
 
         document.getElementById("loadLeaderboard").addEventListener("click", () => {
 
-            let limit = document.getElementById("limit").value;
+            // let limit = document.getElementById("limit").value;
             let sorted = document.getElementById("sorted").checked;
 
-            let input = document.getElementById("integerInput").value;
-            let number = parseInt(input);
-
+            let limit = document.getElementById("integerInput").value;
+            let number = parseInt(limit); // Converts strings to integers
+            
             if(sorted){
                 sorted="&sorted";
             }else{
                 sorted="";
             }
 
-            this.DisplayLeaderBoard(number, sorted);
+            this.DisplayLeaderBoard(limit, sorted);
 
         });
 

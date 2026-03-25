@@ -20,10 +20,9 @@ export class TextQuestion extends Question {
         // Render the form with radio buttons
 
         container.innerHTML += `
-            <h2>Score: ${app.score}</h2>
-            <div id="textForm">
+            <div id="textForm" class="textForm">
                 <p>${this.questionText}</p>
-                <input type="text" id="textInput" name="text_question" placeholder="Enter your answer">
+                <input type="text" id="textInput" class="textInput" name="text_question" placeholder="Enter your answer">
                 <button type="button" id="submitAnswer">Submit</button>
                 ${this.canBeSkipped ? `<button type="button" id="skipButton">Skip</button>` : ''}
             </div>
