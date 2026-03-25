@@ -35,7 +35,7 @@ export function playWrongAnimation() {
     // Create a red x
     const check = document.createElement("div");
     check.className = "wrong-animation-container";
-    check.innerHTML = `<img src="Resources/icons/x.png" alt="correct icon" style="width:300px; height:300px;">`;
+    check.innerHTML = `<img src="../Resources/icons/x.png" alt="correct icon" style="width:300px; height:300px;">`;
     container.appendChild(check);
 
     // Animate the checkmark

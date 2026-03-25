@@ -29,7 +29,7 @@ export class QuestionStage extends Stage {
 
 
         const container = document.getElementById(RENDERED_AREA_ID);
-      
+        app.StartGettingLocation();
 
         this.QuestionTypes = {
             "INTEGER": IntegerQuestion,

@@ -10,7 +10,7 @@ import { QuestionStage } from '../Stages/QuestionStage.js';
 import { LeaderBoardStage } from '../Stages/LeaderBoardStage.js';
 
 import { Message } from '../Utils/Message.js';
-
+import { fetchData } from '../Utils/Utils.js';
 
 
 export class App {
@@ -50,6 +50,7 @@ export class App {
         this.name = null;
         this.treasureHuntID = null;
     }
+
     SaveData() {
         let data = {
             session: this.session,
@@ -99,13 +100,31 @@ export class App {
         tmpMSG.Display();
     }
 
-    
     SetTreasureHuntID(id) {
         this.treasureHuntID = id;
         console.log(this.treasureHuntID);
         this.ChangeStage();
     }
 
+    GetLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(SendLocationToAPI, ErrorGettingLocation);
+        }
+        else {
+            const messageTMP = new Message("Location not supported by browser!");
+            messageTMP.Display();
+        }
+    }
+
+    
+
+    StartGettingLocation() {
+        this.GetLocation();
+
+        this.locationInterval = setInterval(() => {
+            this.GetLocation();
+        }, 31000); // slightly more to avoid errors from api
+    }
 
 
 }
@@ -118,3 +137,22 @@ window.addEventListener("beforeunload", () => {
 
     app.SaveData();
 });
+
+
+
+function SendLocationToAPI(position) {
+    const API_URL = `https://codecyprus.org/th/api/location?session=${app.session}&latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`;
+    fetchData(API_URL).then((data) => {
+        if(data.status === "OK") {
+            console.log(data.message);
+        }
+        else {
+            console.log(data.errorMessages);
+        }
+    });
+}
+
+function ErrorGettingLocation() {
+    const messageTMP = new Message("Could not get location");
+    messageTMP.Display();
+}
