@@ -1,4 +1,3 @@
-import { app } from '../App/App.js';
 import { Stage } from './Stage.js';
 
 import { Message } from '../Utils/Message.js';
@@ -10,6 +9,11 @@ import { FadeIn, FadeOut } from '../Animations/AfterQuestionAnims.js';
 
 
 export class LeaderBoardStage extends Stage {
+
+    constructor(app) {
+        super(app); 
+    }
+
     async OnStart() {
         FadeIn();
         const container = document.getElementById(RENDERED_AREA_ID);
@@ -20,8 +24,8 @@ export class LeaderBoardStage extends Stage {
         <div style="text-align:center;">
             <h2>Leaderboard</h2>
             <div>
-                <h2>Name: ${app.name}</h2>
-                <h2>Score: ${app.score}</h2>
+                <h2>Name: ${this.app.name}</h2>
+                <h2>Score: ${this.app.score}</h2>
             </div>
             <div class="share-buttons-wrapper"> 
                 <button id="share-to-twitter-button">ShareToTwitter</button>
@@ -80,12 +84,12 @@ export class LeaderBoardStage extends Stage {
         });
     }
 
-    DisplayLeaderBoard(limit,sorted) {
+    DisplayLeaderBoard(limit, sorted) {
 
         const leaderboard_container = document.getElementById("leaderboard");
 
         const API_URL =
-            `https://codecyprus.org/th/api/leaderboard?session=${app.session}${sorted}&limit=${limit}`;
+            `https://codecyprus.org/th/api/leaderboard?session=${this.app.session}${sorted}&limit=${limit}`;
 
         fetchData(API_URL).then(data => {
 

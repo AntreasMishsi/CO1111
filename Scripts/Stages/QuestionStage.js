@@ -1,10 +1,10 @@
-import { app } from '../App/App.js';
 import { Stage } from './Stage.js';
 
 import { RENDERED_AREA_ID } from '../Utils/ClearRenderer.js'
 import { fetchData } from "../Utils/Utils.js";
 import { Message } from '../Utils/Message.js';
 import { ClearRenderer } from '../Utils/ClearRenderer.js';
+import { CloseScanner, OpenScanner } from '../Utils/Scanner.js';
 
 
 //Questions
@@ -18,18 +18,17 @@ import { FadeIn, FadeOut } from '../Animations/AfterQuestionAnims.js';
 // User A - stated that he would like to see his nickname during question stage
 
 export class QuestionStage extends Stage {
-
+    constructor(app) {
+        super(app); 
+    }
 
     async OnStart() {
 
-        
 
         
-
-
-
+        
         const container = document.getElementById(RENDERED_AREA_ID);
-        app.StartGettingLocation();
+        this.app.StartGettingLocation();
 
         this.QuestionTypes = {
             "INTEGER": IntegerQuestion,
@@ -39,9 +38,9 @@ export class QuestionStage extends Stage {
             "TEXT": TextQuestion,
         };
 
-        if (app.currentQuestionData) {
-            const questionClass = this.QuestionTypes[app.currentQuestionData.questionType];
-            const question = new questionClass({...app.currentQuestionData, parentStage: this});
+        if (this.app.currentQuestionData) {
+            const questionClass = this.QuestionTypes[this.app.currentQuestionData.questionType];
+            const question = new questionClass({...this.app.currentQuestionData, parentStage: this});
             question.Display(RENDERED_AREA_ID);
         } else {
             this.AskQuestion();
@@ -50,23 +49,28 @@ export class QuestionStage extends Stage {
     }
 
     GenerateNavBar() {
+        
         const navbar = document.createElement("div");
 
         navbar.id = "question-stage-navbar";
 
         navbar.innerHTML = `
-            <h2>Name: ${app.name}</h2>
-            <h2>Score: ${app.score}</h2>
+        <div class="navbar-wrapper">
+            <h2>Name: ${this.app.name}</h2>
+            <h2>Score: ${this.app.score}</h2>
+            <button class="open-camera-button" id="open-camera-button">open camera</button>
+        </div>
+
+        <video id="preview" class="video-preview"></video>   
         `
+        
         return navbar;
     }
 
     AskQuestion() {
-        
-        
 
-        const API_URL_QUESTION = `https://codecyprus.org/th/api/question?session=${app.session}`;
-        const API_URL_SCORE = `https://codecyprus.org/th/api/score?session=${app.session}`;
+        const API_URL_QUESTION = `https://codecyprus.org/th/api/question?session=${this.app.session}`;
+        const API_URL_SCORE = `https://codecyprus.org/th/api/score?session=${this.app.session}`;
 
 
         const data = Promise.all([
@@ -74,10 +78,11 @@ export class QuestionStage extends Stage {
             fetchData(API_URL_SCORE)])
             .then(([questionData, scoreData]) => {
 
-                app.score = scoreData.score;
+                this.app.score = scoreData.score;
 
                 if(questionData.completed === true){
-                    app.ChangeStage();
+                    CloseScanner();
+                    this.app.ChangeStage();
                     return;
                 }
 
@@ -88,33 +93,43 @@ export class QuestionStage extends Stage {
                     tmpMSG.Display();
                 }
                 else {
+                    
                     ClearRenderer();
-                    app.SaveData();
+                    this.app.SaveData();
 
                     FadeIn();
                     
-                    app.currentQuestionData = questionData;
+                    this.app.currentQuestionData = questionData;
                     
                     const questionClass = this.QuestionTypes[questionData.questionType];
-                    app.currentQuestion = questionClass;
+                    this.app.currentQuestion = questionClass;
                     const question = new questionClass({...questionData, parentStage: this});
 
                     
                     
                     question.Display(RENDERED_AREA_ID);
+
+                    document.getElementById("open-camera-button").addEventListener("click", () => {
+                        OpenScanner();
+                    });
                     
+
                 }
             });
     }
 
     SkipQuestion() {
-        const API_URL_SKIP_QUESTION = `https://codecyprus.org/th/api/skip?session=${app.session}`;
+        const API_URL_SKIP_QUESTION = `https://codecyprus.org/th/api/skip?session=${this.app.session}`;
+        
         const data = fetchData(API_URL_SKIP_QUESTION).then(data => {
             if(data.status === "OK") {
+                CloseScanner();
                 ClearRenderer();
                 this.AskQuestion();
+                
             }
             else {
+                
                 console.log(data.errorMessages[0]);
                 const tmpMSG = new Message(data.errorMessages[0]);
                 tmpMSG.Display();
@@ -128,3 +143,4 @@ export class QuestionStage extends Stage {
         ClearRenderer();
     }
 }
+

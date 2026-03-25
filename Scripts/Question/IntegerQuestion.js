@@ -1,5 +1,3 @@
-import { app } from "../App/App.js";
-
 import { Question } from "./Question.js";
 
 import { fetchData } from "../Utils/Utils.js";
@@ -10,6 +8,7 @@ import { RENDERED_AREA_ID } from "../Utils/ClearRenderer.js";
 
 import { sleep } from "../Utils/Utils.js";
 import { Message } from "../Utils/Message.js";
+import { CloseScanner } from "../Utils/Scanner.js";
 
 export class IntegerQuestion extends Question {
 
@@ -19,7 +18,6 @@ export class IntegerQuestion extends Question {
     }
 
     Display(parentId) {
-        const API_SCORE = `https://codecyprus.org/th/api/score?session=${app.session}`;
         const container = document.getElementById(parentId);
 
 
@@ -56,6 +54,7 @@ export class IntegerQuestion extends Question {
         if(this.canBeSkipped) {
             const skipButton = document.getElementById("skipButton");
             skipButton.addEventListener("click", () => {
+                CloseScanner();
                 this.Skip();
             });
         }
@@ -63,14 +62,17 @@ export class IntegerQuestion extends Question {
 
 
     async Answear(answear) {
-        const API_URL_ANSWER = `https://codecyprus.org/th/api/answer?session=${app.session}&answer=${answear}`;
+        const API_URL_ANSWER = `https://codecyprus.org/th/api/answer?session=${this.parentStage.app.session}&answer=${answear}`;
 
+        if(this.requiresLocation) {
+            await this.parentStage.app.GetLocation();
+        }
         // Promise that we will get the data
         const dataPromise = fetchData(API_URL_ANSWER);
 
         // start the animation
         await FadeOut();
-
+        CloseScanner();
         // wait till we get the data
         const data = await dataPromise;
 

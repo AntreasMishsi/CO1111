@@ -1,0 +1,12 @@
+.video-preview {
+    width: 100%;
+    max-width: 0px;  
+    height: auto;
+    max-height: 0px;  
+    object-fit: cover;  
+}
+
+.video-preview.active {
+    max-width: 300px; 
+    max-height: 300px;
+}

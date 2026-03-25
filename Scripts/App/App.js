@@ -29,10 +29,10 @@ export class App {
 
         this.appState = new AppState();
         this.StageList = [
-            new ListStage(),
-            new StartStage(),
-            new QuestionStage(),
-            new LeaderBoardStage(),
+            new ListStage(this),
+            new StartStage(this),
+            new QuestionStage(this),
+            new LeaderBoardStage(this),
         ];
         this.StageList[this.appState.getCurentStage()].OnStart();
     }
@@ -115,7 +115,9 @@ export class App {
             messageTMP.Display();
         }
     }
+    GetAsyncLocation() {
 
+    }
     
 
     StartGettingLocation() {
@@ -123,7 +125,7 @@ export class App {
 
         this.locationInterval = setInterval(() => {
             this.GetLocation();
-        }, 31000); // slightly more to avoid errors from api
+        }, 60000); // slightly more to avoid errors from api
     }
 
 
@@ -147,7 +149,9 @@ function SendLocationToAPI(position) {
             console.log(data.message);
         }
         else {
-            console.log(data.errorMessages);
+            
+            const messageTMP = new Message(data.errorMessages);
+            messageTMP.Display();
         }
     });
 }

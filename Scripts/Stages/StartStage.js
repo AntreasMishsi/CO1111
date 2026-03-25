@@ -1,6 +1,3 @@
-
-
-import { app } from '../App/App.js';
 import { Stage } from './Stage.js';
 
 //utils
@@ -10,6 +7,11 @@ import { Message } from '../Utils/Message.js';
 import { FadeIn, FadeOut } from '../Animations/AfterQuestionAnims.js';
 
 export class StartStage extends Stage {
+
+    constructor(app) {
+        super(app); 
+    }
+
     async OnStart() {
         FadeIn();
         const container = document.getElementById(RENDERED_AREA_ID);
@@ -29,26 +31,26 @@ export class StartStage extends Stage {
         </div>
 		`
         
-        document.getElementById("load-data-buttton").addEventListener("click", function(event) {
+        document.getElementById("load-data-buttton").addEventListener("click", (event) => {
             
-            app.LoadCookies();
+            this.app.LoadCookies();
         });
 
-        document.getElementById("startForm").addEventListener("submit", function(event) {
+        document.getElementById("startForm").addEventListener("submit", (event) => {
             event.preventDefault();
 
             const nickname = document.getElementById("nickname-field").value;
             document.getElementById("submit-name-button").disabled = true;
 
-            const API_URL_START = `https://codecyprus.org/th/api/start?player=${nickname}&app=TreasureHuntApp&treasure-hunt-id=${app.treasureHuntID}`;
+            const API_URL_START = `https://codecyprus.org/th/api/start?player=${nickname}&app=TreasureHuntApp&treasure-hunt-id=${this.app.treasureHuntID}`;
             const data = fetchData(API_URL_START).then(data => {
                 if(data.status === "OK") {
-                    app.session = data.session;
-                    app.numOfQuestions = data.numOfQuestions;
-                    app.name = nickname;
+                    this.app.session = data.session;
+                    this.app.numOfQuestions = data.numOfQuestions;
+                    this.app.name = nickname;
                     
-                    app.SaveData();
-                    app.ChangeStage();
+                    this.app.SaveData();
+                    this.app.ChangeStage();
                 }
                 else {
                     document.getElementById("submit-name-button").disabled = false;

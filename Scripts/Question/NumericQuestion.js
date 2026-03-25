@@ -1,10 +1,12 @@
-import { app } from "../App/App.js";
 
 import { Question } from "./Question.js";
 
 import { playCorrectAnimation, playWrongAnimation, animationDuration, FadeOut } from "../Animations/AfterQuestionAnims.js";
+
 import { fetchData } from "../Utils/Utils.js";
 import { sleep } from "../Utils/Utils.js";
+import { CloseScanner } from "../Utils/Scanner.js";
+
 import { Message } from "../Utils/Message.js";
 export class NumericQuestion extends Question {
 
@@ -19,7 +21,6 @@ export class NumericQuestion extends Question {
         container.appendChild(this.parentStage.GenerateNavBar());
         // Render the form with radio buttons
         container.innerHTML += `
-        <h2>Score: ${app.score}</h2>
             <div id="integerForm" class="integerForm">
                 <p>${this.questionText}</p>
                 <input type="number" id="numericInput" class="numericInput" name="numeric_question" placeholder="Enter a number">
@@ -52,6 +53,7 @@ export class NumericQuestion extends Question {
         if(this.canBeSkipped) {
             const skipButton = document.getElementById("skipButton");
             skipButton.addEventListener("click", () => {
+                CloseScanner();
                 this.Skip();
             });
         }
@@ -59,12 +61,16 @@ export class NumericQuestion extends Question {
 
 
     async Answear(answear) {
-        const API_URL_ANSWER = `https://codecyprus.org/th/api/answer?session=${app.session}&answer=${answear}`;
+        const API_URL_ANSWER = `https://codecyprus.org/th/api/answer?session=${this.parentStage.app.session}&answer=${answear}`;
 
+        if(this.requiresLocation) {
+            await this.parentStage.app.GetLocation();
+        }
         // Promise that we will get the data
         const dataPromise = fetchData(API_URL_ANSWER);
 
         // start the animation
+        CloseScanner();
         await FadeOut();
 
         // wait till we get the data

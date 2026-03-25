@@ -3,8 +3,11 @@ import { app } from "../App/App.js";
 import { Question } from "./Question.js";
 
 import { playCorrectAnimation, playWrongAnimation, animationDuration, FadeOut } from "../Animations/AfterQuestionAnims.js";
+
 import { fetchData } from "../Utils/Utils.js";
 import { sleep } from "../Utils/Utils.js";
+import { CloseScanner } from "../Utils/Scanner.js";
+
 import { Message } from "../Utils/Message.js";
 export class TextQuestion extends Question {
 
@@ -50,6 +53,7 @@ export class TextQuestion extends Question {
         if(this.canBeSkipped) {
             const skipButton = document.getElementById("skipButton");
             skipButton.addEventListener("click", () => {
+                CloseScanner();
                 this.Skip();
             });
         }
@@ -57,11 +61,15 @@ export class TextQuestion extends Question {
 
 
     async Answear(answear) {
-        const API_URL_ANSWER = `https://codecyprus.org/th/api/answer?session=${app.session}&answer=${answear}`;
+        const API_URL_ANSWER = `https://codecyprus.org/th/api/answer?session=${this.parentStage.app.session}&answer=${answear}`;
 
+
+        if(this.requiresLocation) {
+            await this.parentStage.app.GetLocation();
+        }
         // Promise that we will get the data
         const dataPromise = fetchData(API_URL_ANSWER);
-        
+        CloseScanner();
         // start the animation
         await FadeOut();
 

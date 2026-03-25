@@ -3,6 +3,10 @@
 
 
 export class Stage {
+    
+    constructor(app) {
+        this.app = app;
+    }
 
     async OnStart() {
         throw new Error("Abstract method 'OnStart' must be implemented by subclass");

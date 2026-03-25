@@ -1,10 +1,10 @@
-import { app } from "../App/App.js";
-
 import { Question } from "./Question.js";
 
 import { playCorrectAnimation, playWrongAnimation, animationDuration, FadeOut } from "../Animations/AfterQuestionAnims.js";
+
 import { fetchData } from "../Utils/Utils.js";
 import { sleep } from "../Utils/Utils.js";
+import { CloseScanner } from "../Utils/Scanner.js";
 
 // Tester C didnt select any of ABCD options, and the app dint notify him
 export class MCQQuestion extends Question {
@@ -51,6 +51,7 @@ export class MCQQuestion extends Question {
         if(this.canBeSkipped) {
             const skipButton = document.getElementById("skipButton");
             skipButton.addEventListener("click", () => {
+                CloseScanner();
                 this.Skip();
             });
         }
@@ -59,13 +60,17 @@ export class MCQQuestion extends Question {
 
 
     async Answear(answear) {
-        const API_URL_ANSWER = `https://codecyprus.org/th/api/answer?session=${app.session}&answer=${answear}`;
+        const API_URL_ANSWER = `https://codecyprus.org/th/api/answer?session=${this.parentStage.app.session}&answer=${answear}`;
 
+        if(this.requiresLocation) {
+            await this.parentStage.app.GetLocation();
+        }
         // Promise that we will get the data
         const dataPromise = fetchData(API_URL_ANSWER);
 
         // start the animation
         await FadeOut();
+        CloseScanner();
 
         // wait till we get the data
         const data = await dataPromise;

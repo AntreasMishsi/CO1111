@@ -1,4 +1,4 @@
-import { app } from "../App/App.js";
+
 
 export class Question {
     constructor({
@@ -46,6 +46,7 @@ export class Question {
         throw new Error("Abstract method 'Answear' must be implemented by subclass");
     }
     Skip() {
+        
         this.parentStage.SkipQuestion();
     }
 }
