@@ -65,7 +65,7 @@ export class IntegerQuestion extends Question {
         const API_URL_ANSWER = `https://codecyprus.org/th/api/answer?session=${this.parentStage.app.session}&answer=${answear}`;
 
         if(this.requiresLocation) {
-            await this.parentStage.app.GetLocation();
+            await this.parentStage.app.SendLocationToApiAsync();
         }
         // Promise that we will get the data
         const dataPromise = fetchData(API_URL_ANSWER);

@@ -6,40 +6,30 @@
     height: 300px;
     justify-content: center;
     display: auto;
-    animation-duration: 1.5s;
-    animation-iteration-count: 1;
-    animation-name: correctAnimation;
+    
+    animation: correctAnimation 1.5s ease-in-out forwards;
     opacity: 0;
+    overflow: visible;
 }
 
 @keyframes correctAnimation {
     0% {
-        transform: rotate(0deg);
+        transform: scale(0.7) ;
         opacity: 0;
-        animation-timing-function: ease-in;
-        transform: scale(1.0);
     }
-    20% {
-        transform: scale(1.3);
+    25% {
+        
         opacity: 1;
-        transform: rotate(180deg);
     }
-    40% {
-        transform: scale(1.5);
-        transform: rotate(360deg);
+    50% {
+        transform: scale(1.2) ;
     }
-    60% {
+    75% {
         
-        transform: scale(1.3);
-        
-    }
-    80% {
         opacity: 1;
-        transform: scale(1.0);
-        
     }
     100% {
-        transform: scale(1.3);
+        transform: scale(0.7);
         opacity: 0;
     }
 }
@@ -50,11 +40,17 @@
     width: 300px;
     height: 300px;
     justify-content: center;
-    display: auto;
     animation-duration: 2s;
     animation-iteration-count: 1;
     animation-name: wrongAnimation;
     opacity: 0;
+    overflow: visible;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+    transform-origin: center;
 }
 
 @keyframes wrongAnimation {

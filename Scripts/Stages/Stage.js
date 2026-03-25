@@ -1,5 +1,5 @@
 // @ts-check
-
+import { RENDERED_AREA_ID } from "../Utils/ClearRenderer.js";
 
 
 export class Stage {
@@ -13,6 +13,22 @@ export class Stage {
     }
     async OnEnd() {
         throw new Error("Abstract method 'OnEnd' must be implemented by subclass");
+    }
+
+    LockAllButtons() {
+        const buttons = document.getElementById(RENDERED_AREA_ID).querySelectorAll("button, input[type='submit']");
+
+        buttons.forEach(el => {
+            el.disabled = true;
+        });
+    }
+
+    UnlockAllButtons() {
+        const buttons = document.getElementById(RENDERED_AREA_ID).querySelectorAll("button, input[type='submit']");
+
+        buttons.forEach(el => {
+            el.disabled = false;
+        });
     }
 
 }

@@ -19,6 +19,7 @@ export class ListStage extends Stage {
     }
     
     async OnStart() {
+        
         FadeIn();
 
         ClearRenderer();
@@ -95,7 +96,7 @@ export class ListStage extends Stage {
             
             form.addEventListener("submit", (event) => {
                 event.preventDefault();
-                submitBtn.disabled = true;
+                this.LockAllButtons();
 
                 const selected = document.querySelector('input[name="treasure_hunt"]:checked');
 
@@ -107,6 +108,7 @@ export class ListStage extends Stage {
 
                 } 
                 else {
+                    this.UnlockAllButtons();
                     submitBtn.disabled = false;
 
                     const tmpMSG = new Message("Please select a treasure hunt");
@@ -120,6 +122,7 @@ export class ListStage extends Stage {
     }
 
     async OnEnd() {
+        this.LockAllButtons();
         await FadeOut();
         ClearRenderer();
     }

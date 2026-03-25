@@ -65,7 +65,7 @@ export class TextQuestion extends Question {
 
 
         if(this.requiresLocation) {
-            await this.parentStage.app.GetLocation();
+            await this.parentStage.app.SendLocationToApiAsync();
         }
         // Promise that we will get the data
         const dataPromise = fetchData(API_URL_ANSWER);

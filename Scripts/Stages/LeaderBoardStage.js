@@ -34,9 +34,8 @@ export class LeaderBoardStage extends Stage {
             
             
             <form>
-            <input type="number" id="integerInput" name="integer_question" placeholder="Enter an integer number" step="1" oninput="this.value = Math.round(this.value);">
-<!--            <input id="limit">-->
-            <input type="checkbox" id="sorted">
+                <input type="number" id="integerInput" name="integer_question" placeholder="Enter an integer number" step="1" oninput="this.value = Math.round(this.value);">
+                <input type="checkbox" id="sorted">
             
             </form>
 

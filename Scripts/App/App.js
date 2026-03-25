@@ -115,8 +115,25 @@ export class App {
             messageTMP.Display();
         }
     }
-    GetAsyncLocation() {
 
+    GetAsyncLocation() {
+        return new Promise((resolve, reject) => {
+
+            if (!navigator.geolocation) {
+                reject({ ok: false, message: "Location not supported by browser!" });
+            } 
+            else {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        resolve({ ok: true, position: position });
+                    },
+                    (error) => {
+                        reject({ ok: false, message: "Could not get location" });
+                    }
+                );
+            }
+
+        });
     }
     
 
@@ -126,6 +143,37 @@ export class App {
         this.locationInterval = setInterval(() => {
             this.GetLocation();
         }, 60000); // slightly more to avoid errors from api
+    }
+
+    async SendLocationToApiAsync() {
+        this.GetAsyncLocation().then((result) => {
+
+            if (result.ok) {
+
+                const position = result.position;
+
+                const API_URL = `https://codecyprus.org/th/api/location?session=${this.session}&latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`;
+
+                fetchData(API_URL).then((data) => {
+
+                    if (data.status === "OK") {
+                        console.log(data.message);
+                    } 
+                    else {
+                        const messageTMP = new Message(data.errorMessages);
+                        messageTMP.Display();
+                    }
+
+                });
+
+            } 
+            else {
+
+                const messageTMP = new Message(result.message);
+                messageTMP.Display();
+            }
+
+        });
     }
 
 

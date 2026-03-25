@@ -48,7 +48,6 @@ export function OpenScanner() {
 
     scanner.addListener('scan',function(Code){
         console.log(Code);
-        document.getElementById("Code").innerHTML= Code;
         const MessageTMP = new Message(Code);
         MessageTMP.Display();
     });
@@ -65,6 +64,12 @@ export function ChangeCamera() {
         scanner.start(cameras[currentCamera]).catch(e => {
             console.error("Camera switch failed:", e);
         });
+
+        scanner.addListener('scan',function(Code){
+        console.log(Code);
+        const MessageTMP = new Message(Code);
+        MessageTMP.Display();
+    });
     }
 }
 

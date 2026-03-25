@@ -13,6 +13,7 @@ export class StartStage extends Stage {
     }
 
     async OnStart() {
+        this.UnlockAllButtons();
         FadeIn();
         const container = document.getElementById(RENDERED_AREA_ID);
 
@@ -40,7 +41,7 @@ export class StartStage extends Stage {
             event.preventDefault();
 
             const nickname = document.getElementById("nickname-field").value;
-            document.getElementById("submit-name-button").disabled = true;
+            this.LockAllButtons();
 
             const API_URL_START = `https://codecyprus.org/th/api/start?player=${nickname}&app=TreasureHuntApp&treasure-hunt-id=${this.app.treasureHuntID}`;
             const data = fetchData(API_URL_START).then(data => {
@@ -53,7 +54,7 @@ export class StartStage extends Stage {
                     this.app.ChangeStage();
                 }
                 else {
-                    document.getElementById("submit-name-button").disabled = false;
+                    this.UnlockAllButtons();
 
                     console.log(data.errorMessages[0]);
                     const tmpMSG = new Message(data.errorMessages[0]);
@@ -68,6 +69,7 @@ export class StartStage extends Stage {
     }
 
     async OnEnd() {
+        this.LockAllButtons();
         await FadeOut();
         ClearRenderer();
     }
