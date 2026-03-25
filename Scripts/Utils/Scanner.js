@@ -1,6 +1,9 @@
 import { Message } from "./Message.js";
 
 let scanner = null;
+let currentCamera = 0;
+
+let cameras = [];
 
 export function OpenScanner() {
 
@@ -28,15 +31,15 @@ export function OpenScanner() {
 
 
     Instascan.Camera.getCameras().then(function(allcams){
-        const cameras= allcams;
+    cameras = allcams;
 
-        if(cameras.length === 0){
-            alert("No cameras found");
-            return;
-        }
+    if(cameras.length === 0){
+        alert("No cameras found");
+        return;
+    }
 
-        // activates first camera
-        scanner.start(cameras[0]);
+    // activates first camera
+    scanner.start(cameras[currentCamera]);
 
     }).catch(function(e){
         console.error(e);
@@ -49,6 +52,20 @@ export function OpenScanner() {
         const MessageTMP = new Message(Code);
         MessageTMP.Display();
     });
+}
+
+export function ChangeCamera() {
+    if(scanner) {
+        scanner.stop();
+
+        // move to next camera
+        currentCamera = (currentCamera + 1) % cameras.length;
+
+        // start new camera
+        scanner.start(cameras[currentCamera]).catch(e => {
+            console.error("Camera switch failed:", e);
+        });
+    }
 }
 
 export function CloseScanner() {

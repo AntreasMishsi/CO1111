@@ -4,7 +4,7 @@ import { RENDERED_AREA_ID } from '../Utils/ClearRenderer.js'
 import { fetchData } from "../Utils/Utils.js";
 import { Message } from '../Utils/Message.js';
 import { ClearRenderer } from '../Utils/ClearRenderer.js';
-import { CloseScanner, OpenScanner } from '../Utils/Scanner.js';
+import { ChangeCamera, CloseScanner, OpenScanner } from '../Utils/Scanner.js';
 
 
 //Questions
@@ -61,7 +61,9 @@ export class QuestionStage extends Stage {
             <button class="open-camera-button" id="open-camera-button">open camera</button>
         </div>
 
-        <video id="preview" class="video-preview"></video>   
+        <video id="preview" class="video-preview"></video> 
+        <button class="change-camera-button" id="change-camera-button">change camera</button>
+        
         `
         
         return navbar;
@@ -111,6 +113,9 @@ export class QuestionStage extends Stage {
 
                     document.getElementById("open-camera-button").addEventListener("click", () => {
                         OpenScanner();
+                    });
+                    document.getElementById("change-camera-button").addEventListener("click", () => {
+                        ChangeCamera();
                     });
                     
 
