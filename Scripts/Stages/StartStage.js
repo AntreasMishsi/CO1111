@@ -24,8 +24,8 @@ export class StartStage extends Stage {
                         <div class="Name">
                             <h1>Enter your Name</h1>
                         </div>
-                        <input class="surname" id="nickname-field" type="text" name="Firstname" placeholder="Name"><br><br>
-                        <input class="submit-btn" type="submit" name="Submit" placeholder="Submit" id="submit-name-button"><br><br>
+                        <input class="surname" id="nickname-field" type="text" name="Firstname" placeholder="Name">
+                        <input class="submit-btn" type="submit" name="Submit" placeholder="Submit" id="submit-name-button">
                     </form>
                     <button class="load-data-button" id="load-data-buttton">Load data</button>
                 </div>

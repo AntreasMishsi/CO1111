@@ -12,20 +12,190 @@
     <title>App</title>
 </head>
 <body>
+<div class="head">
+    <img src="Resources/pictures/logo.png" class="logo" alt="Logo" />
+    <div class="details">
+        <div class="details">
+            <a href="#help-modal" class="help-link">HELP</a>
+            <a href="#about-modal" class="about-link">ABOUT</a>
+        </div>
+    </div>
+</div>
+<div id="about-modal" class="modal">
+    <div class="modal-content">
+        <h2>About the App</h2>
+        <p>This our Treasure Hunt game created by Map Breakers.</p>
+        <p>We are Team D </p>
+        <p>Members:</p>
+        <p>Andreas Mishis</p>
+        <p>Michalis Andreou</p>
+        <p>Andreas Georgiou</p>
+        <p>Pavlo Masliuk</p>
+        <a href="#" class="close-btn">Close</a>
+    </div>
+</div>
 
+<div id="help-modal" class="modal">
+    <div class="modal-content">
+        <h2>Help</h2>
+        <p>Treasure Hunt is a location-based quiz game with multiple levels of difficulty.</p><br>
+        <p>Each stop can have different types of questions:</p><br>
+        <p>Multiple choice questions</p>
+        <p>Text answer questions</p>
+        <p>QR code scanner questions</p>
+        <p>Location check-in tasks (go to a place and confirm you're there)</p><br>
+        <p>You can skip some questions if you get stuck, but you'll earn more points by answering correctly.</p><br>
+        <p>Your score is tracked throughout the game and you can view the leaderboard to see how you compare with other players.</p>
+        <a href="#" class="close-btn">Close</a>
+    </div>
+</div>
 
     <div class="message-container" id="message-container">
 
     </div>
-    <div class="container">
-        <div class="camera-button"></div>
-        <div id="progress-dots"></div>
-        <p id="question-label"></p>
-        <p id="score-label"></p>
-        <div class="rendered-area fade-in" id="rendered-area">
+<div class="top-info">
+    <p id="question-label"></p>
+    <p id="score-label"></p>
+</div>
 
+<div class="container">
+    <div class="camera-button"></div>
+    <div class="rendered-area fade-in" id="rendered-area"></div>
+</div>
+<!--<div class="follow">Follow us</div>-->
+<!--<div class="socials">-->
+<!--    <a href="https://www.instagram.com/mapbreakers?igsh=MTlzcThhd2NlbXQ3dw%3D%3D" target="_blank"><img src="Resources/pictures/instagram.png" height="50" width="50"/></a>-->
+<!--    <a href="https://x.com/mapbreakersco11?s=21 " target="_blank"><img src="Resources/pictures/x.png" height="50" width="50"/></a>-->
+<!--    <a href="https://www.facebook.com/share/18GshCkxij/?mibextid=wwXIfr" target="_blank"><img src="Resources/pictures/facebook.png" height="50" width="50"/></a>-->
+<!--</div>-->
+<div class="bottom-nav">
+    <a href="index.html" class="bottom-nav-item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        <span>Home</span>
+    </a>
+    <a href="#" class="bottom-nav-item" id="scan-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+            <rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="3" height="3"/>
+        </svg>
+        <span>Scan</span>
+    </a>
+    <a href="#social-modal" class="bottom-nav-item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+        </svg>
+        <span>Social</span>
+    </a>
+    <a href="#" class="bottom-nav-item" id="leaderboard-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="20" x2="18" y2="10"/>
+            <line x1="12" y1="20" x2="12" y2="4"/>
+            <line x1="6" y1="20" x2="6" y2="14"/>
+        </svg>
+        <span>Leaderboard</span>
+    </a>
+</div>
+<div id="camera-modal" class="camera-modal">
+    <div class="camera-modal-content">
+        <video id="preview" class="video-preview"></video>
+        <div class="camera-modal-buttons">
+            <button id="change-camera-button" class="camera-modal-btn">Change Camera</button>
+            <button id="close-camera-button" class="camera-modal-btn">Close</button>
         </div>
     </div>
+</div>
+<div id="leaderboard-modal" class="leaderboard-modal">
+    <div class="leaderboard-modal-content">
+        <div class="leaderboard-modal-header">
+            <h2>Leaderboard</h2>
+            <button id="close-leaderboard-button" class="close-leaderboard-btn">✕</button>
+        </div>
+        <div id="leaderboard-modal-body"></div>
+    </div>
+</div>
+
+<div class="copyright">
+    Version 1.0.0, Created by MapBreakers<br>
+    Copyright © MapBreakers All rights reserved.
+</div>
+<div id="social-modal" class="modal social-modal">
+    <div class="modal-content">
+        <h2>Follow Us</h2>
+        <div class="social-links">
+            <a href="https://www.instagram.com/mapbreakers?igsh=MTlzcThhd2NlbXQ3dw%3D%3D" target="_blank">
+                <img src="Resources/pictures/instagram.png" height="50" width="50"/>
+            </a>
+            <a href="https://x.com/mapbreakersco11?s=21" target="_blank">
+                <img src="Resources/pictures/x.png" height="50" width="50"/>
+            </a>
+            <a href="https://www.facebook.com/share/18GshCkxij/?mibextid=wwXIfr" target="_blank">
+                <img src="Resources/pictures/facebook.png" height="50" width="50"/>
+            </a>
+        </div>
+        <a href="#" class="close-btn">Close</a>
+    </div>
+</div>
+<script type="module">
+    import { OpenScanner, CloseScanner, ChangeCamera } from './Scripts/Utils/Scanner.js';
+    import { app } from './Scripts/App/App.js';
+
+    document.getElementById('scan-btn').addEventListener('click', (e) => {
+        e.preventDefault();
+        document.getElementById('camera-modal').style.display = 'flex';
+        OpenScanner();
+    });
+
+    document.getElementById('close-camera-button').addEventListener('click', () => {
+        document.getElementById('camera-modal').style.display = 'none';
+        CloseScanner();
+    });
+
+    document.getElementById('change-camera-button').addEventListener('click', () => {
+        ChangeCamera();
+    });
+
+    document.getElementById('leaderboard-btn').addEventListener('click', (e) => {
+        e.preventDefault();
+        const modal = document.getElementById('leaderboard-modal');
+        const body = document.getElementById('leaderboard-modal-body');
+        modal.style.display = 'flex';
+
+        fetch(`https://codecyprus.org/th/api/leaderboard?session=${app.session}&sorted`)
+            .then(r => r.json())
+            .then(data => {
+                body.innerHTML = `
+    <table class="lb-modal-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Player</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            ${data.leaderboard.map((p, i) => `
+                <tr>
+                    <td>${i + 1}</td>
+                    <td>${p.player}</td>
+                    <td>${p.score} pts</td>
+                </tr>
+            `).join('')}
+        </tbody>
+    </table>
+`;
+            });
+    });
+
+    document.getElementById('close-leaderboard-button').addEventListener('click', () => {
+        document.getElementById('leaderboard-modal').style.display = 'none';
+
+    });
+</script>
 
     <script type="module" src="Scripts/App/App.js"></script>
 </body>
