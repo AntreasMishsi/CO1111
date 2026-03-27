@@ -6,7 +6,7 @@ import { fetchData } from "../Utils/Utils.js";
 import { sleep } from "../Utils/Utils.js";
 import { CloseScanner } from "../Utils/Scanner.js";
 
-import { RENDERED_AREA_ID } from "../Utils/ClearRenderer.js";
+import { ClearRenderer, RENDERED_AREA_ID } from "../Utils/ClearRenderer.js";
 
 export class BooleanQuestion extends Question {
     constructor(props) {
@@ -68,9 +68,13 @@ export class BooleanQuestion extends Question {
 
         // start the animation
         await FadeOut();
+        
         CloseScanner();
+        ClearRenderer();
+        
         // wait till we get the data
         const data = await dataPromise;
+       
 
         if (data.correct == false) {
             
