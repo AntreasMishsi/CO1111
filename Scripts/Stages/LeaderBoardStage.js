@@ -21,37 +21,20 @@ export class LeaderBoardStage extends Stage {
 
 
         container.innerHTML = `
-        <div style="text-align:center;">
-            <h2>Leaderboard</h2>
-            <div>
-                <h2>Name: ${this.app.name}</h2>
-                <h2>Score: ${this.app.score}</h2>
-            </div>
-            <div class="share-buttons-wrapper"> 
-                <button id="share-to-twitter-button">ShareToTwitter</button>
-            
-            </div>
-            
-            
-            <form>
-                <input type="number" id="integerInput" name="integer_question" placeholder="Enter an integer number" step="1" oninput="this.value = Math.round(this.value);">
-                <input type="checkbox" id="sorted">
-            
-            </form>
-
-            <button id="loadLeaderboard" style="
-                padding:10px 20px;
-                font-size:16px;
-                cursor:pointer;
-                margin-bottom:20px;
-            ">
-                Load Leaderboard
-            </button> 
-
-
-            <div id="leaderboard"></div>
+    <div class="leaderboard-wrapper">
+        <h2 class="leaderboard-title">Leaderboard</h2>
+        <div class="your-score-box">
+            <span class="your-score-label">Name: ${this.app.name}</span>
+            <span class="your-score-value">${this.app.score} pts</span>
         </div>
-        `;
+        <div class="leaderboard-controls">
+            <input type="number" id="integerInput" class="leaderboard-input" placeholder="How many players" step="1" oninput="this.value = Math.round(this.value);">
+            <button id="share-to-twitter-button" class="leaderboard-btn">Share to Twitter</button>
+            <button id="loadLeaderboard" class="leaderboard-btn">Load Leaderboard</button>
+        </div>
+        <div id="leaderboard"></div>
+    </div>
+`;
 
         // Share button
         document.getElementById("share-to-twitter-button").addEventListener("click", () => {
@@ -61,7 +44,7 @@ export class LeaderBoardStage extends Stage {
         document.getElementById("loadLeaderboard").addEventListener("click", () => {
 
             // let limit = document.getElementById("limit").value;
-            let sorted = document.getElementById("sorted").checked;
+            let sorted = false;
 
             let limit = document.getElementById("integerInput").value;
             let number = parseInt(limit); // Converts strings to integers
@@ -99,22 +82,17 @@ export class LeaderBoardStage extends Stage {
             }
 
             leaderboard_container.innerHTML = `
-            <table style="
-                width:100%;
-                border-collapse:collapse;
-                text-align:center;
-                font-size:18px;
-            ">
-                <thead style="background:#333;color:white;">
-                    <tr>
-                        <th style="padding:10px;border:1px solid #ccc;">Rank</th>
-                        <th style="padding:10px;border:1px solid #ccc;">Player</th>
-                        <th style="padding:10px;border:1px solid #ccc;">Score</th>
-                    </tr>
-                </thead>
+                <table class="lb-modal-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Player</th>
+                            <th>Score</th>
+                        </tr>
+                    </thead>
                 <tbody id="leaderboard-body"></tbody>
-            </table>
-            `;
+                </table>
+`;
             const tableBody = document.getElementById("leaderboard-body");
 
             data.leaderboard.slice(0,limit).forEach((player, index) => {
@@ -123,16 +101,10 @@ export class LeaderBoardStage extends Stage {
                 row.classList.add("fade-in");
 
                 row.innerHTML = `
-                <td style=" color:white;padding:10px;border:1px solid #ccc;">
-                    ${index+1}
-                </td>
-                <td style="color:white;padding:10px;border:1px solid #ccc;">
-                    ${player.player}
-                </td>
-                <td style="color:white;padding:10px;border:1px solid #ccc;">
-                    ${player.score}
-                </td>
-                `;
+                    <td>${index + 1}</td>
+                    <td>${player.player}</td>
+                    <td>${player.score} pts</td>
+               `;
 
                 tableBody.appendChild(row);
             });

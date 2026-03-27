@@ -23,14 +23,16 @@ export class MCQQuestion extends Question {
         container.innerHTML += `
 <div class="mcqForm">
                 <p>${this.questionText}</p>
+                <div class="radio-wrapper">
                 <input type="radio" id="A" name="mcq_question" value="A">
-                <label for="A">A</label><br>
+                <label for="A">A</label>
                 <input type="radio" id="B" name="mcq_question" value="B">
-                <label for="B">B</label><br>
+                <label for="B">B</label>
                 <input type="radio" id="C" name="mcq_question" value="C">
-                <label for="C">C</label><br>
+                <label for="C">C</label>
                 <input type="radio" id="D" name="mcq_question" value="D">
-                <label for="D">D</label><br>
+                <label for="D">D</label>
+                </div>
                 <button type="button" id="submitAnswer">Submit</button>
                 ${this.canBeSkipped ? `<button type="button" id="skipButton">Skip</button>` : ''}
             </div>

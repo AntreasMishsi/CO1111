@@ -23,8 +23,8 @@ export class QuestionStage extends Stage {
     }
 
     async OnStart() {
-
-
+        document.getElementById('scan-btn').style.display = 'flex';
+        document.getElementById('leaderboard-btn').style.display = 'flex';
         
         
         const container = document.getElementById(RENDERED_AREA_ID);
@@ -49,23 +49,17 @@ export class QuestionStage extends Stage {
     }
 
     GenerateNavBar() {
-        
         const navbar = document.createElement("div");
-
         navbar.id = "question-stage-navbar";
 
         navbar.innerHTML = `
         <div class="navbar-wrapper">
             <h2>Name: ${this.app.name}</h2>
             <h2>Score: ${this.app.score}</h2>
-            <button class="open-camera-button" id="open-camera-button">open camera</button>
         </div>
-
-        <video id="preview" class="video-preview"></video> 
-        <button class="change-camera-button" id="change-camera-button">change camera</button>
-        
-        `
-        
+        <button class="open-camera-button" id="open-camera-button" style="display:none;"></button>
+        <button class="change-camera-button" id="change-camera-button" style="display:none;"></button>
+    `
         return navbar;
     }
 
@@ -144,6 +138,8 @@ export class QuestionStage extends Stage {
     }
 
     async OnEnd() {
+        document.getElementById('scan-btn').style.display = 'none';
+        document.getElementById('leaderboard-btn').style.display = 'none';
         await FadeOut();
         ClearRenderer();
     }

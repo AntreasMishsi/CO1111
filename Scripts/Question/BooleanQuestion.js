@@ -21,10 +21,12 @@ export class BooleanQuestion extends Question {
         container.innerHTML += `
             <div id="booleanForm" class="booleanForm">
                     <p>${this.questionText}</p>
+                    <div class="radio-wrapper">
                     <input type="radio" id="true" name="boolean_question" value="true">
-                    <label id="true1" for="true">True</label><br>
+                    <label id="true1" for="true">True</label>
                     <input type="radio" id="false" name="boolean_question" value="false">
-                    <label for="false">False</label><br>
+                    <label for="false">False</label>
+                    </div>
                     <button type="button" id="submitAnswer">Submit</button>
                     ${this.canBeSkipped ? `<button type="button" id="skipButton">Skip</button>` : ""}
             </div>
