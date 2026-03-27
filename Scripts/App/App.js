@@ -106,6 +106,8 @@ export class App {
         this.ChangeStage();
     }
 
+    
+
     GetLocation() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(SendLocationToAPI, ErrorGettingLocation);
@@ -115,6 +117,11 @@ export class App {
             messageTMP.Display();
         }
     }
+// eroor messages
+//ui improvments
+//progressive web app
+// analytics
+// coments
 
     GetAsyncLocation() {
         return new Promise((resolve, reject) => {
@@ -146,6 +153,13 @@ export class App {
     }
 
     async SendLocationToApiAsync() {
+
+// navigator.geolocation.getCurrentPosition((location) => {
+
+// }, (error) => {
+
+// });
+
         this.GetAsyncLocation().then((result) => {
 
             if (result.ok) {
