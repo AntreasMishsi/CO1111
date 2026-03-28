@@ -101,8 +101,7 @@ export class LeaderBoardStage extends Stage {
                 row.classList.add("fade-in");
 
                 if (index === playerIndex) {
-                    row.style.backgroundColor = "#ffd700";
-                    row.style.fontWeight = "bold";
+                    row.classList.add("highlight-row");
                 }
 
                 row.innerHTML = `
@@ -116,12 +115,12 @@ export class LeaderBoardStage extends Stage {
             });
 
             if (playerIndex >= limit && playerIndex !== -1) {
+
                 const player = data.leaderboard[playerIndex];
 
                 const row = document.createElement("tr");
-                row.style.backgroundColor = "#ffd700";
-                row.style.fontWeight = "bold";
-
+                
+                row.classList.add("highlight-row");
                 row.innerHTML = `
                     <td>${playerIndex + 1}</td>
                     <td>${player.player}</td>

@@ -13,7 +13,11 @@ body {
     overflow-y: auto;
 }
 
-
+.container {
+    max-width: 400px;
+    margin: 0px auto;
+    min-height: 100vh;
+}
 
 /*colors moving in bg*/
 @keyframes bgMove {
@@ -244,6 +248,12 @@ body {
     outline: none;
     text-align: center;
 }
+
+.question-stage-navbar {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
 /*buttons*/
 .submit-btn, .load-data-button {
     width: 80%;
@@ -264,12 +274,20 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 4px;
-    position: fixed;
-    top: 90px;
-    left: 0;
+    
+    margin-top: 50px;
+
     width: 100%;
+
     z-index: 998;
     text-align: center;
+
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow:
+            0 8px 32px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
 }
 
 .navbar-wrapper h2 {
@@ -298,16 +316,13 @@ body {
 .integerForm,
 .mcqForm,
 .textForm {
-    position: absolute;
-    top: 30%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    margin-top: 120px;
+    
+    margin-top: 30px;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
+
     border-radius: 20px;
     padding: 30px 24px;
-    width: 90%;
     max-width: 400px;
     display: flex;
     flex-direction: column;
@@ -720,17 +735,17 @@ input[type="radio"]:checked + label {
     box-sizing: border-box;
 }
 
-/*animations for tick  and x */
-.correct-animation-container,
-.wrong-animation-container {
-    position: fixed;
-    top: 30%;
-    left: 30%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
+
+
+
+
+/* #region Ledearboard*/
+
+.highlight-row {
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+    font-weight: bold;
 }
 
-
+/* #endregion */

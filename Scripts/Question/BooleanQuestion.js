@@ -78,7 +78,7 @@ export class BooleanQuestion extends Question {
             playCorrectAnimation(data.message);
             this.parentStage.app.currentQuestionIndex++;
         }
-
+        console.log(animationDuration);
         await sleep(animationDuration);
         this.parentStage.AskQuestion();
     }

@@ -39,7 +39,7 @@ export function playWrongAnimation(text) {
     const check = document.createElement("div");
     check.className = "wrong-animation-container";
     check.innerHTML = `
-    <img src="Resources/icons/x.png" alt="wrong icon" style="width:300px; height:300px;">
+    <img src="Resources/icons/x.png" alt="wrong icon" style="width:300px; height:300px; margin-top: 250px;">
     <p class="wrong-animation-text">${text}</p>`;
     container.appendChild(check);
 

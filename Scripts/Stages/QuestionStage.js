@@ -52,15 +52,14 @@ export class QuestionStage extends Stage {
     GenerateNavBar() {
         const navbar = document.createElement("div");
         navbar.id = "question-stage-navbar";
+        navbar.className = "question-stage-navbar";
 
         navbar.innerHTML = `
         <div class="navbar-wrapper">
             <h2>Name: ${this.app.name}</h2>
             <h2>Score: ${this.app.score}</h2>
-            <p>Question ${this.app.currentQuestionIndex} of ${this.app.numOfQuestions}</p>
-        </div>
-
-        
+            <h2>Question ${this.app.currentQuestionIndex} of ${this.app.numOfQuestions}</h2>
+        </div>     
     `
         return navbar;
     }
@@ -108,9 +107,7 @@ export class QuestionStage extends Stage {
                     
                     question.Display(RENDERED_AREA_ID);
 
-                    document.getElementById("open-camera-button").addEventListener("click", () => {
-                        OpenScanner();
-                    });
+                    
                     document.getElementById("change-camera-button").addEventListener("click", () => {
                         ChangeCamera();
                     });
