@@ -11,16 +11,19 @@ export const animationDuration = 1500;
 export const FADE_IN_DURATION = 500;
 export const FADE_OUT_DURATION = 500;
 
-export function playCorrectAnimation() {
+export function playCorrectAnimation(text) {
 
     const container = document.getElementById(RENDERED_AREA_ID);
     ClearRenderer();
     // Create a green checkmark
     const check = document.createElement("div");
     check.className = "correct-animation-container";
-    check.innerHTML = `<img src="Resources/icons/check.png" alt="correct icon" style="width:300px; height: 300px;">`;
+    check.innerHTML = `
+    <img src="Resources/icons/check.png" alt="correct icon" style="width:300px; height: 300px;">
+    <p class="correct-animation-text">${text}</p>
+    `;
     check.style.fontSize = "50px";
-    check.style.color = "green";
+    
     container.appendChild(check);
 
 
@@ -29,16 +32,18 @@ export function playCorrectAnimation() {
 }
 
 
-export function playWrongAnimation() {
+export function playWrongAnimation(text) {
     const container = document.getElementById(RENDERED_AREA_ID);
     ClearRenderer();
     // Create a red x
     const check = document.createElement("div");
     check.className = "wrong-animation-container";
-    check.innerHTML = `<img src="Resources/icons/x.png" alt="wrong icon" style="width:300px; height:300px;">`;
+    check.innerHTML = `
+    <img src="Resources/icons/x.png" alt="wrong icon" style="width:300px; height:300px;">
+    <p class="wrong-animation-text">${text}</p>`;
     container.appendChild(check);
 
-    // Animate the checkmark
+    
     
 
     // Fade out and remove after 1 second

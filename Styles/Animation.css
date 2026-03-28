@@ -5,11 +5,19 @@
     width: 300px;
     height: 300px;
     justify-content: center;
-
+    text-align: center;
+    display: auto;
     
     animation: correctAnimation 1.5s ease-in-out forwards;
     opacity: 0;
     overflow: visible;
+    display: block;
+    margin: auto;
+    
+}
+.correct-animation-text {
+  color: #5abd09;
+  font-size: 16px;
 }
 
 @keyframes correctAnimation {
@@ -36,7 +44,7 @@
 
 
 .wrong-animation-container {
-    color: #4FC3F7;
+    margin: auto;
     width: 300px;
     height: 300px;
     justify-content: center;
@@ -45,9 +53,16 @@
     animation-name: wrongAnimation;
     opacity: 0;
     overflow: visible;
+    text-align: center;
+
     display: flex;
     align-items: center;
     transform-origin: center;
+    flex-direction: column;
+}
+.wrong-animation-text {
+  color: #980707;
+  font-size: 16px;
 }
 
 @keyframes wrongAnimation {
