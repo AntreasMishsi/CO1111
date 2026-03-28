@@ -11,26 +11,20 @@ html, body {
 
 }
 
-/*===============
-HEADER
-================*/
+/*header*/
 .head {
     display: flex;
     justify-content: space-between;
     color: white;
 }
 
-/*===============
-LOGO
-================*/
+/*logo*/
 .logo {
     width: 100px;
     height: 100px;
 }
 
-/*===============
-HELP AND ABOUT DETAILS
-================*/
+/*help and about*/
 .details {
     display: flex;
     gap: 10px;
@@ -38,10 +32,7 @@ HELP AND ABOUT DETAILS
     margin-top: 40px;
     margin-right: 10px;
 }
-
-/*===============
-      BODY
-================*/
+/*body*/
 .body {
     position: absolute;
     top: 50%;
@@ -54,9 +45,7 @@ HELP AND ABOUT DETAILS
     color:white;
 }
 
-/*===============
-     TITLE
-================*/
+/*title*/
 .btn_title {
     color: white;
     font-size: 18px;
@@ -64,18 +53,14 @@ HELP AND ABOUT DETAILS
     margin-bottom: 25px;
 
 }
-/*===============
-CUSTOM CSS PROPERTY
-================*/
+/*custom css property */
 @property --angle{
     syntax: "<angle>";/*tells the browser that this an angle*/
     initial-value: 0deg;/*starting from 0*/
     inherits: false;/*allows it loop every time*/
 }
 
-/*===============
-START BUTTON
-================*/
+/*start btn*/
 .btn {
     font-size: 17px;
     padding: 12px 40px;
@@ -88,9 +73,7 @@ START BUTTON
     position: relative;
 }
 
-/*========================
-OUTLINE EFFECT AND COLORS
-========================*/
+/*colors to rotate*/
 .btn::after, .btn::before {
     content: '';
     position: absolute;
@@ -101,17 +84,13 @@ OUTLINE EFFECT AND COLORS
     animation: spin 3s linear infinite;
 }
 
-/*===============
-GLOW EFFECT
-================*/
+/*glow effect*/
 .btn::before {
     filter: blur(20px);
     opacity: 0.8; /*shadows*/
 }
 
-/*===============
-ROTATION
-================*/
+/*rotation*/
 @keyframes spin {
     from {
         --angle: 0deg
@@ -121,9 +100,7 @@ ROTATION
     }
 }
 
-/*===============
-FOLLOW
-================*/
+/*follow*/
 .follow {
     position: absolute;
     bottom: 190px;
@@ -133,9 +110,7 @@ FOLLOW
     font-size: 20px;
 }
 
-/*===============
-SOCIAL MEDIA ICONS
-================*/
+/*social media icons*/
 .socials {
     position: absolute;
     bottom:120px;
@@ -145,9 +120,7 @@ SOCIAL MEDIA ICONS
     gap: 30px;
 }
 
-/*===============
-ICONS
-================*/
+/*icons*/
 .icon {
     width: 40px;
     cursor: pointer;
@@ -211,337 +184,4 @@ ICONS
 
 #btn{
     text-align: center;
-}
-
-.TreasureHuntForm {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 20px;
-    width: 100%;
-}
-
-.submit-btn {
-    width: 250px;
-    padding: 12px 15px;
-    background: #4FC3F7;
-    border: none;
-    border-radius: 10px;
-    color: white;
-    font-size: 20px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.submit-btn:hover,.submit-btn:active {
-    background: red;
-    color: white;
-    transform: translateY(-2px);
-}
-
-/* Default box */
-.treasure-hunt {
-    background: #0f0f0f;
-    border: 2px solid rgba(255, 255, 255, 0.15);
-    padding: 18px;
-    border-radius: 12px;
-    color: white;
-    width: 80%;
-    height: auto;
-    max-width: 500px;
-    cursor: pointer;
-    transition: 0.25s ease;
-    margin:10px;
-    font-size: 25px;
-}
-
-/* Selected box stays highlighted */
-.treasure-hunt.selected {
-    border-color: #4FC3F7;
-    box-shadow: 0 0 10px #4FC3F7;
-    transform: translateY(-2px);
-}
-
-input[type=radio]{
-    cursor: pointer;
-}
-
-.treasure-hunt:hover {
-    cursor: pointer;
-    border-color: #4FC3F7;
-}
-
-.treasure-hunt.disabled {
-    opacity: 0.4;
-    pointer-events: none;
-    border-color: rgba(255, 255, 255, 0.1);
-}
-
-@media (max-width: 360px) {
-    .TreasureHuntForm{
-        gap: 10px;
-        width:80%;
-        padding: 14px;
-    }
-    .submit-btn{
-        font-size: 16px;
-        padding: 12px;
-    }
-}
-
-@media (min-width: 360px) and (max-width: 800px) {
-    .treasure-hunt {
-        width:90%;
-        font-size: 18px;
-    }
-    .submit-btn{
-        width:90%;
-    }
-}
-
-/*===========================
-FORM CONTAINER
-===========================*/
-.login{
-    width:100%;
-    display: flex;
-    justify-content: center;
-}
-
-/*=============
-USER NAME INPUT
-==============*/
-#nickname-field {
-    width: 90%;
-    max-width: 350px;
-    padding: 12px 15px;
-    border-radius: 10px;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    background: #0f0f0f;
-    color: white;
-    font-size: 16px;
-    outline: none;
-    transition: 0.25s ease;
-    margin: 10px 0 40px;
-}
-
-#nickname-field:focus {
-    border-color: #4FC3F7;
-    box-shadow: 0 0 10px #4FC3F7;
-}
-
-.form-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100dvh;
-}
-
-.forms {
-    text-align: center;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    max-width: 400px;
-    gap:15px;
-}
-
-/*===============
-SUBMIT BUTTON
-================*/
-.submit{
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
-    position: relative;
-    cursor: pointer;
-    text-align: center;
-    width: 90%;
-    max-width: 350px;
-    transition: .3s;
-    margin:0;
-    border-radius: 23px;
-    padding: 18px;
-    background: white;
-    border: none;
-}
-
-/*=======================
-INTERACTIVE SUBMIT BUTTON
-=========================*/
-.submit:active{
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.05);
-    transform: translateY(-2px);
-}
-
-/*=======================
-LOAD DATA BUTTON(COOKIES)
-========================*/
-#load-data-button{
-    border: none;
-    cursor: pointer;
-    background: #4FC3F7;
-    color: white;
-    border-radius: 10px;
-    padding: 5px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-/*==========================
-INTERACTIVE LOAD DATA BUTTON
-============================*/
-#load-data-button:active, #load-data-button:hover{
-    transform: translateY(-2px);
-    background-color: red;
-}
-
-/*================
-INTEGER QUESTION
-==================*/
-.integerForm{
-    color: white;
-    border-radius: 10px;
-    border: #4FC3F7 solid 3px;
-    width: 50%;
-    height: auto;
-    min-width: 500px;
-    padding: 30px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 18px;
-    position: relative;
-    margin: 15rem auto;
-}
-
-/*================
-SOLUTION CONTAINER
-==================*/
-#integerInput{
-    padding: 10px;
-    border-radius: 10px;
-    border: none;
-    position: relative;
-    margin-top: 20px;
-    cursor: pointer;
-}
-
-/*=====================
-TRUE OR FALSE QUESTION
-======================*/
-.booleanForm{
-    color: white;
-    border-radius: 10px;
-    border: 3px solid #4FC3F7;
-    width: 50%;
-    padding: 5px;
-    height: 210px;
-    margin: 10rem auto 1.5rem;
-    cursor: pointer;
-    font-size: 20px;
-}
-
-/*==================
-HTML QUOTES QUESTION
-===================*/
-.mcqForm{
-    color: white;
-    border-radius: 10px;
-    border: 3px solid #4FC3F7;
-    width: 50%;
-    min-width: 500px;
-    padding: 10px;
-    height: 280px;
-    margin: 10rem auto;
-}
-
-.mcq_question{
-    position: relative;
-    margin-top: 10px;
-}
-
-/*============================
-UCLAN CYPRUS ENTRANCE QUESTION
-==============================*/
-.textForm{
-    color: white;
-    border-radius: 10px;
-    border: 3px solid #4FC3F7;
-    width: 50%;
-    height: auto;
-    padding: 10px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 18px;
-    position: relative;
-    margin: 15rem auto;
-}
-
-/*================
-SOLUTION CONTAINER
-==================*/
-#textInput{
-    border: none;
-    border-radius: 10px;
-    padding: 10px;
-}
-
-/*================
-SUBMIT BUTTON
-==================*/
-#submitAnswer{
-    border-radius: 10px;
-    border: none;
-    background: #4FC3F7;
-    padding: 10px;
-    margin: 4rem auto;
-    cursor: pointer;
-    display: inline-block;
-    justify-content: space-between;
-    gap: 5px;
-    width: 100px;
-    color: white;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 20px;
-}
-
-/*=======================
-INTERACTIVE SUBMIT BUTTON
-=========================*/
-#submitAnswer:hover,#submitAnswer:active{
-    background: red;
-    color: white;
-    transform: translateY(-2px);
-}
-
-/*================
-SKIP BUTTON BUTTON
-==================*/
-#skipButton{
-    border: none;
-    border-radius: 10px;
-    padding: 10px;
-    background: #4FC3F7;
-    cursor: pointer;
-    margin: 10px auto;
-    width: 100px;
-    color: white;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 20px;
-}
-
-/*=====================
-INTERACTIVE SKIP BUTTON
-=======================*/
-#skipButton:active, #skipButton:hover{
-    background: red;
-    color: white;
-    transform: translateY(-2px);
-}
-
-.message-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
 }
