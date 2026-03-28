@@ -117,7 +117,7 @@ export class App {
             messageTMP.Display();
         }
     }
-// eroor messages
+// eror messages
 //ui improvments
 //progressive web app
 // analytics

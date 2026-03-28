@@ -46,10 +46,8 @@ export function OpenScanner() {
     });
 
 
-    scanner.addListener('scan',function(Code){
-        console.log(Code);
-        const MessageTMP = new Message(Code);
-        MessageTMP.Display();
+    scanner.addListener('scan', function(Code){
+        document.getElementById("camera-scan-result").innerHTML = Code;
     });
 }
 

@@ -58,10 +58,9 @@ export class QuestionStage extends Stage {
             <h2>Name: ${this.app.name}</h2>
             <h2>Score: ${this.app.score}</h2>
             <p>Question ${this.app.currentQuestionIndex} of ${this.app.numOfQuestions}</p>
-
         </div>
-        <button class="open-camera-button" id="open-camera-button" style="display:none;"></button>
-        <button class="change-camera-button" id="change-camera-button" style="display:none;"></button>
+
+        
     `
         return navbar;
     }
@@ -105,7 +104,7 @@ export class QuestionStage extends Stage {
                     this.app.currentQuestion = questionClass;
                     const question = new questionClass({...questionData, parentStage: this});
 
-                    console.log("Load Question");
+                    
                     
                     question.Display(RENDERED_AREA_ID);
 

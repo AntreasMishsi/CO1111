@@ -12,6 +12,9 @@ body {
     margin: 0;
     overflow-y: auto;
 }
+
+
+
 /*colors moving in bg*/
 @keyframes bgMove {
     0%   { background-position: 0% 50%; }
@@ -495,6 +498,16 @@ input[type="radio"]:checked + label {
     z-index: 99999;
     background: rgba(0, 0, 0, 0.6);
 }
+.camera-scan-result {
+    width: 220px;
+    height: 200px;
+    background-color: #fff;
+    border-radius: 20px;
+    color: #000;
+    padding: 15px;
+}
+
+
 /*glass box for camera */
 .camera-modal-content {
     background: rgba(255, 255, 255, 0.05);
@@ -719,3 +732,5 @@ input[type="radio"]:checked + label {
     align-items: center;
     z-index: 9999;
 }
+
+
