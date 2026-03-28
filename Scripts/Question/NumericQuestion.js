@@ -79,7 +79,7 @@ export class NumericQuestion extends Question {
         if (data.correct == false) {
             playWrongAnimation(data.message);
         } else {
-            playCorrectAnimation();
+            playCorrectAnimation(data.message);
             this.parentStage.app.currentQuestionIndex++;
         }
 

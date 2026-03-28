@@ -57,6 +57,8 @@ export class QuestionStage extends Stage {
         <div class="navbar-wrapper">
             <h2>Name: ${this.app.name}</h2>
             <h2>Score: ${this.app.score}</h2>
+            <p>Question ${this.app.currentQuestionIndex} of ${this.app.numOfQuestions}</p>
+
         </div>
         <button class="open-camera-button" id="open-camera-button" style="display:none;"></button>
         <button class="change-camera-button" id="change-camera-button" style="display:none;"></button>
@@ -95,8 +97,7 @@ export class QuestionStage extends Stage {
                     this.app.SaveData();
                     FadeIn();
 
-                    const label = document.getElementById('question-label');
-                    if (label) label.textContent = `Question ${this.app.currentQuestionIndex} of ${this.app.numOfQuestions}`;
+                    
 
                     this.app.currentQuestionData = questionData;
                     

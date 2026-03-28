@@ -69,12 +69,14 @@ export class BooleanQuestion extends Question {
         CloseScanner();
         // wait till we get the data
         const data = await dataPromise;
+        
 
         if (data.correct == false) {
             playWrongAnimation(data.message);
         } 
         else {
-            playCorrectAnimation();
+            playCorrectAnimation(data.message);
+            this.parentStage.app.currentQuestionIndex++;
         }
 
         await sleep(animationDuration);
