@@ -154,40 +154,39 @@ export class App {
 
     async SendLocationToApiAsync() {
 
-// navigator.geolocation.getCurrentPosition((location) => {
+        navigator.geolocation.getCurrentPosition((location) => {
+            
+            console.log("LOCATION:", location);
 
-// }, (error) => {
-
-// });
-
-        this.GetAsyncLocation().then((result) => {
-
-            if (result.ok) {
-
-                const position = result.position;
-
-                const API_URL = `https://codecyprus.org/th/api/location?session=${this.session}&latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`;
-
-                fetchData(API_URL).then((data) => {
-
-                    if (data.status === "OK") {
-                        console.log(data.message);
-                    } 
-                    else {
-                        const messageTMP = new Message(data.errorMessages);
-                        messageTMP.Display();
-                    }
-
-                });
-
-            } 
-            else {
-
-                const messageTMP = new Message(result.message);
-                messageTMP.Display();
+            if (!location) {
+                console.error("Location is undefined!");
+                return;
             }
 
+            if (!location.coords) {
+                console.error("Coords missing!", location);
+                return;
+            }
+            const API_URL = `https://codecyprus.org/th/api/location?session=${this.session}&latitude=${location.coords.latitude}&longitude=${location.coords.longitude}`;
+
+            fetchData(API_URL).then((data) => {
+
+                if (data.status === "OK") {
+                    console.log(data.message);
+                } 
+                else {
+                    const messageTMP = new Message(data.errorMessages);
+                    messageTMP.Display();
+                }
+
+            });
+
+        }, (error) => {
+                const messageTMP = new Message(error.message);
+                messageTMP.Display();
         });
+
+        
     }
 
 

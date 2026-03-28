@@ -62,6 +62,7 @@ export class MCQQuestion extends Question {
 
 
     async Answear(answear) {
+        this.DisableButtons();
         const API_URL_ANSWER = `https://codecyprus.org/th/api/answer?session=${this.parentStage.app.session}&answer=${answear}`;
 
         if(this.requiresLocation) {

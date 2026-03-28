@@ -55,12 +55,14 @@ export class BooleanQuestion extends Question {
     }
 
     async Answear(answear) {
+        this.DisableButtons();
         const API_URL_ANSWER = `https://codecyprus.org/th/api/answer?session=${this.parentStage.app.session}&answer=${answear}`;
         
 
         if(this.requiresLocation) {
             await this.parentStage.app.SendLocationToApiAsync();
         }
+        console.log('Check the await');
         // Promise that we will get the data
         const dataPromise = fetchData(API_URL_ANSWER);
 

@@ -45,8 +45,18 @@ export class Question {
     Answear() {
         throw new Error("Abstract method 'Answear' must be implemented by subclass");
     }
+
+    DisableButtons() {
+        const skipButton = document.getElementById("skipButton");
+        if(skipButton) {
+            skipButton.disabled = true;
+        }
+       
+        document.getElementById("submitAnswer").disabled = true;
+    }
+
     Skip() {
-        
+        this.DisableButtons();
         this.parentStage.SkipQuestion();
     }
 }
