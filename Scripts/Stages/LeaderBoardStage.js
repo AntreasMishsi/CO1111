@@ -1,59 +1,72 @@
-import { app } from '../App/App.js';
 import { Stage } from './Stage.js';
+
 import { Message } from '../Utils/Message.js';
 import { RENDERED_AREA_ID, ClearRenderer } from '../Utils/ClearRenderer.js';
 import { fetchData } from '../Utils/Utils.js';
+import { ShareToTwitter } from '../Utils/ShareOnSocial.js';
+
+import { FadeIn, FadeOut } from '../Animations/AfterQuestionAnims.js';
+
 
 export class LeaderBoardStage extends Stage {
-    OnStart() {
 
+    constructor(app) {
+        super(app); 
+    }
+
+    async OnStart() {
+        FadeIn();
         const container = document.getElementById(RENDERED_AREA_ID);
 
+
+
         container.innerHTML = `
-        <div style="text-align:center;">
-            <h2>Leaderboard</h2>
-
-<form>
-      <input type="text" id="limit" value="leaderboard">
-      <input type="checkbox" id="sorted" value="leaderboard2">
-</form>
-
-            <button id="loadLeaderboard" style="
-                padding:10px 20px;
-                font-size:16px;
-                cursor:pointer;
-                margin-bottom:20px;
-            ">
-                Load Leaderboard
-            </button>
-
-            <div id="leaderboard"></div>
+    <div class="leaderboard-wrapper">
+        <h2 class="leaderboard-title">Leaderboard</h2>
+        <div class="your-score-box">
+            <span class="your-score-label">Name: ${this.app.name}</span>
+            <span class="your-score-value">${this.app.score} pts</span>
         </div>
-        `;
+        <div class="leaderboard-controls">
+           
+            <button id="share-to-twitter-button" class="leaderboard-btn">Share to Twitter</button>
+            <button id="loadLeaderboard" class="leaderboard-btn">Load Leaderboard</button>
+        </div>
+        <div id="leaderboard"></div>
+    </div>
+`;
+
+        // Share button
+        document.getElementById("share-to-twitter-button").addEventListener("click", () => {
+            ShareToTwitter();
+        });
 
         document.getElementById("loadLeaderboard").addEventListener("click", () => {
 
-            let limit = document.getElementById("limit").value;
-            let sorted = document.getElementById("sorted").checked;
+            
 
-            if(sorted){
-                sorted="&sorted";
-            }else{
-                sorted="";
-            }
-            this.DisplayLeaderBoard(limit, sorted);
+            
 
+            this.DisplayLeaderBoard(30, "&sorted");
+
+        });
+
+
+        // share to other social buttons
+        document.getElementById("share-to-twitter-button").addEventListener("click", () => {
+            ShareToTwitter();
         });
     }
 
-    DisplayLeaderBoard(limit,sorted) {
+    DisplayLeaderBoard(limit, sorted) {
 
         const leaderboard_container = document.getElementById("leaderboard");
 
         const API_URL =
-            `https://codecyprus.org/th/api/leaderboard?session=${app.session}${sorted}&limit=${limit}`;
+            `https://codecyprus.org/th/api/leaderboard?session=${this.app.session}${sorted}`;
 
         fetchData(API_URL).then(data => {
+
 
             if(data.status !== "OK"){
                 const tmpMSG = new Message(data.errorMessages[0]);
@@ -61,48 +74,70 @@ export class LeaderBoardStage extends Stage {
                 return;
             }
 
+            const playerName = this.app.name;
+
+            const playerIndex = data.leaderboard.findIndex(
+                p => p.player === this.app.name
+            );
+            
+
             leaderboard_container.innerHTML = `
-            <table style="
-                width:100%;
-                border-collapse:collapse;
-                text-align:center;
-                font-size:18px;
-            ">
-                <thead style="background:#333;color:white;">
-                    <tr>
-                        <th style="padding:10px;border:1px solid #ccc;">Rank</th>
-                        <th style="padding:10px;border:1px solid #ccc;">Player</th>
-                        <th style="padding:10px;border:1px solid #ccc;">Score</th>
-                    </tr>
-                </thead>
+                <table class="lb-modal-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Player</th>
+                            <th>Score</th>
+                        </tr>
+                    </thead>
                 <tbody id="leaderboard-body"></tbody>
-            </table>
+                </table>
             `;
             const tableBody = document.getElementById("leaderboard-body");
 
-            data.leaderboard.forEach((player, index) => {
+            data.leaderboard.slice(0,limit).forEach((player, index) => {
 
                 const row = document.createElement("tr");
+                row.classList.add("fade-in");
+
+                if (index === playerIndex) {
+                    row.style.backgroundColor = "#ffd700";
+                    row.style.fontWeight = "bold";
+                }
 
                 row.innerHTML = `
-                <td style=" color:white;padding:10px;border:1px solid #ccc;">
-                    ${index+1}
-                </td>
-                <td style="color:white;padding:10px;border:1px solid #ccc;">
-                    ${player.player}
-                </td>
-                <td style="color:white;padding:10px;border:1px solid #ccc;">
-                    ${player.score}
-                </td>
-                `;
+                    <td>${index + 1}</td>
+                    <td>${player.player}</td>
+                    <td>${player.score} pts</td>
+               `;
+
 
                 tableBody.appendChild(row);
             });
 
+            if (playerIndex >= limit && playerIndex !== -1) {
+                const player = data.leaderboard[playerIndex];
+
+                const row = document.createElement("tr");
+                row.style.backgroundColor = "#ffd700";
+                row.style.fontWeight = "bold";
+
+                row.innerHTML = `
+                    <td>${playerIndex + 1}</td>
+                    <td>${player.player}</td>
+                    <td>${player.score} pts</td>
+                `;
+
+                tableBody.appendChild(row);
+            }
+
         });
+
+        
     }
 
-    OnEnd() {
+    async OnEnd() {
+        await FadeOut();
         ClearRenderer();
     }
 }

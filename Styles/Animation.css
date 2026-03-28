@@ -1,48 +1,92 @@
 
 
 .correct-animation-container {
+    color: #4FC3F7;
     width: 300px;
     height: 300px;
     justify-content: center;
+    text-align: center;
     display: auto;
-    animation-duration: 2s;
-    animation-iteration-count: 1;
-    animation-name: correctAnimation;
+    
+    animation: correctAnimation 1.5s ease-in-out forwards;
     opacity: 0;
+    overflow: visible;
+    display: block;
+    margin: auto;
+    
+}
+.correct-animation-text {
+  color: #5abd09;
+  font-size: 16px;
 }
 
 @keyframes correctAnimation {
     0% {
-        transform: rotate(0deg);
+        transform: scale(0.7) ;
         opacity: 0;
-        animation-timing-function: ease-in;
-        transform: scale(1.0);
     }
-    20% {
-        transform: scale(1.3);
+    25% {
+        
         opacity: 1;
-        transform: rotate(180deg);
     }
-    40% {
-        transform: scale(1.5);
-        transform: rotate(360deg);
+    50% {
+        transform: scale(1.2) ;
     }
-    60% {
+    75% {
         
-        transform: scale(1.3);
-        
-    }
-    80% {
         opacity: 1;
-        transform: scale(1.0);
-        
     }
     100% {
-        transform: scale(1.3);
+        transform: scale(0.7);
         opacity: 0;
     }
 }
 
+
+.wrong-animation-container {
+    margin: auto;
+    width: 300px;
+    height: 300px;
+    justify-content: center;
+    animation-duration: 2s;
+    animation-iteration-count: 1;
+    animation-name: wrongAnimation;
+    opacity: 0;
+    overflow: visible;
+    text-align: center;
+
+    display: flex;
+    align-items: center;
+    transform-origin: center;
+    flex-direction: column;
+}
+.wrong-animation-text {
+  color: #980707;
+  font-size: 16px;
+}
+
+@keyframes wrongAnimation {
+    0% {
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+     0%, 20%, 40%, 60%, 80% {
+        transform: translateX(-20%);
+     }
+     10%, 30%, 50%, 70%, 90% {
+        transform: translateX(20%);
+     }
+     80% {
+        opacity: 1;
+     }
+      100% {
+          opacity: 0;
+      }
+}
+
+/*#region Fade */
 .fade-in {
   opacity: 0;
   animation: fadeIn 1s ease forwards;
@@ -61,5 +105,27 @@
 @keyframes fadeOut {
   to {
     opacity: 0;
+  }
+}
+
+/*#endregion */
+
+
+.loader {
+  width: 50px;
+  height: 50px;
+
+  border: 3px solid #ffffff;
+  border-bottom-color: #134d8b;
+  border-radius: 50%;
+  animation: rotation 1s linear infinite;
+}
+    
+@keyframes rotation {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
   }
 }

@@ -4,7 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Treasure Hunt Game</title>
+    <link rel="manifest" href="manifest.json" crossorigin="use-credentials">
     <link rel="stylesheet" href="Quiz.css">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="teal">
+    <meta name="Treasure Hunt" content="Treasure Hunt">
+    <meta name="msapplication-TileImage" content="logo.png">
+    <meta name="msapplication-TileColor" content="#008080">
 </head>
 <body>
 <div class="head">
@@ -28,13 +34,17 @@
 <div id="about-modal" class="modal">
     <div class="modal-content">
         <h2>About the App</h2>
-        <p>This our Treasure Hunt game created by Map Breakers.</p>
-        <p>We are Team D </p>
-        <p>Members:</p>
-        <p>Andreas Mishis</p>
-        <p>Michalis Andreou</p>
-        <p>Andreas Georgiou</p>
-        <p>Pavlo Masliuk</p>
+        <p>This our Treasure Hunt game created by Map Breakers.</p><br>
+        <p>We are Team D </p><br>
+        <p>Members and Responsibilities: </p><br>
+        <p><strong>Andreas Mishis:</strong> Team Leader, responsible for developing the structure of the app,
+            managing project documentation notes and making the app progressive</p><br>
+        <p><strong>Michalis Andreou:</strong> Responsible for designing
+            and styling the app using CSS. </p><br>
+        <p><strong>Andreas Georgiou:</strong> Responsible for managing geolocation
+            developing Qr code camera and Social Media</p><br>
+        <p><strong>Pavlo Masliuk:</strong> Responsible for handling API integration and Cookies</p><br>
+        <p><strong>Habibur:</strong> is responsible for creating the leaderboard</p><br>
         <a href="#" class="close-btn">Close</a>
     </div>
 </div>
@@ -64,5 +74,7 @@
     Copyright © MapBreakers<br>
     All rights reserved.
 </div>
+
+<script src="main.js"></script>
 </body>
 </html>

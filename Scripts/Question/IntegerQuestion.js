@@ -1,6 +1,3 @@
-
-import { app } from "../App/App.js";
-
 import { Question } from "./Question.js";
 
 import { fetchData } from "../Utils/Utils.js";
@@ -11,6 +8,7 @@ import { RENDERED_AREA_ID } from "../Utils/ClearRenderer.js";
 
 import { sleep } from "../Utils/Utils.js";
 import { Message } from "../Utils/Message.js";
+import { CloseScanner } from "../Utils/Scanner.js";
 
 export class IntegerQuestion extends Question {
 
@@ -20,23 +18,25 @@ export class IntegerQuestion extends Question {
     }
 
     Display(parentId) {
-        const API_SCORE = `https://codecyprus.org/th/api/score?session=${app.session}`;
         const container = document.getElementById(parentId);
 
 
-
+        container.appendChild(this.parentStage.GenerateNavBar());
 
         // Render the form with radio buttons
-        container.innerHTML = `
-            <h2>Score: ${app.score}</h2>
-            <div id="integerForm" class="fade-in">
+        container.innerHTML += `
+            <div id="integerForm" class="integerForm">
                 <p>${this.questionText}</p>
-                <input type="number" id="integerInput" name="integer_question" placeholder="Enter an integer number" step="1" oninput="this.value = Math.round(this.value);">
+                <input type="number" id="integerInput" class="integerInput" name="integer_question" placeholder="Enter an integer number" step="1" oninput="this.value = Math.round(this.value);">
                 <button type="button" id="submitAnswer">Submit</button>
                 ${this.canBeSkipped ? `<button type="button" id="skipButton">Skip</button>` : ''}
             </div>
         `;
-
+        // go through all a and make it so they all open another page
+        container.querySelectorAll("a").forEach(a => {
+            a.target = "_blank";
+            a.rel = "noopener noreferrer";
+        });
         // Add click listener for the button to get the answer
         const submitButton = document.getElementById("submitAnswer");
         submitButton.addEventListener("click", () => {
@@ -54,6 +54,7 @@ export class IntegerQuestion extends Question {
         if(this.canBeSkipped) {
             const skipButton = document.getElementById("skipButton");
             skipButton.addEventListener("click", () => {
+                CloseScanner();
                 this.Skip();
             });
         }
@@ -61,24 +62,28 @@ export class IntegerQuestion extends Question {
 
 
     async Answear(answear) {
-        const API_URL_ANSWER = `https://codecyprus.org/th/api/answer?session=${app.session}&answer=${answear}`;
+        const API_URL_ANSWER = `https://codecyprus.org/th/api/answer?session=${this.parentStage.app.session}&answer=${answear}`;
 
+        if(this.requiresLocation) {
+            await this.parentStage.app.SendLocationToApiAsync();
+        }
         // Promise that we will get the data
         const dataPromise = fetchData(API_URL_ANSWER);
-        
+
         // start the animation
         await FadeOut();
-
+        CloseScanner();
         // wait till we get the data
         const data = await dataPromise;
 
         if (data.correct == false) {
-            playWrongAnimation();
+            playWrongAnimation(data.message);
         } else {
-            playCorrectAnimation();
+            playCorrectAnimation(data.message);
+            this.parentStage.app.currentQuestionIndex++;
         }
-        
+
         await sleep(animationDuration);
-        this.parentStage.AskQuestion();        
+        this.parentStage.AskQuestion();
     }
 }

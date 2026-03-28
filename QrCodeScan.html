@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <title>QrCodeScan</title>
     <!-- camera library-->
-    <script src="QR Code Reader/QR Code Reader/js/instascan.min.js"></script>
-
+    
     <style>
         body, html {
             background-color: #000;
@@ -94,10 +93,10 @@
     };
 
     // create scanner
-    var scanner= new Instascan.Scanner(opts);
+    var scanner = new Instascan.Scanner(opts);
     // finding available cmeras
     Instascan.Camera.getCameras().then(function(allcams){
-        cameras= allcams;
+        cameras = allcams;
 
         if(cameras.length === 0){
             alert("No cameras found");

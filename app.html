@@ -2,24 +2,138 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
     <link rel="stylesheet" href="Styles/main.css">
     <link rel="stylesheet" href="Styles/Message.css">
     <link rel="stylesheet" href="Styles/Animation.css">
+    <link rel="stylesheet" href="Styles/video.css">
+    <script src="Scripts/instascan.min.js"></script>
+
+    <link rel="preload" href="Resources/icons/check.png" as="image">
+    <link rel="preload" href="Resources/icons/x.png" as="image">
+    
     <title>App</title>
 </head>
 <body>
-    
+<div class="head">
+    <img src="Resources/pictures/logo.png" class="logo" alt="Logo" />
+    <div class="details">
+        <div class="details">
+            <a href="#help-modal" class="help-link">HELP</a>
+            <a href="#about-modal" class="about-link">ABOUT</a>
+        </div>
+    </div>
+</div>
+<!--help and about modals-->
+<div id="about-modal" class="modal">
+    <div class="modal-content">
+        <h2>About the App</h2>
+        <p>This our Treasure Hunt game created by Map Breakers.</p>
+        <p>We are Team D </p>
+        <p>Members and Responsibilities: </p>
+        <p><strong>Andreas Mishis:</strong> Team Leader, responsible for developing the structure of the app,
+            managing project documentation notes and making the app progressive</p>
+        <p><strong>Michalis Andreou:</strong> Responsible for designing
+            and styling the app using CSS.</p>
+        <p><strong>Andreas Georgiou:</strong> Responsible for managing geolocation
+            developing Qr code camera and Social Media</p>
+        <p><strong>Pavlo Masliuk:</strong> Responsible for handling API integration and Cookies</p>
+        <p><strong>Habibur:</strong> is responsible for creating the leaderboard</p>
+        <a href="#" class="close-btn">Close</a>
+    </div>
+</div>
+
+<div id="help-modal" class="modal">
+    <div class="modal-content">
+        <h2>Help</h2>
+        <p>Treasure Hunt is a location-based quiz game with multiple levels of difficulty.</p><br>
+        <p>Each stop can have different types of questions:</p><br>
+        <p>Multiple choice questions</p>
+        <p>Text answer questions</p>
+        <p>QR code scanner questions</p>
+        <p>Location check-in tasks (go to a place and confirm you're there)</p><br>
+        <p>You can skip some questions if you get stuck, but you'll earn more points by answering correctly.</p><br>
+        <p>Your score is tracked throughout the game and you can view the leaderboard to see how you compare with other players.</p>
+        <a href="#" class="close-btn">Close</a>
+    </div>
+</div>
+
     <div class="message-container" id="message-container">
 
     </div>
-    <div class="container">
-        <div class="camera-button"></div>
-        <div class="rendered-area fade-in" id="rendered-area">
-            
+<div class="top-info">
+    <p id="question-label"></p>
+    <p id="score-label"></p>
+</div>
+
+<div class="container">
+    <div class="camera-button"></div>
+    <div class="rendered-area fade-in" id="rendered-area"></div>
+</div>
+<!--bottom navigation bar-->
+<div class="bottom-nav">
+    <a href="index.html" class="bottom-nav-item">
+        <img src="Resources/icons/home.png" width="24" height="24" alt="home"/>
+        <span>Home</span>
+    </a>
+    <a href="#" class="bottom-nav-item" id="scan-btn">
+        <img src="Resources/icons/qr-code.png" width="24" height="24" alt="scan"/>
+        <span>Scan</span>
+    </a>
+    <a href="#social-modal" class="bottom-nav-item">
+        <img src="Resources/icons/share.png" width="24" height="24" alt="social"/>
+        <span>Social</span>
+    </a>
+    <a href="#" class="bottom-nav-item" id="leaderboard-btn">
+        <img src="Resources/icons/podium.png" width="24" height="24" alt="leaderboard"/>
+        <span>Leaderboard</span>
+    </a>
+</div>
+<!--models of navigation bar-->
+<div id="camera-modal" class="camera-modal">
+    <div class="camera-modal-content">
+        <video id="preview" class="video-preview"></video>
+        <div class="camera-modal-buttons">
+            <button id="change-camera-button" class="camera-modal-btn">Change Camera</button>
+            <button id="close-camera-button" class="camera-modal-btn">Close</button>
         </div>
     </div>
-    
+</div>
+<div id="leaderboard-modal" class="leaderboard-modal">
+    <div class="leaderboard-modal-content">
+        <div class="leaderboard-modal-header">
+            <h2>Leaderboard</h2>
+            <button id="close-leaderboard-button" class="close-leaderboard-btn">✕</button>
+        </div>
+        <div id="leaderboard-modal-body"></div>
+    </div>
+</div>
+
+<div class="copyright">
+    Version 1.0.0, Created by MapBreakers<br>
+    Copyright © MapBreakers All rights reserved.
+</div>
+<!--social model in nav bar-->
+<div id="social-modal" class="modal social-modal">
+    <div class="modal-content">
+        <h2>Follow Us</h2>
+        <div class="social-links">
+            <a href="https://www.instagram.com/mapbreakers?igsh=MTlzcThhd2NlbXQ3dw%3D%3D" target="_blank">
+                <img src="Resources/pictures/instagram.png" height="50" width="50"/>
+            </a>
+            <a href="https://x.com/mapbreakersco11?s=21" target="_blank">
+                <img src="Resources/pictures/x.png" height="50" width="50"/>
+            </a>
+            <a href="https://www.facebook.com/share/18GshCkxij/?mibextid=wwXIfr" target="_blank">
+                <img src="Resources/pictures/facebook.png" height="50" width="50"/>
+            </a>
+        </div>
+        <a href="#" class="close-btn">Close</a>
+    </div>
+</div>
+
     <script type="module" src="Scripts/App/App.js"></script>
+    <script type="module" src="Scripts/App/navigation bar.js"></script>
+
 </body>
 </html>

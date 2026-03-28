@@ -2,7 +2,8 @@
 
 .message-container {
     position: absolute;
-    float: right;
+    left:0;
+    top:110px;
 }
 .message {
     border-radius: 10px;

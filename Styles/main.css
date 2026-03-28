@@ -1,94 +1,721 @@
-
+html, body {
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: auto;
+    min-height: 100%;
+}
 body {
-    background-color: #fff;
+    background: linear-gradient(135deg, #9370Db,#008aff , #8A2BE2,#FF1493);
+    background-size: 400% 400%;
+    animation: bgMove 30s ease infinite;
+    min-height: 100vh;
+    margin: 0;
+    overflow-y: auto;
+}
+/*colors moving in bg*/
+@keyframes bgMove {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
+/* header */
+.head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    z-index: 999;
+    box-sizing: border-box;
+    font-size: 17px;
+}
+
+/*logo*/
+.logo {
+    width: 100px;
+    height: 100px;
+}
+/* Modal links */
+.about-link, .help-link {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+/*copyright*/
+.copyright {
+    font-size: 12px;
+    color: black;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    position: fixed;
+    bottom: 10px;
+    width: 100%;
+    line-height: 1.4;
+}
+/* Modal size and position */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+}
+
+.modal:target {
+    display: flex;
+}
+
+/* modal content */
+.modal-content {
+    background: rgba(255, 255, 255, 0.05);
+    -webkit-backdrop-filter: blur(50px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    width: 85%;
+    max-width: 350px;
+    padding: 24px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow:
+            0 8px 32px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Close btn for modals */
+.close-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    color: white;
+    border-radius: 10px;
+    text-decoration: none;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+    transition: background 0.2s;
+}
+
+/*select treasure hunt list*/
+.TreasureHuntHeading{
+    display:flex;
+    margin-top: 100px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+#treasure-hunt-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    align-items: center;
+}
+/* glass card for each treasure hunt */
+.treasure-hunt {
+    width: 90%;
+    max-width: 300px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(50px);
+    -webkit-backdrop-filter: blur(50px);
+    border-radius: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    box-shadow:
+            0 8px 32px rgba(0, 0, 0, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.5),
+            inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+    color: white;
+    cursor: pointer;
+    box-sizing: border-box;
+    text-align: center;
+}
+.treasure-hunt.selected {
+    border-color: black;
+}
+
+.treasure-hunt.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+/*remove radio dots*/
+.th-radio {
+    display: none;
+}
+
+.th-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+}
+.th-description,.th-dates {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0 0 8px;
+}
+/* submit button on treasure hunt list */
+.submit-button {
+    width: 90%;
+    max-width: 150px;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.18);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow:
+            0 8px 32px rgba(0, 0, 0, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.5),
+            inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+/*whole container*/
 .TreasureHuntForm {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-end;
     gap: 20px;
     width: 100%;
+    box-sizing: border-box;
+    padding-bottom: 150px;
 }
-.container {
-    margin: auto;
-}
-.container-treasure-hunts {
-    justify-content: center;
-    text-align: center;
+/* glass style name entering */
+.start-form {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(50px);
+    -webkit-backdrop-filter: blur(50px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 40px 30px;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 70%;
+    max-width: 400px;
+    box-shadow:
+            0 8px 32px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
-
-.submit-btn {
-    width: 250px;
-    padding: 12px 15px;
-    background: #4FC3F7;
-    border: none;
-    border-radius: 10px;
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-}
-/* Default box */
-.treasure-hunt {
-    background: #0f0f0f;
-    border: 2px solid rgba(255, 255, 255, 0.15);
-    padding: 18px;
-    border-radius: 12px;
-    color: white;
-    width: 80%;
-    max-width: 350px;
-    cursor: pointer;
-    text-align: center;
-    transition: 0.25s ease;
-    font-size: 14px;
-}
-
-/* Selected box stays highlighted */
-.treasure-hunt.selected {
-    border-color: #4FC3F7;
-    box-shadow: 0 0 10px #4FC3F7;
-}
-.th-radio {
-    display: none;
-}
-.TreasureHuntHeading {
-    color: white;
-    text-align: center;
-    font-size: 25px;
-    margin-top: 140px;
-    margin-bottom: 30px;
-}
-.treasure-hunt.disabled {
-    opacity: 0.4;
-    pointer-events: none;
-    border-color: rgba(255, 255, 255, 0.1);
-}
-
-#nickname-field {
-    width: 250px;
-    padding: 12px 15px;
-    border-radius: 10px;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    background: #0f0f0f;
-    color: white;
-    font-size: 16px;
-    outline: none;
-    transition: 0.25s ease;
-}
-
-#nickname-field:focus {
-    border-color: #4FC3F7;
-    box-shadow: 0 0 10px #4FC3F7;
-}
+/*all buttons and input*/
 .form-container {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    width: 100%;
+    color: white;
 }
+/* center everything inside the start form */
 .forms {
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+/*name input*/
+.Name h1 {
     color: white;
+    font-size: 20px;
+}
+/*name glass*/
+#nickname-field {
+    width: 80%;
+    max-width: 200px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+    font-size: 14px;
+    outline: none;
+    text-align: center;
+}
+/*buttons*/
+.submit-btn, .load-data-button {
+    width: 80%;
+    max-width: 140px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+/* navbar wrapper with name and score */
+.navbar-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    position: fixed;
+    top: 90px;
+    left: 0;
+    width: 100%;
+    z-index: 998;
+    text-align: center;
+}
+
+.navbar-wrapper h2 {
+    color: white;
+    font-size: 25px;
+    font-weight: 400;
+    margin: 0;
+}
+
+/*for question 1 of 6*/
+#question-label {
+    position: fixed;
+    top: 200px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    font-size: 20px;
+    color: white;
+    margin: 0;
+    z-index: 10;
+    width: 100%;
+}
+/*Questions*/
+/* glass style for all question forms */
+.booleanForm,
+.integerForm,
+.mcqForm,
+.textForm {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-top: 120px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 30px 24px;
+    width: 90%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    box-sizing: border-box;
+    box-shadow:
+            0 8px 32px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    font-size: 18px;
+    text-align: center;
+}
+
+/* text and number inputs */
+.integerInput,
+.numericInput,
+.textInput {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+    font-size: 16px;
+    outline: none;
+    text-align: center;
+    box-sizing: border-box;
+    transition: border-color 0.25s;
+}
+
+/* hide radio options for boolean and mcq */
+input[type="radio"] {
+    display: none;
+}
+/*style for label as a clickable box replacing the radio button*/
+label {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    transition: border-color 0.2s, background 0.2s;
+
+}
+/*makes true and false box smaller*/
+.booleanForm input[type="radio"] + label {
+    width: auto;
+    min-width: 90px;
+    padding: 10px 20px;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+/*create 2 rows one for a and b and the other c and d */
+.mcqForm .radio-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    width: 100%;
+}
+.booleanForm {
+    gap: 10px;
+}
+/*highlights the selected element for boolean and mcq */
+input[type="radio"]:checked + label {
+    border-color: #4FC3F7;
+    background: rgba(79, 195, 247, 0.15);
+    font-weight: bold;
+}
+/*makes mcq labels smaller with auto*/
+.mcqForm input[type="radio"] + label {
+    width: auto;
+    min-width: 90px;
+    padding: 10px 20px;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+/* submit button inside question forms glass style */
+#submitAnswer {
+    width: 140px;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.25s;
+    margin-top: 10px;
+}
+/* skip button inside question forms glass style */
+#skipButton {
+    width: 140px;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.25s;
+    margin-top: 10px;
+}
+/* bottom navigation bar */
+.bottom-nav {
+    position: fixed;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 400px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 12px 20px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50px;
+    z-index: 999;
+    box-sizing: border-box;
+    box-shadow:
+            0 8px 32px rgba(0, 0, 0, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.4);
+
+}
+/*styles each icon*/
+.bottom-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: white;
+    text-decoration: none;
+    font-size: 11px;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+/* social modal in the nav bar */
+.social-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+
+}
+/*glass box for the social media modal*/
+.social-modal .modal-content {
+
+    border-radius: 20px;
+    padding: 20px;
+    width: 80%;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+/*Follow us in the social model*/
+.social-modal h2 {
+    color: #4FC3F7;
+    font-size: 18px;
+    margin: 0;
+}
+/* camera modal in navbar with dark bg*/
+.camera-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+    background: rgba(0, 0, 0, 0.6);
+}
+/*glass box for camera */
+.camera-modal-content {
+    background: rgba(255, 255, 255, 0.05);
+    -webkit-backdrop-filter: blur(50px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 20px;
+    width: 70%;
+    max-width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    box-shadow:
+            0 8px 32px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+/*change camera and close btn*/
+.camera-modal-buttons {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    justify-content: center;
+}
+/*glass for the btns*/
+.camera-modal-btn {
+    padding: 10px 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+/* hides btn at first 2 stages*/
+#scan-btn {
+    display: none;
+}
+/* hides btn at first 2 stages*/
+#leaderboard-btn {
+    display: none;
+}
+/* leaderboard modal in navbar*/
+.leaderboard-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+}
+/*leaderboard modal glass*/
+.leaderboard-modal-content {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 20px;
+    width: 70%;
+    max-width: 400px;
+    max-height: 70vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow:
+            0 8px 32px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* header row with title and close button */
+.leaderboard-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    padding-bottom: 8px;
+    z-index: 10;
+}
+/*leaderboard modal header*/
+.leaderboard-modal-header h2 {
+    color: #4FC3F7;
+    margin: 0;
+    font-size: 18px;
+}
+/*glass for the leaderboard modal close btn */
+.close-leaderboard-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+/*fixed grid table*/
+.lb-modal-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: white;
+    font-size: 14px;
+    table-layout: fixed;
+}
+/*header of leaderboard */
+.lb-modal-table th {
+    text-align: left;
+    padding: 8px 10px;
+    border-bottom: 1px solid #4FC3F7;
+    color: #4FC3F7;
+    font-size: 12px;
+}
+/*spacing for each cell*/
+.lb-modal-table td {
+    padding: 10px;
+    overflow: hidden;
+}
+/* leaderboard glass at the end */
+.leaderboard-wrapper {
+    position: absolute;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 80vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow:
+            0 8px 32px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    max-height: 80vh;
+}
+/*leaderboard heading*/
+.leaderboard-title {
+    color: #4FC3F7;
+    font-size: 22px;
+    margin: 0;
+    text-align: center;
+}
+/*box for player name and score*/
+.your-score-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 14px;
+    padding: 12px 20px;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+}
+/*score color*/
+.your-score-value {
+    font-size: 28px;
+    font-weight: bold;
+    color: #4FC3F7;
+}
+/*leaderboard controls vertically*/
+.leaderboard-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+/*glass for btn*/
+.leaderboard-btn {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+/*leaderboard input*/
+.leaderboard-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+    font-size: 15px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+/*animations for tick  and x */
+.correct-animation-container,
+.wrong-animation-container {
+    position: fixed;
+    top: 30%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
 }

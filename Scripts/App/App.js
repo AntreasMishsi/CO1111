@@ -10,7 +10,7 @@ import { QuestionStage } from '../Stages/QuestionStage.js';
 import { LeaderBoardStage } from '../Stages/LeaderBoardStage.js';
 
 import { Message } from '../Utils/Message.js';
-
+import { fetchData } from '../Utils/Utils.js';
 
 
 export class App {
@@ -19,6 +19,7 @@ export class App {
         this.name = null;
 
         this.numOfQuestions = null;
+        this.treasureHuntName = null;
         this.treasureHuntID = null;
 
         this.score = 0;
@@ -28,10 +29,10 @@ export class App {
 
         this.appState = new AppState();
         this.StageList = [
-            new ListStage(),
-            new StartStage(),
-            new QuestionStage(),
-            new LeaderBoardStage(),
+            new ListStage(this),
+            new StartStage(this),
+            new QuestionStage(this),
+            new LeaderBoardStage(this),
         ];
         this.StageList[this.appState.getCurentStage()].OnStart();
     }
@@ -49,6 +50,7 @@ export class App {
         this.name = null;
         this.treasureHuntID = null;
     }
+
     SaveData() {
         let data = {
             session: this.session,
@@ -98,13 +100,95 @@ export class App {
         tmpMSG.Display();
     }
 
-    
     SetTreasureHuntID(id) {
         this.treasureHuntID = id;
         console.log(this.treasureHuntID);
         this.ChangeStage();
     }
 
+    
+
+    GetLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(SendLocationToAPI, ErrorGettingLocation);
+        }
+        else {
+            const messageTMP = new Message("Location not supported by browser!");
+            messageTMP.Display();
+        }
+    }
+// eroor messages
+//ui improvments
+//progressive web app
+// analytics
+// coments
+
+    GetAsyncLocation() {
+        return new Promise((resolve, reject) => {
+
+            if (!navigator.geolocation) {
+                reject({ ok: false, message: "Location not supported by browser!" });
+            } 
+            else {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        resolve({ ok: true, position: position });
+                    },
+                    (error) => {
+                        reject({ ok: false, message: "Could not get location" });
+                    }
+                );
+            }
+
+        });
+    }
+    
+
+    StartGettingLocation() {
+        this.GetLocation();
+
+        this.locationInterval = setInterval(() => {
+            this.GetLocation();
+        }, 60000); // slightly more to avoid errors from api
+    }
+
+    async SendLocationToApiAsync() {
+
+// navigator.geolocation.getCurrentPosition((location) => {
+
+// }, (error) => {
+
+// });
+
+        this.GetAsyncLocation().then((result) => {
+
+            if (result.ok) {
+
+                const position = result.position;
+
+                const API_URL = `https://codecyprus.org/th/api/location?session=${this.session}&latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`;
+
+                fetchData(API_URL).then((data) => {
+
+                    if (data.status === "OK") {
+                        console.log(data.message);
+                    } 
+                    else {
+                        const messageTMP = new Message(data.errorMessages);
+                        messageTMP.Display();
+                    }
+
+                });
+
+            } 
+            else {
+
+                const messageTMP = new Message(result.message);
+                messageTMP.Display();
+            }
+
+        });
+    }
 
 
 }
@@ -117,3 +201,24 @@ window.addEventListener("beforeunload", () => {
 
     app.SaveData();
 });
+
+
+
+function SendLocationToAPI(position) {
+    const API_URL = `https://codecyprus.org/th/api/location?session=${app.session}&latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`;
+    fetchData(API_URL).then((data) => {
+        if(data.status === "OK") {
+            console.log(data.message);
+        }
+        else {
+            
+            const messageTMP = new Message(data.errorMessages);
+            messageTMP.Display();
+        }
+    });
+}
+
+function ErrorGettingLocation() {
+    const messageTMP = new Message("Could not get location");
+    messageTMP.Display();
+}
