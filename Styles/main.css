@@ -831,3 +831,9 @@ input[type="radio"] + label:hover {
 .leaderboard-input::placeholder {
     color: rgba(255, 255, 255, 0.4);
 }
+@supports (-webkit-touch-callout: none) {
+    /* iOS fix */
+    body {
+        height: -webkit-fill-available;
+    }
+}
