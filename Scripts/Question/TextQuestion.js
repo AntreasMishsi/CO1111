@@ -79,7 +79,8 @@ export class TextQuestion extends Question {
         if (data.correct == false) {
             playWrongAnimation(data.message);
         } else {
-            playCorrectAnimation(data.message);
+            playCorrectAnimation();
+            this.parentStage.app.currentQuestionIndex++;
         }
         
         await sleep(animationDuration);

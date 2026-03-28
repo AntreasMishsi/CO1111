@@ -57,8 +57,6 @@
 
     display: flex;
     align-items: center;
-    justify-content: center;
-    overflow: visible;
     transform-origin: center;
     flex-direction: column;
 }

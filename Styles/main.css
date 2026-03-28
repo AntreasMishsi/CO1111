@@ -12,7 +12,7 @@ body {
     margin: 0;
     overflow-y: auto;
 }
-/*colors moving*/
+/*colors moving in bg*/
 @keyframes bgMove {
     0%   { background-position: 0% 50%; }
     50%  { background-position: 100% 50%; }
@@ -42,32 +42,6 @@ body {
     text-decoration: none;
     cursor: pointer;
 }
-.details{
-    margin-right: 10px;
-}
-/* follow */
-.follow {
-    position: absolute;
-    bottom: 190px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: white;
-    font-size: 20px;
-}
-
-/* social media icon */
-.socials {
-    position: absolute;
-    bottom:120px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 30px;
-}
-/* icons */
-.icon {
-    cursor: pointer;
-}
 /*copyright*/
 .copyright {
     font-size: 12px;
@@ -80,7 +54,6 @@ body {
     width: 100%;
     line-height: 1.4;
 }
-/* Modal size and position */
 /* Modal size and position */
 .modal {
     position: fixed;
@@ -103,7 +76,6 @@ body {
 /* modal content */
 .modal-content {
     background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(50px);
     -webkit-backdrop-filter: blur(50px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: white;
@@ -130,12 +102,9 @@ body {
     transition: background 0.2s;
 }
 
-.close-btn:hover {
-    background: rgba(255, 255, 255, 0.15);
-}
 /*select treasure hunt list*/
 .TreasureHuntHeading{
-    display: flex;
+    display:flex;
     margin-top: 100px;
     text-align: center;
     justify-content: center;
@@ -162,8 +131,7 @@ body {
     box-shadow:
             0 8px 32px rgba(0, 0, 0, 0.1),
             inset 0 1px 0 rgba(255, 255, 255, 0.5),
-            inset 0 -1px 0 rgba(255, 255, 255, 0.1),
-            inset 0 0 12px 6px rgba(255, 255, 255, 0.6);
+            inset 0 -1px 0 rgba(255, 255, 255, 0.1);
     color: white;
     cursor: pointer;
     box-sizing: border-box;
@@ -177,6 +145,7 @@ body {
     opacity: 0.5;
     pointer-events: none;
 }
+/*remove radio dots*/
 .th-radio {
     display: none;
 }
@@ -207,7 +176,6 @@ body {
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
-    transition: border-color 0.25s, box-shadow 0.25s;
     margin-top: 10px;
 }
 /*whole container*/
@@ -220,7 +188,7 @@ body {
     box-sizing: border-box;
     padding-bottom: 150px;
 }
-/* glass style start */
+/* glass style name entering */
 .start-form {
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(50px);
@@ -308,10 +276,19 @@ body {
     margin: 0;
 }
 
-.navbar-wrapper h2:last-of-type {
-    color: #4FC3F7;
+/*for question 1 of 6*/
+#question-label {
+    position: fixed;
+    top: 200px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    font-size: 20px;
+    color: white;
+    margin: 0;
+    z-index: 10;
+    width: 100%;
 }
-
 /*Questions*/
 /* glass style for all question forms */
 .booleanForm,
@@ -322,12 +299,6 @@ body {
     top: 30%;
     left: 50%;
     transform: translate(-50%, -50%);
-    margin-top: 60px;
-}
-.booleanForm,
-.integerForm,
-.mcqForm,
-.textForm {
     margin-top: 120px;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -364,24 +335,12 @@ body {
     transition: border-color 0.25s;
 }
 
-.integerInput::placeholder,
-.numericInput::placeholder,
-.textInput::placeholder {
-    color: rgba(255, 255, 255, 0.4);
-}
-
-.integerInput:focus,
-.numericInput:focus,
-.textInput:focus {
-    border-color: rgba(255, 255, 255, 0.5);
-}
-
-/* radio options for boolean and mcq */
+/* hide radio options for boolean and mcq */
 input[type="radio"] {
     display: none;
 }
-
-input[type="radio"] + label {
+/*style for label as a clickable box replacing the radio button*/
+label {
     display: block;
     width: 100%;
     padding: 14px;
@@ -395,19 +354,15 @@ input[type="radio"] + label {
     transition: border-color 0.2s, background 0.2s;
 
 }
+/*makes true and false box smaller*/
 .booleanForm input[type="radio"] + label {
     width: auto;
-    min-width: 100px;
+    min-width: 90px;
     padding: 10px 20px;
-    font-size: 15px;
-    margin-bottom: 4px;
+    font-size: 14px;
+    margin-bottom: 12px;
 }
-.booleanForm .radio-wrapper {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    justify-content: center;
-}
+/*create 2 rows one for a and b and the other c and d */
 .mcqForm .radio-wrapper {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -417,16 +372,13 @@ input[type="radio"] + label {
 .booleanForm {
     gap: 10px;
 }
+/*highlights the selected element for boolean and mcq */
 input[type="radio"]:checked + label {
     border-color: #4FC3F7;
     background: rgba(79, 195, 247, 0.15);
     font-weight: bold;
 }
-.booleanForm input[type="radio"] + label {
-    padding: 10px;
-    font-size: 14px;
-    margin-bottom: 4px;
-}
+/*makes mcq labels smaller with auto*/
 .mcqForm input[type="radio"] + label {
     width: auto;
     min-width: 90px;
@@ -435,13 +387,7 @@ input[type="radio"]:checked + label {
     margin-bottom: 12px;
 }
 
-
-input[type="radio"] + label:hover {
-    border-color: rgba(255, 255, 255, 0.4);
-    background: rgba(255, 255, 255, 0.08);
-}
-
-/* submit and skip buttons inside question forms */
+/* submit button inside question forms glass style */
 #submitAnswer {
     width: 140px;
     padding: 12px;
@@ -455,7 +401,7 @@ input[type="radio"] + label:hover {
     transition: background 0.2s, border-color 0.25s;
     margin-top: 10px;
 }
-
+/* skip button inside question forms glass style */
 #skipButton {
     width: 140px;
     padding: 12px;
@@ -469,20 +415,7 @@ input[type="radio"] + label:hover {
     transition: background 0.2s, border-color 0.25s;
     margin-top: 10px;
 }
-
-#submitAnswer:hover,
-#submitAnswer:active {
-    background: rgba(79, 195, 247, 0.2);
-    border-color: #4FC3F7;
-}
-
-#skipButton:hover,
-#skipButton:active {
-    background: rgba(255, 255, 255, 0.12);
-    border-color: rgba(255, 255, 255, 0.4);
-}
 /* bottom navigation bar */
-
 .bottom-nav {
     position: fixed;
     bottom: 60px;
@@ -495,8 +428,6 @@ input[type="radio"] + label:hover {
     align-items: center;
     padding: 12px 20px;
     background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 50px;
     z-index: 999;
@@ -506,7 +437,7 @@ input[type="radio"] + label:hover {
             inset 0 1px 0 rgba(255, 255, 255, 0.4);
 
 }
-
+/*styles each icon*/
 .bottom-nav-item {
     display: flex;
     flex-direction: column;
@@ -519,10 +450,6 @@ input[type="radio"] + label:hover {
     transition: opacity 0.2s;
 }
 
-.bottom-nav-item:hover,
-.bottom-nav-item:active {
-    opacity: 1;
-}
 /* social modal in the nav bar */
 .social-modal {
     display: none;
@@ -535,18 +462,11 @@ input[type="radio"] + label:hover {
     justify-content: center;
     align-items: center;
     z-index: 99999;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(10px);
-}
 
-.social-modal:target {
-    display: flex;
 }
+/*glass box for the social media modal*/
 .social-modal .modal-content {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(50px);
-    -webkit-backdrop-filter: blur(50px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+
     border-radius: 20px;
     padding: 20px;
     width: 80%;
@@ -555,17 +475,14 @@ input[type="radio"] + label:hover {
     flex-direction: column;
     align-items: center;
     gap: 12px;
-    box-shadow:
-            0 8px 32px rgba(0, 0, 0, 0.3),
-            inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
-
+/*Follow us in the social model*/
 .social-modal h2 {
     color: #4FC3F7;
     font-size: 18px;
     margin: 0;
 }
-/* camera modal in navbar*/
+/* camera modal in navbar with dark bg*/
 .camera-modal {
     position: fixed;
     top: 0;
@@ -577,12 +494,10 @@ input[type="radio"] + label:hover {
     align-items: center;
     z-index: 99999;
     background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(10px);
 }
-
+/*glass box for camera */
 .camera-modal-content {
     background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(50px);
     -webkit-backdrop-filter: blur(50px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 20px;
@@ -597,19 +512,14 @@ input[type="radio"] + label:hover {
             0 8px 32px rgba(0, 0, 0, 0.3),
             inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
-
-.video-preview {
-    width: 100%;
-    border-radius: 12px;
-}
-
+/*change camera and close btn*/
 .camera-modal-buttons {
     display: flex;
     gap: 12px;
     width: 100%;
     justify-content: center;
 }
-
+/*glass for the btns*/
 .camera-modal-btn {
     padding: 10px 20px;
     border-radius: 12px;
@@ -622,17 +532,13 @@ input[type="radio"] + label:hover {
     transition: background 0.2s;
 }
 
-.camera-modal-btn:hover {
-    background: rgba(255, 255, 255, 0.15);
-}
+/* hides btn at first 2 stages*/
 #scan-btn {
     display: none;
 }
+/* hides btn at first 2 stages*/
 #leaderboard-btn {
     display: none;
-}
-.bottom-nav {
-    justify-content: space-evenly;
 }
 /* leaderboard modal in navbar*/
 .leaderboard-modal {
@@ -648,11 +554,9 @@ input[type="radio"] + label:hover {
     background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(10px);
 }
-
+/*leaderboard modal glass*/
 .leaderboard-modal-content {
     background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(50px);
-    -webkit-backdrop-filter: blur(50px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 20px;
     padding: 20px;
@@ -674,14 +578,18 @@ input[type="radio"] + label:hover {
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    position: sticky;
+    top: 0;
+    padding-bottom: 8px;
+    z-index: 10;
 }
-
+/*leaderboard modal header*/
 .leaderboard-modal-header h2 {
     color: #4FC3F7;
     margin: 0;
     font-size: 18px;
 }
-
+/*glass for the leaderboard modal close btn */
 .close-leaderboard-btn {
     background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -696,11 +604,7 @@ input[type="radio"] + label:hover {
     justify-content: center;
     transition: background 0.2s;
 }
-
-.close-leaderboard-btn:hover {
-    background: rgba(255, 255, 255, 0.15);
-}
-
+/*fixed grid table*/
 .lb-modal-table {
     width: 100%;
     border-collapse: collapse;
@@ -708,7 +612,7 @@ input[type="radio"] + label:hover {
     font-size: 14px;
     table-layout: fixed;
 }
-
+/*header of leaderboard */
 .lb-modal-table th {
     text-align: left;
     padding: 8px 10px;
@@ -716,28 +620,17 @@ input[type="radio"] + label:hover {
     color: #4FC3F7;
     font-size: 12px;
 }
-
+/*spacing for each cell*/
 .lb-modal-table td {
     padding: 10px;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
     overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }
-
-
-.lb-modal-table th:nth-child(1),
-.lb-modal-table td:nth-child(1) { width: 36px; }
-
-.lb-modal-table th:nth-child(2),
-.lb-modal-table td:nth-child(2) { width: auto; }
-
-.lb-modal-table th:nth-child(3),
-.lb-modal-table td:nth-child(3) { width: 70px; text-align: right; }
-
-/* leaderboard at the end */
+/* leaderboard glass at the end */
 .leaderboard-wrapper {
     position: absolute;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 80vh;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -747,8 +640,6 @@ input[type="radio"] + label:hover {
     flex-direction: column;
     gap: 16px;
     background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(50px);
-    -webkit-backdrop-filter: blur(50px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 20px;
     padding: 20px;
@@ -756,17 +647,15 @@ input[type="radio"] + label:hover {
             0 8px 32px rgba(0, 0, 0, 0.3),
             inset 0 1px 0 rgba(255, 255, 255, 0.1);
     max-height: 80vh;
-    overflow-y: auto;
-    overflow-x: hidden;
-    box-sizing: border-box;
 }
+/*leaderboard heading*/
 .leaderboard-title {
     color: #4FC3F7;
     font-size: 22px;
     margin: 0;
     text-align: center;
 }
-
+/*box for player name and score*/
 .your-score-box {
     display: flex;
     flex-direction: column;
@@ -780,25 +669,20 @@ input[type="radio"] + label:hover {
     box-sizing: border-box;
     text-align: center;
 }
-
-.your-score-label {
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.6);
-}
-
+/*score color*/
 .your-score-value {
     font-size: 28px;
     font-weight: bold;
     color: #4FC3F7;
 }
-
+/*leaderboard controls vertically*/
 .leaderboard-controls {
     display: flex;
     flex-direction: column;
     gap: 10px;
     width: 100%;
 }
-
+/*glass for btn*/
 .leaderboard-btn {
     width: 100%;
     padding: 12px;
@@ -809,13 +693,8 @@ input[type="radio"] + label:hover {
     font-size: 15px;
     font-weight: bold;
     cursor: pointer;
-    transition: background 0.2s;
 }
-
-.leaderboard-btn:hover {
-    background: rgba(255, 255, 255, 0.15);
-}
-
+/*leaderboard input*/
 .leaderboard-input {
     width: 100%;
     padding: 12px;
@@ -828,12 +707,15 @@ input[type="radio"] + label:hover {
     box-sizing: border-box;
 }
 
-.leaderboard-input::placeholder {
-    color: rgba(255, 255, 255, 0.4);
-}
-@supports (-webkit-touch-callout: none) {
-    /* iOS fix */
-    body {
-        height: -webkit-fill-available;
-    }
+/*animations for tick  and x */
+.correct-animation-container,
+.wrong-animation-container {
+    position: fixed;
+    top: 30%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
 }

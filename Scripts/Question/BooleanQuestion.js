@@ -74,7 +74,7 @@ export class BooleanQuestion extends Question {
             playWrongAnimation(data.message);
         } 
         else {
-            playCorrectAnimation(data.message);
+            playCorrectAnimation();
         }
 
         await sleep(animationDuration);
