@@ -71,11 +71,9 @@ export class BooleanQuestion extends Question {
         const data = await dataPromise;
 
         if (data.correct == false) {
-            
-            const submitButton = document.getElementById("submitAnswer");
-            submitButton.disabled = false;
             playWrongAnimation();
-        } else {
+        } 
+        else {
             playCorrectAnimation();
             this.parentStage.app.currentQuestionIndex++;
         }

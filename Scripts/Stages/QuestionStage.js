@@ -104,7 +104,7 @@ export class QuestionStage extends Stage {
                     this.app.currentQuestion = questionClass;
                     const question = new questionClass({...questionData, parentStage: this});
 
-                    
+                    console.log("Load Question");
                     
                     question.Display(RENDERED_AREA_ID);
 
