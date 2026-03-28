@@ -78,9 +78,9 @@ export class MCQQuestion extends Question {
         const data = await dataPromise;
 
         if (data.correct == false) {
-            playWrongAnimation();
+            playWrongAnimation(data.message);
         } else {
-            playCorrectAnimation();
+            playCorrectAnimation(data.message);
         }
 
         await sleep(animationDuration);
