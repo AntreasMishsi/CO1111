@@ -44,7 +44,7 @@ export class LeaderBoardStage extends Stage {
         document.getElementById("loadLeaderboard").addEventListener("click", () => {
 
             // let limit = document.getElementById("limit").value;
-            let sorted = false;
+            let sorted = "&sorted";
 
             let limit = document.getElementById("integerInput").value;
             let number = parseInt(limit); // Converts strings to integers

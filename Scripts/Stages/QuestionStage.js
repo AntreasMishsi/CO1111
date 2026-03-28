@@ -23,6 +23,7 @@ export class QuestionStage extends Stage {
     }
 
     async OnStart() {
+        this.app.currentQuestionIndex = 1;
         document.getElementById('scan-btn').style.display = 'flex';
         document.getElementById('leaderboard-btn').style.display = 'flex';
         
@@ -92,9 +93,11 @@ export class QuestionStage extends Stage {
                     
                     ClearRenderer();
                     this.app.SaveData();
-
                     FadeIn();
-                    
+
+                    const label = document.getElementById('question-label');
+                    if (label) label.textContent = `Question ${this.app.currentQuestionIndex} of ${this.app.numOfQuestions}`;
+
                     this.app.currentQuestionData = questionData;
                     
                     const questionClass = this.QuestionTypes[questionData.questionType];
@@ -124,6 +127,7 @@ export class QuestionStage extends Stage {
             if(data.status === "OK") {
                 CloseScanner();
                 ClearRenderer();
+                this.app.currentQuestionIndex++;
                 this.AskQuestion();
                 
             }
@@ -138,6 +142,8 @@ export class QuestionStage extends Stage {
     }
 
     async OnEnd() {
+        const label = document.getElementById('question-label');
+        if (label) label.textContent = '';
         document.getElementById('scan-btn').style.display = 'none';
         document.getElementById('leaderboard-btn').style.display = 'none';
         await FadeOut();

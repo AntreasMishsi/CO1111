@@ -5,7 +5,7 @@
     width: 300px;
     height: 300px;
     justify-content: center;
-    display: auto;
+
     
     animation: correctAnimation 1.5s ease-in-out forwards;
     opacity: 0;
@@ -45,11 +45,8 @@
     animation-name: wrongAnimation;
     opacity: 0;
     overflow: visible;
-
     display: flex;
     align-items: center;
-    justify-content: center;
-    overflow: visible;
     transform-origin: center;
 }
 

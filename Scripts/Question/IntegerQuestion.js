@@ -80,6 +80,7 @@ export class IntegerQuestion extends Question {
             playWrongAnimation();
         } else {
             playCorrectAnimation();
+            this.parentStage.app.currentQuestionIndex++;
         }
 
         await sleep(animationDuration);

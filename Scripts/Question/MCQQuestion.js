@@ -81,6 +81,7 @@ export class MCQQuestion extends Question {
             playWrongAnimation();
         } else {
             playCorrectAnimation();
+            this.parentStage.app.currentQuestionIndex++;
         }
 
         await sleep(animationDuration);
