@@ -28,6 +28,11 @@ html {
     font-size: 17px;
     margin-top: 40px;
     margin-right: 10px;
+
+    .testing-link{
+        color: white;
+        text-decoration: none;
+    }
 }
 /*body*/
 .body {
