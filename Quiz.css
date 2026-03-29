@@ -103,7 +103,7 @@ html, body {
 /*follow*/
 .follow {
     position: absolute;
-    bottom: 190px;
+    bottom: 95px;
     left: 50%;
     transform: translateX(-50%);
     color: white;
@@ -113,7 +113,7 @@ html, body {
 /*social media icons*/
 .socials {
     position: absolute;
-    bottom:120px;
+    bottom:60px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -184,4 +184,10 @@ html, body {
 
 #btn{
     text-align: center;
+}
+/* x post */
+.twitter-tweet {
+    margin: 20px  !important;
+    display: flex !important;
+    max-width: 290px !important;
 }
