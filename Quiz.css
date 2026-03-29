@@ -101,17 +101,17 @@ html {
 /*follow*/
 .follow {
     position: absolute;
-    bottom: 95px;
+    bottom: 70px;
     left: 50%;
     transform: translateX(-50%);
     color: white;
-    font-size: 15px;
+    font-size: 13px;
 }
 
 /*social media icons*/
 .socials {
     position: absolute;
-    bottom:60px;
+    bottom:40px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -169,7 +169,7 @@ html {
 }
 /*Copyright at the bottom*/
 .copyright {
-    font-size: 12px;
+    font-size: 6px;
     color: gray;
     text-align: center;
     margin-top: 20px;
