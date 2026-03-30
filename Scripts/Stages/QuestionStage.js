@@ -84,7 +84,7 @@ export class QuestionStage extends Stage {
                     this.app.ChangeStage();
                     return;
                 }
-
+                console.log(questionData);
 
                 if(questionData.status !== "OK") {
                     console.log(questionData.errorMessages[0]);

@@ -30,6 +30,8 @@ export class App {
         this.numOfQuestions = 0;
         this.currentQuestionData = null;
 
+        this.curentTime = Date.now();
+
         this.appState = new AppState();
         this.StageList = [
             new ListStage(this),
@@ -71,6 +73,8 @@ export class App {
         this.currentQuestionIndex = 0;
         this.numOfQuestions = 0;
         this.currentQuestionData = null;
+        this.curentTime = Date.now();
+        
 
         this.appState = new AppState();
         document.cookie = "app=; max-age=0; path=/;";
@@ -93,7 +97,7 @@ export class App {
             numOfQuestions : this.numOfQuestions,
             questionData: this.currentQuestionData,
 
-            timestamp: Date.now(),
+            timestamp: this.curentTime,
         };
 
         document.cookie = "app=" + JSON.stringify(data) + "; path=/";
@@ -118,6 +122,14 @@ export class App {
                     break;
                 }
                 if(data.name === null) {
+                    break;
+                }
+                const SESSION_TIME = 30 * 60 * 1000;
+                console.log(data)
+                if (!data.timestamp || (Date.now() - data.timestamp > SESSION_TIME)) {
+                    console.log("Cookie expired (more than 30 minutes)");
+                    
+                    this.Reset();
                     break;
                 }
 
