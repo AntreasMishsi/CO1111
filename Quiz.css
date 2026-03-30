@@ -53,7 +53,8 @@ html {
     color: white;
     font-size: 18px;
     text-align: center;
-    margin-bottom: 20px;
+    position: relative;
+    top: 110px;
 
 }
 /*custom css property */
@@ -72,8 +73,8 @@ html {
     color: white;
     text-decoration: none;
     cursor: pointer;
-    bottom: 1px;
     position: relative;
+    top: 130px;
 }
 
 /*colors to rotate*/
@@ -190,7 +191,10 @@ html {
 }
 /* x post */
 .twitter-tweet {
-    margin: 20px  !important;
+    margin: 20px auto  !important;
     display: flex !important;
-    max-width: 290px !important;
+    max-width: 350px !important;
+    transform: scale(0.6) !important;
+    position: relative;
+    top: 20px;
 }
