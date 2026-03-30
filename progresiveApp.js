@@ -1,26 +1,31 @@
-const cacheName="Treasure-Hunt";
+const cacheName="Treasure-Hunt-v1";
 
-const fileToCache=["/",
-    "/index.html",
-    "/app.html",
-    "/Quiz.css",
-    "/Scripts/Animations/AfterQuestionAnims.js",
-    "/Scripts/App/App.js",
-    "/Scripts/App/AppState.js",
-    "/Scripts/Question/BooleanQuestion.js",
-    "/Scripts/Question/IntegerQuestion.js",
-    "/Scripts/Question/MCQQuestion.js",
-    "/Scripts/Question/NumericQuestion.js",
-    "/Scripts/Question/Question.js",
-    "/Scripts/Question/TextQuestion.js",
-    "/Scripts/Stages/LeaderBoardStage.js",
-    "/Scripts/Stages/ListStage.js",
-    "/Scripts/Stages/Stages.js",
-    "/Scripts/Stages/StartStage.js",
-    "/Scripts/Utils/ClearRenderer.js",
-    "/Scripts/Utils/Message.js",
-    "/Scripts/Utils/Utils.js","" +
-    "/main.js"
+const fileToCache=[
+    "/CO1111/",
+    "/CO1111/index.html",
+    "/CO1111/app.html",
+    "/CO1111/Quiz.css",
+    "/CO1111/Styles/Animation.css",
+    "/CO1111/Styles/main.css",
+    "/CO1111/Styles/Message.css",
+    "/CO1111/Styles/video.css",
+    "/CO1111/Scripts/Animations/AfterQuestionAnims.js",
+    "/CO1111/Scripts/App/App.js",
+    "/CO1111/Scripts/App/AppState.js",
+    "/CO1111/Scripts/Question/BooleanQuestion.js",
+    "/CO1111/Scripts/Question/IntegerQuestion.js",
+    "/CO1111/Scripts/Question/MCQQuestion.js",
+    "/CO1111/Scripts/Question/NumericQuestion.js",
+    "/CO1111/Scripts/Question/Question.js",
+    "/CO1111/Scripts/Question/TextQuestion.js",
+    "/CO1111/Scripts/Stages/LeaderBoardStage.js",
+    "/CO1111/Scripts/Stages/ListStage.js",
+    "/CO1111/Scripts/Stages/Stages.js",
+    "/CO1111/Scripts/Stages/StartStage.js",
+    "/CO1111/Scripts/Utils/ClearRenderer.js",
+    "/CO1111/Scripts/Utils/Message.js",
+    "/CO1111/Scripts/Utils/Utils.js",
+    "/CO1111/main.js"
 ];
 
 //Start the service worker and cache all of the app's content.
