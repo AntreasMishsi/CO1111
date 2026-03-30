@@ -74,6 +74,9 @@ export class App {
 
         this.appState = new AppState();
         document.cookie = "app=; max-age=0; path=/;";
+
+        this.appState.setStage(Stages.List);
+        this.StageList[this.appState.getCurentStage()].OnStart();
     }
 
 //#region Cookies

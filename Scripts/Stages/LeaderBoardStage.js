@@ -22,6 +22,7 @@ export class LeaderBoardStage extends Stage {
 
 
         container.innerHTML = `
+        
         <div class="leaderboard-wrapper">
             <h2 class="leaderboard-title">Leaderboard</h2>
             <div class="your-score-box">
@@ -30,13 +31,19 @@ export class LeaderBoardStage extends Stage {
             </div>
             <div class="leaderboard-controls">
             
-                <button id="share-to-twitter-button" class="leaderboard-btn twitter-btn"><img src="Resources/icons/x.svg"  alt="x-icon" />Share to X</button>
+                <button id="share-to-twitter-button" class="leaderboard-btn btn-with-icon"><img src="Resources/icons/x.svg"  alt="x-icon" />Share to X</button>
                 <button id="loadLeaderboard" class="leaderboard-btn">Load Leaderboard</button>
             </div>
             <div id="leaderboard"></div>
+            <button class="leaderboard-btn btn-with-icon" id="start-again-button"><img src="Resources/icons/refresh.svg"  alt="refresh-icon" />Start Again!</button>
         </div>
-`;
 
+       
+        
+        `;
+        document.getElementById("start-again-button").addEventListener("click", () => {
+            this.app.Reset();
+        });
         // Share button
         document.getElementById("share-to-twitter-button").addEventListener("click", () => {
             ShareToTwitter();

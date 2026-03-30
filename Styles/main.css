@@ -85,7 +85,7 @@ a {
 .modal:target {
     display: flex;
 }
-.twitter-btn {
+.btn-with-icon {
   display: flex;
   align-items: center;   
   justify-content: center; 
