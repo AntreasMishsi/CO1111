@@ -2,14 +2,15 @@
   "name": "Treasure Hunt App",
   "short_name": "Simple app",
   "lang": "en-US",
-  "start_url": "index.html",
+  "start_url": "/CO1111/index.html",
+  "scope": "/CO1111/",
   "display": "standalone",
   "background_color": "teal",
   "theme_color": "teal",
   "icons": [
     {
       "src": "logo.png",
-      "sizes": "512x512",
+      "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
     },
