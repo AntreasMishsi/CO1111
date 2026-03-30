@@ -1,47 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-<style>
+    <style>
+        
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
 
-    body {
-        font-family: Arial, sans-serif;
-        margin: 40px;
-    }
+        h2 {
+            margin-bottom: 15px;
+        }
 
-    h2 {
-        margin-bottom: 15px;
-    }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
 
-    table {
-        width: 100%;
-        border-collapse: collapse;
-    }
+        table, th, td {
+            border: 2px solid black;
+        }
 
-    table, th, td {
-        border: 2px solid black;
-    }
+        th, td {
+            padding: 5px;
+            text-align: left;
+        }
 
-    th, td {
-        padding: 5px;
-        text-align: left;
-    }
+        th {
+            background-color: grey;
+        }
 
-    th {
-        background-color: grey;
-    }
+        .center {
+            text-align: center;
+        }
 
-    .center {
-        text-align: center;
-    }
+         #Pass{
+            text-align: center;
+            color: green;
 
-    .Pass{
-        text-align: center;
-        color: green;
-
-    }
+         }
 
 
 
-</style>
+    </style>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -64,7 +64,7 @@
 
 
 
-</section>
+    </section>
 
 <section>
 
@@ -82,100 +82,120 @@
 
 
 
-<section>
+    <section> 
 
-    <br>
-    <br>
-    <br>
-    <!-- Heuristic Testing-->
-    <h3> Heuristic Testing</h3>
-    <table >
+<br>
+<br>
+<br>
+<!-- Heuristic Testing-->
+ <h3> Heuristic Testing</h3>
+   <table > 
 
-        <thead>
-        <tr>
-            <th>Test </th>
-            <th>Test Type </th>
+      <thead> 
+        <tr> 
+            <th>Test </th> 
+            <th>Test Type </th> 
             <th>Test Description </th>
-
+             <th>Pass/Fail </th>
+            
         </tr>
 
-        </thead>
+      </thead>
 
 
-        <tbody>
-        <tr><td class="center">1 </td><td>Visibility of System Status </td>
-            <td>
+      <tbody>
+        <tr><td class="center">1 </td><td>Visibility of System Status </td>      
+             <td>
                 The design should always keep users informed about what
-                is going on through appropriate feedback within a reasonable amount of time
-            </td>
-        </tr>
+                  is going on through appropriate feedback within a reasonable amount of time
+                </td>  
 
-        <tr><td class="center">2 </td><td>Match Between System & Real World</td>
+                <td id="Pass"> PASS </td>
+            </tr>
+
+        <tr><td class="center">2 </td><td>Match Between System & Real World</td>  
             <td>The design should speak the users'
                 language. Use words, phrases, and concepts familiar to the user, rather than internal
-                jargon. Follow real-world conventions, making information appear in a natural and
-                logical order
-            </td>
-        </tr>
+                 jargon. Follow real-world conventions, making information appear in a natural and
+                  logical order
+            </td>  
 
-        <tr><td class="center">3 </td><td>User control and freedom </td>
+            <td id="Pass"> PASS </td>
+         </tr>
+
+        <tr><td class="center">3 </td><td>User control and freedom </td>          
             <td>Users often perform actions by mistake. They need a clearly
-                marked "emergency exit" to leave the unwanted action without having to go through an
-                extended process
-            </td>
+                 marked "emergency exit" to leave the unwanted action without having to go through an
+                  extended process
+             </td>
+             
+             <td id="Pass"> PASS </td>
+         </tr>
+
+        <tr><td class="center">4 </td><td>Consistency and standards</td>  
+              <td>Users should not have to wonder whether different words,
+                  situations, or actions mean the same thing. Follow platform and industry conventions
+              </td>
+              <td id="Pass"> PASS </td>
+
+            </tr>
+
+        <tr><td class="center">5 </td><td>Error prevention</td>                  
+             <td>Good error messages are important, but the best designs carefully
+                 prevent problems from occurring in the first place. Either eliminate error-prone
+                  conditions or check for them and present users with a confirmation option before they
+                 commit to the action
+            </td> 
+
+            <td id="Pass"> PASS </td>
+         </tr>
+
+        <tr><td class="center">6 </td><td>Recognition rather than recall</td>    
+             <td>Minimize the user's memory load by making elements,
+                 actions, and options visible. The user should not have to remember information from one
+                 part of the interface to another. Information required to use the design (e.g., field labels
+                 or menu items) should be visible or easily retrievable when needed
+          </td> 
+
+          <td id="Pass"> PASS </td>
         </tr>
 
-        <tr><td class="center">4 </td><td>Consistency and standards</td>
-            <td>Users should not have to wonder whether different words,
-                situations, or actions mean the same thing. Follow platform and industry conventions
-            </td>
-        </tr>
-
-        <tr><td class="center">5 </td><td>Error prevention</td>
-            <td>Good error messages are important, but the best designs carefully
-                prevent problems from occurring in the first place. Either eliminate error-prone
-                conditions or check for them and present users with a confirmation option before they
-                commit to the action
-            </td>
-        </tr>
-
-        <tr><td class="center">6 </td><td>Recognition rather than recall</td>
-            <td>Minimize the user's memory load by making elements,
-                actions, and options visible. The user should not have to remember information from one
-                part of the interface to another. Information required to use the design (e.g., field labels
-                or menu items) should be visible or easily retrievable when needed
-            </td>
-        </tr>
-
-        <tr><td class="center">7 </td><td>Flexibility and efficiency of use </td>
+        <tr><td class="center">7 </td><td>Flexibility and efficiency of use </td> 
             <td>Shortcuts hidden from novice users may speed up the
                 interaction for the expert user such that the design can cater to both inexperienced and
                 experienced users. Allow users to tailor frequent actions
-            </td>
+            </td>  
+
+            <td id="Pass"> PASS </td>
         </tr>
 
-        <tr><td class="center">8 </td><td>Aesthetic and minimalist design </td>
+        <tr><td class="center">8 </td><td>Aesthetic and minimalist design </td>   
             <td>Aesthetic and minimalist design — interfaces should not contain information which is
-                irrelevant or rarely needed. Every extra unit of information in an interface competes with
+                  irrelevant or rarely needed. Every extra unit of information in an interface competes with
                 the relevant units of information and diminishes their relative visibility
-            </td>
+            </td>  
+
+            <td id="Pass"> PASS </td>
         </tr>
 
-        <tr><td class="center">9 </td><td>Help users recognize, diagnose, and recover from errors</td>
+        <tr><td class="center">9 </td><td>Help users recognize, diagnose, and recover from errors</td>            
             <td>Error messages should be
                 expressed in plain language (no error codes), precisely indicate the problem, and
                 constructively suggest a solution
-            </td>
+            </td>  
+
+            <td id="Pass"> PASS </td>
         </tr>
-        <tr><td class="center">10 </td><td>Help and documentation</td>
+        <tr><td class="center">10 </td><td>Help and documentation</td>          
             <td>It’s best if the system doesn’t need any additional explanation.
                 However, it may be necessary to provide documentation to help users understand how
                 to complete their tasks
             </td>
+            <td id="Pass"> PASS </td>
         </tr>
 
-        </tbody>
-    </table>
+      </tbody>
+   </table>
 
 </section>
 
@@ -183,94 +203,74 @@
 <section>
 
 
-    <br>
-    <br>
-    <br>
-    <!-- Test Tasks -->
+<br>
+<br>
+<br>
+<!-- Test Tasks -->
 
-    <h3> Test Tasks</h3>
-    <table >
+ <h3> Test Tasks</h3>
+   <table > 
 
-        <thead>
-        <tr>
-            <th>Test </th>
-            <th>Test Type</th>
-            <th>Test Description </th>
-
+      <thead> 
+        <tr> 
+            <th>Test </th> 
+            <th>Test Type</th> 
+            
+            
         </tr>
 
-        </thead>
+      </thead>
 
 
-        <tbody>
-        <tr>
-            <td class="center">1 </td>
-            <td>Find the help button and the about button</td>
-            <td style="color:green; font-size: 20px; text-align: center;">
-               PASS
-            </td>
-        </tr>
+      <tbody>
+        <tr><td class="center">1 </td>
+            <td>Find the help button and the about button</td>      
+            
+            </tr>
 
 
         <tr> <td class="center">2 </td>
-            <td>Start the game</td>
-            <td style="color:green; font-size: 20px; text-align: center;">
-                PASS
-            </td>
-        </tr>
+            <td>Start the game</td>  
+           
+         </tr>
 
         <tr><td class="center">3 </td>
-            <td>Open the Camera </td>
-            <td style="color:green; font-size: 20px; text-align: center;">
-                PASS
-            </td>
-        </tr>
+            <td>Open the Camera </td>  
+            
+         </tr>
 
         <tr><td class="center">4 </td>
-            <td>Was user able to go back? </td>
-            <td style="color:green; font-size: 20px; text-align: center;">
-                PASS
-            </td>
-        </tr>
+            <td>Was user able to go back? </td>          
+            
+         </tr>
 
         <tr><td class="center">5 </td>
-            <td>Do all the buttons behave the same in all actions? </td>
-            <td style="color:green; font-size: 20px; text-align: center;">
-                PASS
-            </td>
-        </tr>
+            <td>Do all the buttons behave the same in all actions? </td>  
+             
+            </tr>
 
         <tr><td class="center">6 </td>
-            <td> Try to submit without  filling the form</td>
-            <td style="color:green; font-size: 20px; text-align: center;">
-                PASS
-            </td>
-        </tr>
+            <td> Try to submit without  filling the form</td>                  
+            
+         </tr>
 
         <tr><td class="center">7 </td>
             <td>Was the user able to see the leaderboard? </td>
-            <td style="color:green; font-size: 20px; text-align: center">
-                PASS
-            </td>
         </tr>
 
         <tr><td class="center">8 </td>
-            <td>Did user liked the design?</td>
-            <td style="color:green; font-size: 20px; text-align: center">
-                PASS
-            </td>
+            <td>Did user liked the design?</td> 
+            
         </tr>
 
         <tr><td class="center">9 </td>
-            <td>Was the user able to understand the feedback from error messages?</td>
-            <td style="color:green; font-size: 20px; text-align: center">
-                PASS
-            </td>
+            <td>Was the user able to understand the feedback from error messages?</td>   
+              
         </tr>
 
-
-        </tbody>
-    </table>
+        
+      </tbody>
+   </table>
 
 
 
@@ -283,459 +283,459 @@
 <br>
 <br>
 <br>
-<h3> Test Results </h3>
-<table id="Tables">
-
-    <thead>
-    <tr>
-        <th>Test Number </th>
-        <th>Test no.  </th>
-        <th>Tested by </th>
-        <th>Role </th>
-        <th>Date/Time </th>
-        <th>Result (Pass/Fail) </th>
-        <th>Notes </th>
-    </tr>
-
-    </thead>
-
-
-    <tbody>
-
-    <!-- Andreas -->
-    <tr><td class="center">1 </td>
-        <td> No.1</td>
-        <td>Andreas</td>
-        <td>Tester</td>
-        <td>28/03/26</td>
-        <td class="Pass"> PASS </td>
-        <td>As soon as you open the app in the index page there is at top right of your screen HELP button and explains you everything before you move one</td>
-    </tr>
-
-
-    <td class="center">2 </td>
-    <td> No.2</td>
-    <td>Andreas </td>
-    <td>Tester</td>
-    <td>28/03/26</td>
-    <td class="Pass"> PASS </td>
-    <td> First thing you see when you open the app</td>
-    </tr>
-
-
-    <tr><td class="center">3 </td>
-        <td> No.3</td>
-        <td>Andreas </td>
-        <td>Tester</td>
-        <td>28/03/26</td>
-        <td class="Pass"> PASS </td>
-        <td>Pretty easy to use the button to scan appears as soon as you enter your name</td>
-    </tr>
-
-    <tr><td class="center">4 </td>
-        <td> No.4</td>
-        <td>Andreas</td>
-        <td>Tester</td>
-        <td>28/03/26</td>
-        <td class="Pass"> PASS </td>
-        <td>In case you performed an action by mistake the application lets you go back with the home button or browsers back buttons and also lets you skip a specific questions if you dont know them </td>
-    </tr>
-
-    <tr><td class="center">5 </td>
-        <td> No.5</td>
-        <td>Andreas</td>
-        <td>Tester</td>
-        <td>28/03/26</td>
-        <td class="Pass"> PASS </td>
-        <td> Yes every button behaves the same in all actions </td>
-    </tr>
-
-    <tr><td class="center">6 </td>
-        <td> No.6</td>
-        <td>Andreas</td>
-        <td>Tester</td>
-        <td>28/03/26</td>
-        <td class="Pass"> PASS </td>
-        <td>You cant move forward without filling the form an error message will appear</td>
-    </tr>
-
-    <tr><td class="center">7 </td>
-        <td>No.7</td>
-        <td>Andreas</td>
-        <td>Tester</td>
-        <td>28/03/26</td>
-        <td class="Pass"> PASS </td>
-        <td>Yes after you complete a treasure hunt you can see the leaderboard and your placement</td>
-    </tr>
-
-    <tr><td class="center">8 </td>
-        <td>No.8</td>
-        <td>Andreas</td>
-        <td>Tester</td>
-        <td>28/03/26</td>
-        <td class="Pass"> PASS </td>
-        <td>The design is minimal and very user friendly</td>
-    </tr>
-
-    <tr><td class="center">9 </td>
-        <td>No.9</td>
-        <td>Andreas</td>
-        <td>Tester</td>
-        <td>28/03/26</td>
-        <td class="Pass"> PASS </td>
-        <td>Yes the error messages are clear and helpful</td>
-    </tr>
-
-    <tr><td class="center">10 </td>
-        <td>No.1</td>
-        <td>Kyriakos</td></td>
-        <td>User</td>
-        <td>28/03/26</td>
-        <td class="Pass"> PASS </td>
-        <td> He found it pretty easy to find the buttons  </td>
-    </tr>
-
-
-    <!-- Kyriakos -->
-    <tr><td class="center">11</td>
-        <td>No.2</td>
-        <td>Kyriakos</td></td>
-        <td>User</td>
-        <td>28/03/26</td>
-        <td class="Pass"> PASS </td>
-        <td> He mentioned that was the easiest part </td>
-    </tr>
-
-    <tr><td class="center">12</td>
-        <td>No.3</td>
-        <td>Kyriakos</td></td>
-        <td>User</td>
-        <td>28/03/26</td>
-        <td class="Pass"> PASS </td>
-        <td> Easy to find </td>
-    </tr>
-
-    <tr><td class="center">13</td>
-        <td>No.4</td>
-        <td>Kyriakos</td></td>
-        <td>User</td>
-        <td>28/03/26</td>
-        <td class="Pass"> PASS </td>
-        <td> Yes easy to find </td>
-    </tr>
-
-
-    <tr><td class="center">14</td>
-        <td>No.5</td>
-        <td>Kyriakos</td></td>
-        <td>User</td>
-        <td>28/03/26</td>
-        <td class="Pass"> PASS </td>
-        <td> Yes easy to find </td>
-    </tr>
-
-
-    <tr><td class="center">15</td>
-        <td>No.6</td>
-        <td>Kyriakos</td></td>
-        <td>User</td>
-        <td>28/03/26</td>
-        <td class="Pass"> PASS </td>
-        <td>An error message appeared and explained him what to do</td>
-    </tr>
-
-
-    <tr><td class="center">16</td>
-        <td>No.7</td>
-        <td>Kyriakos</td></td>
-        <td>User</td>
-        <td>28/03/26</td>
-        <td class="Pass"> PASS </td>
-        <td> Yes he found it after he finished all the questions with score 32</td>
-    </tr>
-
-
-
-    <tr><td class="center">17</td>
-        <td>No.8</td>
-        <td>Kyriakos</td></td>
-        <td>User</td>
-        <td>28/03/26</td>
-        <td class="Pass"> PASS </td>
-        <td> Yes he liked it that was minimal and modern the same time </td>
-    </tr>
-
-
-
-    <tr><td class="center">18</td>
-        <td>No.9</td>
-        <td>Kyriakos</td></td>
-        <td>User</td>
-        <td>28/03/26</td>
-        <td class="Pass"> PASS </td>
-        <td>Yes when he pressed by mistake submit without answering he didnt let him move forwrd and an error message appeared to inform him and he understood the message clearly</td>
-    </tr>
-
-
-    <!-- Constantina -->
-    <tr><td class="center">19 </td>
-        <td>No.1</td>
-        <td>Constantina</td></td>
-        <td>User</td>
-        <td>28/03/26</td>
-        <td class="Pass"> PASS </td>
-        <td> She also find the buttons without any struggle </td>
-    </tr>
-
-    <tr><td class="center">20</td>
-        <td>No.2</td>
-        <td>Constantina</td></td>
-        <td>User</td>
-        <td>28/03/26</td>
-        <td class="Pass"> PASS </td>
-        <td> She also mentioned that was the easiest part </td>
-    </tr>
-
-    <tr><td class="center">21</td>
-        <td>No.3</td>
-        <td>Constantina</td></td>
-        <td>User</td>
-        <td>28/03/26</td>
-        <td class="Pass"> PASS </td>
-        <td> Easy to find </td>
-    </tr>
-
-    <tr><td class="center">22</td>
-        <td>No.4</td>
-        <td>Constantina</td></td>
-        <td>User</td>
-        <td>28/03/26</td>
-        <td class="Pass"> PASS </td>
-        <td> Yes she liked that was easy to find it due to the qr code icon </td>
-    </tr>
-
-
-    <tr><td class="center">23</td>
-        <td>No.5</td>
-        <td>Constantina</td></td>
-        <td>User</td>
-        <td>28/03/26</td>
-        <td class="Pass"> PASS </td>
-        <td> Yes she was able she liked we added a home button and she didn use the arrow buttons of browser </td>
-    </tr>
-
-
-    <tr><td class="center">24</td>
-        <td>No.6</td>
-        <td>Constantina</td></td>
-        <td>User</td>
-        <td>28/03/26</td>
-        <td class="Pass"> PASS </td>
-        <td>An error message appeared and explained her what to do</td>
-    </tr>
-
-
-    <tr><td class="center">25</td>
-        <td>No.7</td>
-        <td>Constantina</td></td>
-        <td>User</td>
-        <td>28/03/26</td>
-        <td class="Pass"> PASS </td>
-        <td> Yes she found it after she finished all the questions with also a score of 32 points </td>
-    </tr>
-
-
-    <tr><td class="center">26</td>
-        <td>No.8</td>
-        <td>Constantina</td></td>
-        <td>User</td>
-        <td>28/03/26</td>
-        <td class="Pass"> PASS </td>
-        <td> Yes she liked the colors and she mentioned the colors were okay and not too extreme </td>
-    </tr>
-
-
-
-    <tr><td class="center">27</td>
-        <td>No.9</td>
-        <td>Constantina</td></td>
-        <td>User</td>
-        <td>28/03/26</td>
-        <td class="Pass"> PASS </td>
-        <td>She tried to submit without writting her name and an error message appeared without letting her continue</td>
-    </tr>
-
-    </tbody>
-
-
-
-    <!-- Harry -->
-    <tr><td class="center">28 </td>
-        <td>No.1</td>
-        <td>Harry</td></td>
-        <td>User</td>
-        <td>28/03/26</td>
-        <td class="Pass"> PASS </td>
-        <td> The same as others no struggle to find the buttons   </td>
-    </tr>
-
-    <tr><td class="center">29</td>
-        <td>No.2</td>
-        <td>Harry</td></td>
-        <td>User</td>
-        <td>28/03/26</td>
-        <td class="Pass"> PASS </td>
-        <td> He mentioned that was the easiest part as well</td>
-    </tr>
-
-    <tr><td class="center">30</td>
-        <td>No.3</td>
-        <td>Harry</td></td>
-        <td>User</td>
-        <td>28/03/26</td>
-        <td class="Pass"> PASS </td>
-        <td> Took him a few seconds but he found it</td>
-    </tr>
-
-    <tr><td class="center">31</td>
-        <td>No.4</td>
-        <td>Harry</td></td>
-        <td>User</td>
-        <td>28/03/26</td>
-        <td class="Pass"> PASS </td>
-        <td> Yes the user found the home button very fast he liked the action bar with the home button being there</td>
-    </tr>
-
-
-    <tr><td class="center">32</td>
-        <td>No.5</td>
-        <td>Harry</td></td>
-        <td>User</td>
-        <td>28/03/26</td>
-        <td class="Pass"> PASS </td>
-        <td> Yes he tested all scenarios and the buttons behave the same </td>
-    </tr>
-
-
-    <tr><td class="center">33</td>
-        <td>No.6</td>
-        <td>Harry</td></td>
-        <td>User</td>
-        <td>28/03/26</td>
-        <td class="Pass"> PASS </td>
-        <td>He tried in different forms to submit without answering and he liked the fact that each error message was different </td>
-    </tr>
-
-
-    <tr><td class="center">34</td>
-        <td>No.7</td>
-        <td>Harry</td></td>
-        <td>User</td>
-        <td>28/03/26</td>
-        <td class="Pass"> PASS </td>
-        <td> Yes he found it after he finished all the questions with score 32</td>
-    </tr>
-
-
-
-    <tr><td class="center">35</td>
-        <td>No.8</td>
-        <td>Harry</td></td>
-        <td>User</td>
-        <td>28/03/26</td>
-        <td class="Pass"> PASS </td>
-        <td> Yes he liked it that was minimal and modern the same time </td>
-    </tr>
-
-
-
-    <tr><td class="center">36</td>
-        <td>No.9</td>
-        <td>Harry</td></td>
-        <td>User</td>
-        <td>28/03/26</td>
-        <td class="Pass"> PASS </td>
-        <td>Yes when he pressed by mistake submit without answering he didnt let him move forwrd and an error message appeared to inform him and he understood the message clearly</td>
-    </tr>
-
-
-</table>
+       <h3> Test Results </h3>
+   <table id="Tables"> 
+
+      <thead> 
+        <tr> 
+            <th>Test Number </th> 
+            <th>Test no.  </th>
+            <th>Tested by </th>
+            <th>Role </th>
+            <th>Date/Time </th>
+            <th>Result (Pass/Fail) </th>
+            <th>Notes </th>
+        </tr>
+
+      </thead>
+
+
+      <tbody>
+
+        <!-- Andreas -->
+        <tr><td class="center">1 </td>
+            <td> No.1</td>
+            <td>Andreas</td>
+            <td>Tester</td>
+            <td>28/03/26</td>
+            <td id="Pass"> PASS </td>
+            <td>As soon as you open the app in the index page there is at top right of your screen HELP button and explains you everything before you move one</td> 
+        </tr>
+
+
+      <td class="center">2 </td>
+             <td> No.2</td>
+            <td>Andreas </td>
+            <td>Tester</td>
+            <td>28/03/26</td>
+            <td id="Pass"> PASS </td>
+            <td> First thing you see when you open the app</td> 
+        </tr>
+
+
+        <tr><td class="center">3 </td>
+             <td> No.3</td>
+            <td>Andreas </td>
+            <td>Tester</td>
+            <td>28/03/26</td>
+            <td id="Pass"> PASS </td>
+            <td>Pretty easy to use the button to scan appears as soon as you enter your name</td> 
+        </tr>
+
+        <tr><td class="center">4 </td>
+             <td> No.4</td>
+            <td>Andreas</td>
+            <td>Tester</td>
+            <td>28/03/26</td> 
+           <td id="Pass"> PASS </td>
+            <td>In case you performed an action by mistake the application lets you go back with the home button or browsers back buttons and also lets you skip a specific questions if you dont know them </td> 
+        </tr>
+
+        <tr><td class="center">5 </td>
+            <td> No.5</td>
+            <td>Andreas</td>
+            <td>Tester</td>
+            <td>28/03/26</td>
+            <td id="Pass"> PASS </td>
+            <td> Yes every button behaves the same in all actions </td> 
+        </tr>
+
+      <tr><td class="center">6 </td>
+            <td> No.6</td>
+            <td>Andreas</td>
+            <td>Tester</td>
+            <td>28/03/26</td>
+            <td id="Pass"> PASS </td>
+            <td>You cant move forward without filling the form an error message will appear</td> 
+        </tr>
+
+       <tr><td class="center">7 </td>
+            <td>No.7</td>
+            <td>Andreas</td>
+            <td>Tester</td>
+            <td>28/03/26</td>
+            <td id="Pass"> PASS </td>
+            <td>Yes after you complete a treasure hunt you can see the leaderboard and your placement</td> 
+        </tr>
+
+        <tr><td class="center">8 </td>
+            <td>No.8</td>
+            <td>Andreas</td>
+            <td>Tester</td>
+            <td>28/03/26</td>
+            <td id="Pass"> PASS </td>
+            <td>The design is minimal and very user friendly</td> 
+        </tr>
+
+        <tr><td class="center">9 </td>
+            <td>No.9</td>
+            <td>Andreas</td>
+            <td>Tester</td>
+            <td>28/03/26</td>
+            <td id="Pass"> PASS </td>
+            <td>Yes the error messages are clear and helpful</td> 
+        </tr>
+
+       <tr><td class="center">10 </td>
+            <td>No.1</td>
+            <td>Kyriakos</td></td>
+            <td>User</td>
+            <td>28/03/26</td>
+            <td id="Pass"> PASS </td>
+            <td> He found it pretty easy to find the buttons  </td> 
+        </tr>
+
+
+        <!-- Kyriakos -->
+        <tr><td class="center">11</td>
+            <td>No.2</td>
+            <td>Kyriakos</td></td>
+            <td>User</td>
+            <td>28/03/26</td>
+            <td id="Pass"> PASS </td>
+            <td> He mentioned that was the easiest part </td> 
+        </tr>
+
+        <tr><td class="center">12</td>
+            <td>No.3</td>
+            <td>Kyriakos</td></td>
+            <td>User</td>
+            <td>28/03/26</td>
+            <td id="Pass"> PASS </td>
+            <td> Easy to find </td> 
+        </tr>
+
+        <tr><td class="center">13</td>
+            <td>No.4</td>
+            <td>Kyriakos</td></td>
+            <td>User</td>
+            <td>28/03/26</td>
+            <td id="Pass"> PASS </td>
+            <td> Yes easy to find </td> 
+        </tr>
+
+
+        <tr><td class="center">14</td>
+            <td>No.5</td>
+            <td>Kyriakos</td></td>
+            <td>User</td>
+            <td>28/03/26</td>
+            <td id="Pass"> PASS </td>
+            <td> Yes easy to find </td> 
+        </tr>
+
+
+        <tr><td class="center">15</td>
+            <td>No.6</td>
+            <td>Kyriakos</td></td>
+            <td>User</td>
+            <td>28/03/26</td>
+            <td id="Pass"> PASS </td>
+            <td>An error message appeared and explained him what to do</td> 
+        </tr>
+
+
+        <tr><td class="center">16</td>
+            <td>No.7</td>
+            <td>Kyriakos</td></td>
+            <td>User</td>
+            <td>28/03/26</td>
+            <td id="Pass"> PASS </td>
+            <td> Yes he found it after he finished all the questions with score 32</td> 
+        </tr>
+
+
+
+        <tr><td class="center">17</td>
+            <td>No.8</td>
+            <td>Kyriakos</td></td>
+            <td>User</td>
+            <td>28/03/26</td>
+            <td id="Pass"> PASS </td>
+            <td> Yes he liked it that was minimal and modern the same time </td> 
+        </tr>
+
+
+
+        <tr><td class="center">18</td>
+            <td>No.9</td>
+            <td>Kyriakos</td></td>
+            <td>User</td>
+            <td>28/03/26</td>
+            <td id="Pass"> PASS </td>
+            <td>Yes when he pressed by mistake submit without answering he didnt let him move forwrd and an error message appeared to inform him and he understood the message clearly</td> 
+        </tr>
+
+
+        <!-- Constantina -->
+        <tr><td class="center">19 </td>
+            <td>No.1</td>
+            <td>Constantina</td></td>
+            <td>User</td>
+            <td>28/03/26</td>
+            <td id="Pass"> PASS </td>
+            <td> She also find the buttons without any struggle </td> 
+        </tr>
+
+        <tr><td class="center">20</td>
+            <td>No.2</td>
+            <td>Constantina</td></td>
+            <td>User</td>
+            <td>28/03/26</td>
+            <td id="Pass"> PASS </td>
+            <td> She also mentioned that was the easiest part </td> 
+        </tr>
+
+        <tr><td class="center">21</td>
+            <td>No.3</td>
+            <td>Constantina</td></td>
+            <td>User</td>
+            <td>28/03/26</td>
+            <td id="Pass"> PASS </td>
+            <td> Easy to find </td> 
+        </tr>
+
+        <tr><td class="center">22</td>
+            <td>No.4</td>
+            <td>Constantina</td></td>
+            <td>User</td>
+            <td>28/03/26</td>
+            <td id="Pass"> PASS </td>
+            <td> Yes she liked that was easy to find it due to the qr code icon </td> 
+        </tr>
+
+
+        <tr><td class="center">23</td>
+            <td>No.5</td>
+            <td>Constantina</td></td>
+            <td>User</td>
+            <td>28/03/26</td>
+            <td id="Pass"> PASS </td>
+            <td> Yes she was able she liked we added a home button and she didn use the arrow buttons of browser </td> 
+        </tr>
+
+
+        <tr><td class="center">24</td>
+            <td>No.6</td>
+            <td>Constantina</td></td>
+            <td>User</td>
+            <td>28/03/26</td>
+            <td id="Pass"> PASS </td>
+            <td>An error message appeared and explained her what to do</td> 
+        </tr>
+
+
+        <tr><td class="center">25</td>
+            <td>No.7</td>
+            <td>Constantina</td></td>
+            <td>User</td>
+            <td>28/03/26</td>
+            <td id="Pass"> PASS </td>
+            <td> Yes she found it after she finished all the questions with also a score of 32 points </td> 
+        </tr>
+
+
+        <tr><td class="center">26</td>
+            <td>No.8</td>
+            <td>Constantina</td></td>
+            <td>User</td>
+            <td>28/03/26</td>
+            <td id="Pass"> PASS </td>
+            <td> Yes she liked the colors and she mentioned the colors were okay and not too extreme </td> 
+        </tr>
+
+
+
+        <tr><td class="center">27</td>
+            <td>No.9</td>
+            <td>Constantina</td></td>
+            <td>User</td>
+            <td>28/03/26</td>
+            <td id="Pass"> PASS </td>
+            <td>She tried to submit without writting her name and an error message appeared without letting her continue</td> 
+        </tr>
+
+      </tbody>
+
+
+
+      <!-- Harry -->
+        <tr><td class="center">28 </td>
+            <td>No.1</td>
+            <td>Harry</td></td>
+            <td>User</td>
+            <td>28/03/26</td>
+            <td id="Pass"> PASS </td>
+            <td> The same as others no struggle to find the buttons   </td> 
+        </tr>
+
+        <tr><td class="center">29</td>
+            <td>No.2</td>
+            <td>Harry</td></td>
+            <td>User</td>
+            <td>28/03/26</td>
+            <td id="Pass"> PASS </td>
+            <td> He mentioned that was the easiest part as well</td> 
+        </tr>
+
+        <tr><td class="center">30</td>
+            <td>No.3</td>
+            <td>Harry</td></td>
+            <td>User</td>
+            <td>28/03/26</td>
+            <td id="Pass"> PASS </td>
+            <td> Took him a few seconds but he found it</td> 
+        </tr>
+
+        <tr><td class="center">31</td>
+            <td>No.4</td>
+            <td>Harry</td></td>
+            <td>User</td>
+            <td>28/03/26</td>
+            <td id="Pass"> PASS </td>
+            <td> Yes the user found the home button very fast he liked the action bar with the home button being there</td> 
+        </tr>
+
+
+        <tr><td class="center">32</td>
+            <td>No.5</td>
+            <td>Harry</td></td>
+            <td>User</td>
+            <td>28/03/26</td>
+            <td id="Pass"> PASS </td>
+            <td> Yes he tested all scenarios and the buttons behave the same </td> 
+        </tr>
+
+
+        <tr><td class="center">33</td>
+            <td>No.6</td>
+            <td>Harry</td></td>
+            <td>User</td>
+            <td>28/03/26</td>
+            <td id="Pass"> PASS </td>
+            <td>He tried in different forms to submit without answering and he liked the fact that each error message was different </td> 
+        </tr>
+
+
+        <tr><td class="center">34</td>
+            <td>No.7</td>
+            <td>Harry</td></td>
+            <td>User</td>
+            <td>28/03/26</td>
+            <td id="Pass"> PASS </td>
+            <td> Yes he found it after he finished all the questions with score 32</td> 
+        </tr>
+
+
+
+        <tr><td class="center">35</td>
+            <td>No.8</td>
+            <td>Harry</td></td>
+            <td>User</td>
+            <td>28/03/26</td>
+            <td id="Pass"> PASS </td>
+            <td> Yes he liked it that was minimal and modern the same time </td> 
+        </tr>
+
+
+
+        <tr><td class="center">36</td>
+            <td>No.9</td>
+            <td>Harry</td></td>
+            <td>User</td>
+            <td>28/03/26</td>
+            <td id="Pass"> PASS </td>
+            <td>Yes when he pressed by mistake submit without answering he didnt let him move forwrd and an error message appeared to inform him and he understood the message clearly</td> 
+        </tr>
+
+
+   </table>
 
 </section>
+    
+
+    <script type="module">
+       
+       const API_URL = "https://codecyprus.org/th/test-api/list?number-of-ths=2";
+       import { fetchData } from "/Scripts/Utils/Utils.js";
+       
+       import {TreasureHunt} from "/Scripts/Stages/ListStage.js";
 
 
-<script type="module">
-
-    const API_URL = "https://codecyprus.org/th/test-api/list?number-of-ths=2";
-    import { fetchData } from "/Scripts/Utils/Utils.js";
-
-    import {TreasureHunt} from "/Scripts/Stages/ListStage.js";
 
 
+       async function ListTruasureHuntsTest() {
 
+    //ClearRenderer();
+    const data = await fetchData(API_URL);
+    const treasureHunts = data.treasureHunts.map(h => new TreasureHunt(h));
 
-    async function ListTruasureHuntsTest() {
+    const container = document.getElementById("container-list-unit-test");
+    container.className = "TreasureHuntList";
+    container.classList.add("fade-in");
 
-        //ClearRenderer();
-        const data = await fetchData(API_URL);
-        const treasureHunts = data.treasureHunts.map(h => new TreasureHunt(h));
+    //heading
+    const heading=document.createElement("div");
+    heading.className = "TreasureHuntHeading";
+    heading.innerHTML = "Please select a Treasure Hunt";
+    container.appendChild(heading);
+    //crate form
+    const form = document.createElement("form");
+    form.id = "stageForm";
+    form.className = "TreasureHuntForm";
+    form.classList.add("fade-in");
 
-        const container = document.getElementById("container-list-unit-test");
-        container.className = "TreasureHuntList";
-        container.classList.add("fade-in");
+    container.appendChild(form);
 
-        //heading
-        const heading=document.createElement("div");
-        heading.className = "TreasureHuntHeading";
-        heading.innerHTML = "Please select a Treasure Hunt";
-        container.appendChild(heading);
-        //crate form
-        const form = document.createElement("form");
-        form.id = "stageForm";
-        form.className = "TreasureHuntForm";
-        form.classList.add("fade-in");
-
-        container.appendChild(form);
-
-        container.className = "container-treasure-hunts";
-        for(let i = 0; i < treasureHunts.length; i++) {
-            treasureHunts[i].Display(form);
-        }
-
-
-        // Add submit button
-        const submitBtn = document.createElement("input");
-        submitBtn.className = "submit-btn";
-        submitBtn.type = "submit";
-        submitBtn.value = "Submit";
-        form.appendChild(submitBtn);
-
-        //Handle event for submitting
-        document.getElementById("stageForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-            submitBtn.disabled = true;
-            const selected = document.querySelector('input[name="treasure_hunt"]:checked');
-            if (selected) {
-                const value = selected.value;
-
-                //app.SetTreasureHuntID(value);
-                //app.treasureHuntName = selected.dataset.name;
-
-
-            } else {
-                //allow user to submit with a button again
-                submitBtn.disabled = false;
-                const tmpMSG = new Message("Please select a treasure hunt");
-                tmpMSG.Display();
-            }
-
-        });
-
+    container.className = "container-treasure-hunts";
+    for(let i = 0; i < treasureHunts.length; i++) {
+        treasureHunts[i].Display(form);
     }
 
-    document.getElementById("runUnitTestList").addEventListener("click", ListTruasureHunts);
+
+    // Add submit button
+    const submitBtn = document.createElement("input");
+    submitBtn.className = "submit-btn";
+    submitBtn.type = "submit";
+    submitBtn.value = "Submit";
+    form.appendChild(submitBtn);
+
+    //Handle event for submitting
+    document.getElementById("stageForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        submitBtn.disabled = true;
+        const selected = document.querySelector('input[name="treasure_hunt"]:checked');
+        if (selected) {
+            const value = selected.value;
+
+            //app.SetTreasureHuntID(value);
+            //app.treasureHuntName = selected.dataset.name;
 
 
-</script>
+        } else {
+            //allow user to submit with a button again
+            submitBtn.disabled = false;
+            const tmpMSG = new Message("Please select a treasure hunt");
+            tmpMSG.Display();
+        }
+
+    });
+
+}
+ 
+ document.getElementById("runUnitTestList").addEventListener("click", ListTruasureHunts);
+
+
+    </script>
 </body>
 </html>
