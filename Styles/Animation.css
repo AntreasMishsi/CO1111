@@ -2,8 +2,8 @@
 /* #region Correct animation */
 .correct-animation-container {
     color: #4FC3F7;
-    width: 300px;
-    height: 300px;
+    width: 320px;
+    height: 320px;
     justify-content: center;
     text-align: center;
     display: auto;
@@ -13,31 +13,31 @@
     overflow: visible;
     display: block;
     margin: auto;
-    
+    padding-top: 100px;
 }
 .correct-animation-text {
-  color: #5abd09;
+  color: #fff;
   font-size: 16px;
 }
 
 @keyframes correctAnimation {
     0% {
-        transform: scale(0.7) ;
+        transform: scale(0.9) ;
         opacity: 0;
     }
-    25% {
+    30% {
         
         opacity: 1;
     }
     50% {
-        transform: scale(1.2) ;
+        transform: scale(1.1) ;
     }
-    75% {
+    70% {
         
         opacity: 1;
     }
     100% {
-        transform: scale(0.7);
+        transform: scale(0.9);
         opacity: 0;
     }
 }
@@ -62,7 +62,7 @@
     flex-direction: column;
 }
 .wrong-animation-text {
-  color: #980707;
+  color: #fff;
   font-size: 16px;
 }
 
@@ -112,7 +112,9 @@
 
 /*#endregion */
 
+/* #region Loader Animation*/
 
+/* Loader animation inspired by https://cssloaders.github.io/ */
 .loader {
   position: absolute;
   width: 50px;
@@ -128,8 +130,6 @@
   animation: rotation 1s linear infinite;
   z-index: 9999999;
 }
-
-
     
 @keyframes rotation {
   0% {
@@ -139,3 +139,5 @@
     transform: translate(-50%, -50%) rotate(360deg);
   }
 }
+
+/*#endregion */
