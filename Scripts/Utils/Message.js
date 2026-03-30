@@ -1,7 +1,8 @@
 
-
+// how much time a message is displayed
 const animationDuration = 3000;
 
+// displays a temporary message
 export class Message {
     constructor(text) {
         this.text = text;

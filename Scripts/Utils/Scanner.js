@@ -1,5 +1,5 @@
 import { Message } from "./Message.js";
-
+// v
 let scanner = null;
 let currentCamera = 0;
 
@@ -51,6 +51,7 @@ export function OpenScanner() {
     });
 }
 
+// change the camera
 export function ChangeCamera() {
     if(scanner) {
         scanner.stop();
@@ -64,9 +65,7 @@ export function ChangeCamera() {
         });
 
         scanner.addListener('scan',function(Code){
-        console.log(Code);
-        const MessageTMP = new Message(Code);
-        MessageTMP.Display();
+            document.getElementById("camera-scan-result").innerHTML = Code;
     });
     }
 }
