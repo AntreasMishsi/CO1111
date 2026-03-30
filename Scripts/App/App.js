@@ -74,6 +74,8 @@ export class App {
         this.numOfQuestions = 0;
         this.currentQuestionData = null;
         this.curentTime = Date.now();
+
+        this.locationInterval = null;
         
 
         this.appState = new AppState();
@@ -164,9 +166,6 @@ export class App {
         this.ChangeStage();
     }
 
-    
-
-    
 
 
 //#region location
@@ -207,6 +206,13 @@ export class App {
         this.locationInterval = setInterval(() => {
             this.GetLocation();
         }, 60000); // slightly more to avoid errors from api
+    }
+    StopGettingLocation() {
+        if (this.locationInterval) {
+            clearInterval(this.locationInterval);
+            this.locationInterval = null;
+            console.log("Stopped getting location");
+        }
     }
 
     async SendLocationToApiAsync() {

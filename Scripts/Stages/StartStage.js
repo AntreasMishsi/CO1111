@@ -23,7 +23,7 @@ export class StartStage extends Stage {
                 <div class="forms start-form">
                     <form id="startForm">
                         <div class="Name">
-                            <h1>Enter your Name</h1>
+                            <h1>Enter your name to start Hunting</h1>
                         </div>
                         <input class="surname" id="nickname-field" type="text" name="Firstname" placeholder="Name">
                         <input class="submit-btn" type="submit" name="Submit" placeholder="Submit" id="submit-name-button">

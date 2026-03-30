@@ -28,8 +28,13 @@ body {
     max-width: 400px;
     margin: 0px auto;
     min-height: 75vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-
+.rendered-area {
+    margin: auto;
+}
 
 a {
     color: white;
@@ -68,7 +73,6 @@ a {
     text-decoration: none;
     cursor: pointer;
 }
-
 
 /*#endregion */
 
@@ -115,7 +119,7 @@ a {
     background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(10px);
 }
-
+/* Display modal*/
 .modal:target {
     display: flex;
 }
@@ -140,6 +144,7 @@ a {
     display: inline-block;
     margin-top: 20px;
     padding: 10px 20px;
+
     color: white;
     border-radius: 10px;
     text-decoration: none;
@@ -162,7 +167,6 @@ a {
 /*select treasure hunt list*/
 .TreasureHuntHeading{
     display:flex;
-    margin-top: 100px;
     text-align: center;
     justify-content: center;
     align-items: center;
@@ -731,15 +735,14 @@ input[type="radio"]:checked + label {
 /* #region Stage: Ledearboard*/
 /* leaderboard glass at the end */
 .leaderboard-wrapper {
-    position: absolute;
+   
     overflow-y: auto;
     overflow-x: hidden;
     max-height: 80vh;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 90%;
-    max-width: 500px;
+    
+    
+    min-width: 320px;
+
     display: flex;
     flex-direction: column;
     gap: 16px;

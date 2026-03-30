@@ -3,19 +3,20 @@ import { ClearRenderer, RENDERED_AREA_ID } from "../Utils/ClearRenderer.js";
 import { sleep } from "../Utils/Utils.js";
 
 
-//users A, B, C didnt like the rotatitating animation, 
-//users A, B found animations slow
-// user C found a bag that changed animation from correct to wrong, it was due to fact that submit button could be pressed multiple times during fade out
+// how long the animation plays
+// should always much with css
 export const animationDuration = 1500;
 
-export const FADE_IN_DURATION = 500;
+//fade in fade out durations
+export const FADE_IN_DURATION = 1000;
 export const FADE_OUT_DURATION = 500;
 
 export function playCorrectAnimation(text) {
 
     const container = document.getElementById(RENDERED_AREA_ID);
     ClearRenderer();
-    // Create a green checkmark
+
+    // Create a glass checkmark
     const check = document.createElement("div");
     check.className = "correct-animation-container";
     check.innerHTML = `
@@ -39,14 +40,14 @@ export function playWrongAnimation(text) {
     const check = document.createElement("div");
     check.className = "wrong-animation-container";
     check.innerHTML = `
-    <img src="Resources/icons/x.png" alt="wrong icon" style="width:300px; height:300px; margin-top: 250px;">
+    <img src="Resources/icons/x.png" alt="wrong icon" style="width:300px; height:300px;">
     <p class="wrong-animation-text">${text}</p>`;
     container.appendChild(check);
 
     
     
 
-    // Fade out and remove after 1 second
+
     setTimeout(() => {
         container.removeChild(check);
     }, animationDuration);

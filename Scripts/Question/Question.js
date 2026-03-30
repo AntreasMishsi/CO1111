@@ -1,4 +1,5 @@
 import { SendLocationToAPI } from "../App/App.js";
+import { Message } from "../Utils/Message.js";
 
 export class Question {
     constructor({
@@ -43,10 +44,18 @@ export class Question {
     }
 
     async AnswerWithLocation(answear) {
+        this.DisableButtons();
         navigator.geolocation.getCurrentPosition(async (position) => {
             await SendLocationToAPI(position);
             await this.Answear(answear);
-        });
+        },
+        (err) => {
+            console.log("Error");
+            new Message("Location now available").Display();
+            this.UnlockButtons();
+        }
+        
+        );
     }
     Answear(answear) {
         throw new Error("Abstract method 'Answear' must be implemented by subclass");
@@ -59,6 +68,14 @@ export class Question {
         }
        
         document.getElementById("submitAnswer").disabled = true;
+    }
+    UnlockButtons() {
+        const skipButton = document.getElementById("skipButton");
+        if(skipButton) {
+            skipButton.disabled = false;
+        }
+       
+        document.getElementById("submitAnswer").disabled = false;
     }
 
     Skip() {

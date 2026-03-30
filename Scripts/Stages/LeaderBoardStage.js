@@ -17,6 +17,7 @@ export class LeaderBoardStage extends Stage {
 
     async OnStart() {
         FadeIn();
+        this.app.parentStage.StopGettingLocation();
         const container = document.getElementById(RENDERED_AREA_ID);
 
 
