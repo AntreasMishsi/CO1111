@@ -25,7 +25,15 @@ const fileToCache=[
     "/CO1111/Scripts/Utils/ClearRenderer.js",
     "/CO1111/Scripts/Utils/Message.js",
     "/CO1111/Scripts/Utils/Utils.js",
-    "/CO1111/main.js"
+    "/CO1111/main.js",
+    "/CO1111/Resources/icons/check.png",
+    "/CO1111/Resources/icons/check.svg",
+    "/CO1111/Resources/icons/x.png",
+    "/CO1111/Resources/icons/x.svg",
+    "/CO1111/Resources/pictures/x.png",
+    "/CO1111/Resources/pictures/facebook.png",
+    "/CO1111/Resources/pictures/instagram.png",
+    "/CO1111/Resources/pictures/logo.png",
 ];
 
 //Start the service worker and cache all of the app's content.
