@@ -8,6 +8,7 @@ import { sleep } from "../Utils/Utils.js";
 import { CloseScanner } from "../Utils/Scanner.js";
 
 import { Message } from "../Utils/Message.js";
+import { ClearRenderer } from "../Utils/ClearRenderer.js";
 export class NumericQuestion extends Question {
 
 
@@ -71,8 +72,10 @@ export class NumericQuestion extends Question {
         const dataPromise = fetchData(API_URL_ANSWER);
 
         // start the animation
-        CloseScanner();
+        
         await FadeOut();
+        CloseScanner();
+        ClearRenderer();
 
         // wait till we get the data
         const data = await dataPromise;

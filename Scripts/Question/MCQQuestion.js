@@ -2,6 +2,7 @@ import { Question } from "./Question.js";
 
 import { playCorrectAnimation, playWrongAnimation, animationDuration, FadeOut } from "../Animations/AfterQuestionAnims.js";
 
+import { ClearRenderer } from "../Utils/ClearRenderer.js";
 import { fetchData } from "../Utils/Utils.js";
 import { sleep } from "../Utils/Utils.js";
 import { CloseScanner } from "../Utils/Scanner.js";
@@ -73,6 +74,7 @@ export class MCQQuestion extends Question {
 
         // start the animation
         await FadeOut();
+        ClearRenderer();
         CloseScanner();
 
         // wait till we get the data

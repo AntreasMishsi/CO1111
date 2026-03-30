@@ -5,6 +5,7 @@ import { ClearRenderer, RENDERED_AREA_ID } from '../Utils/ClearRenderer.js';
 import { fetchData } from '../Utils/Utils.js';
 import { Message } from '../Utils/Message.js';
 import { FadeIn, FadeOut } from '../Animations/AfterQuestionAnims.js';
+import { AddLoadingAnimation, RemoveLoadingAnimation } from '../Animations/Loading.js';
 
 export class StartStage extends Stage {
 
@@ -44,7 +45,9 @@ export class StartStage extends Stage {
             this.LockAllButtons();
 
             const API_URL_START = `https://codecyprus.org/th/api/start?player=${nickname}&app=TreasureHuntApp&treasure-hunt-id=${this.app.treasureHuntID}`;
+            AddLoadingAnimation();
             const data = fetchData(API_URL_START).then(data => {
+                RemoveLoadingAnimation();
                 if(data.status === "OK") {
                     this.app.session = data.session;
                     this.app.numOfQuestions = data.numOfQuestions;

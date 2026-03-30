@@ -21,7 +21,9 @@ body {
 }
 
 
-
+a {
+    color: white;
+}
 
 /*colors moving in bg*/
 @keyframes bgMove {
@@ -75,7 +77,7 @@ body {
     display: none;
     justify-content: center;
     align-items: center;
-    z-index: 99999;
+    z-index: 99998;
     background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(10px);
 }
@@ -83,7 +85,13 @@ body {
 .modal:target {
     display: flex;
 }
+.twitter-btn {
+  display: flex;
+  align-items: center;   
+  justify-content: center; 
+  gap: 8px; 
 
+}
 /* modal content */
 .modal-content {
     background: rgba(255, 255, 255, 0.05);
@@ -582,7 +590,7 @@ input[type="radio"]:checked + label {
     display: none;
     justify-content: center;
     align-items: center;
-    z-index: 99999;
+    z-index: 99998;
     background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(10px);
 }
@@ -692,6 +700,7 @@ input[type="radio"]:checked + label {
     flex-direction: column;
     align-items: center;
     gap: 4px;
+    color: #fff;
     background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 14px;

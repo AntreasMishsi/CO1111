@@ -4,7 +4,7 @@ import { fetchData } from "../Utils/Utils.js";
 
 import { playCorrectAnimation, playWrongAnimation, animationDuration, FadeOut, FADE_OUT_DURATION} from "../Animations/AfterQuestionAnims.js";
 
-import { RENDERED_AREA_ID } from "../Utils/ClearRenderer.js";
+import { RENDERED_AREA_ID, ClearRenderer } from "../Utils/ClearRenderer.js";
 
 import { sleep } from "../Utils/Utils.js";
 import { Message } from "../Utils/Message.js";
@@ -73,6 +73,7 @@ export class IntegerQuestion extends Question {
 
         // start the animation
         await FadeOut();
+        ClearRenderer();
         CloseScanner();
         // wait till we get the data
         const data = await dataPromise;

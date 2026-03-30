@@ -1,3 +1,4 @@
+import { AddLoadingAnimation, RemoveLoadingAnimation } from '../Animations/Loading.js';
 import { OpenScanner, CloseScanner, ChangeCamera } from '../Utils/Scanner.js';
 import { app } from './App.js';
 
@@ -20,11 +21,13 @@ document.getElementById('leaderboard-btn').addEventListener('click', (e) => {
     e.preventDefault();
     const modal = document.getElementById('leaderboard-modal');
     const body = document.getElementById('leaderboard-modal-body');
+    body.innerHTML = ``;
     modal.style.display = 'flex';
-
-    fetch(`https://codecyprus.org/th/api/leaderboard?session=${app.session}&sorted`)
+    AddLoadingAnimation();
+    fetch(`https://codecyprus.org/th/api/leaderboard?session=${app.session}&sorted&limit=30`)
         .then(r => r.json())
         .then(data => {
+            RemoveLoadingAnimation();
             body.innerHTML = `
                 <table class="lb-modal-table">
                     <thead>

@@ -4,6 +4,7 @@ import { Message } from '../Utils/Message.js';
 import { RENDERED_AREA_ID, ClearRenderer } from '../Utils/ClearRenderer.js';
 import { fetchData } from '../Utils/Utils.js';
 import { ShareToTwitter } from '../Utils/ShareOnSocial.js';
+import { AddLoadingAnimation, RemoveLoadingAnimation }  from '../Animations/Loading.js';
 
 import { FadeIn, FadeOut } from '../Animations/AfterQuestionAnims.js';
 
@@ -21,19 +22,19 @@ export class LeaderBoardStage extends Stage {
 
 
         container.innerHTML = `
-    <div class="leaderboard-wrapper">
-        <h2 class="leaderboard-title">Leaderboard</h2>
-        <div class="your-score-box">
-            <span class="your-score-label">Name: ${this.app.name}</span>
-            <span class="your-score-value">${this.app.score} pts</span>
+        <div class="leaderboard-wrapper">
+            <h2 class="leaderboard-title">Leaderboard</h2>
+            <div class="your-score-box">
+                <span class="your-score-label">Name: ${this.app.name}</span>
+                <span class="your-score-value">${this.app.score} pts</span>
+            </div>
+            <div class="leaderboard-controls">
+            
+                <button id="share-to-twitter-button" class="leaderboard-btn twitter-btn"><img src="Resources/icons/x.svg"  alt="x-icon" />Share to X</button>
+                <button id="loadLeaderboard" class="leaderboard-btn">Load Leaderboard</button>
+            </div>
+            <div id="leaderboard"></div>
         </div>
-        <div class="leaderboard-controls">
-           
-            <button id="share-to-twitter-button" class="leaderboard-btn">Share to Twitter</button>
-            <button id="loadLeaderboard" class="leaderboard-btn">Load Leaderboard</button>
-        </div>
-        <div id="leaderboard"></div>
-    </div>
 `;
 
         // Share button
@@ -43,9 +44,6 @@ export class LeaderBoardStage extends Stage {
 
         document.getElementById("loadLeaderboard").addEventListener("click", () => {
 
-            
-
-            
 
             this.DisplayLeaderBoard(30, "&sorted");
 
@@ -64,9 +62,9 @@ export class LeaderBoardStage extends Stage {
 
         const API_URL =
             `https://codecyprus.org/th/api/leaderboard?session=${this.app.session}${sorted}`;
-
+        AddLoadingAnimation();
         fetchData(API_URL).then(data => {
-
+            RemoveLoadingAnimation();
 
             if(data.status !== "OK"){
                 const tmpMSG = new Message(data.errorMessages[0]);

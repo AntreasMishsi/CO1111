@@ -15,6 +15,7 @@ import { MCQQuestion } from '../Question/MCQQuestion.js';
 import { TextQuestion } from '../Question/TextQuestion.js';
 
 import { FadeIn, FadeOut } from '../Animations/AfterQuestionAnims.js';
+import { AddLoadingAnimation, RemoveLoadingAnimation } from '../Animations/Loading.js';
 // User A - stated that he would like to see his nickname during question stage
 
 export class QuestionStage extends Stage {
@@ -23,7 +24,7 @@ export class QuestionStage extends Stage {
     }
 
     async OnStart() {
-        this.app.currentQuestionIndex = 1;
+        
         document.getElementById('scan-btn').style.display = 'flex';
         document.getElementById('leaderboard-btn').style.display = 'flex';
         
@@ -58,7 +59,7 @@ export class QuestionStage extends Stage {
         <div class="navbar-wrapper">
             <h2>Name: ${this.app.name}</h2>
             <h2>Score: ${this.app.score}</h2>
-            <h2>Question ${this.app.currentQuestionIndex} of ${this.app.numOfQuestions}</h2>
+            <h2>Question ${this.app.currentQuestionIndex + 1} of ${this.app.numOfQuestions}</h2>
         </div>     
     `
         return navbar;
@@ -69,11 +70,12 @@ export class QuestionStage extends Stage {
         const API_URL_QUESTION = `https://codecyprus.org/th/api/question?session=${this.app.session}`;
         const API_URL_SCORE = `https://codecyprus.org/th/api/score?session=${this.app.session}`;
 
-
+        AddLoadingAnimation();
         const data = Promise.all([
             fetchData(API_URL_QUESTION),
             fetchData(API_URL_SCORE)])
             .then(([questionData, scoreData]) => {
+                RemoveLoadingAnimation();
 
                 this.app.score = scoreData.score;
 
@@ -120,20 +122,25 @@ export class QuestionStage extends Stage {
     SkipQuestion() {
         const API_URL_SKIP_QUESTION = `https://codecyprus.org/th/api/skip?session=${this.app.session}`;
         
-        const data = fetchData(API_URL_SKIP_QUESTION).then(data => {
-            if(data.status === "OK") {
-                CloseScanner();
-                ClearRenderer();
-                this.app.currentQuestionIndex++;
-                this.AskQuestion();
-                
-            }
-            else {
-                
+        fetchData(API_URL_SKIP_QUESTION)
+        .then(data => {
+            if (data.status === "OK") {
+                return FadeOut(); 
+            } else {
                 console.log(data.errorMessages[0]);
                 const tmpMSG = new Message(data.errorMessages[0]);
                 tmpMSG.Display();
+                this.UnlockAllButtons();
+                return null;
             }
+        })
+        .then(result => {
+            if (result === null) return;
+
+            CloseScanner();
+            ClearRenderer();
+            this.app.currentQuestionIndex++;
+            this.AskQuestion();
         });
 
     }

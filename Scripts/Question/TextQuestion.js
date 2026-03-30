@@ -9,6 +9,7 @@ import { sleep } from "../Utils/Utils.js";
 import { CloseScanner } from "../Utils/Scanner.js";
 
 import { Message } from "../Utils/Message.js";
+import { ClearRenderer } from "../Utils/ClearRenderer.js";
 export class TextQuestion extends Question {
 
 
@@ -71,9 +72,11 @@ export class TextQuestion extends Question {
         console.log('Check the await');
         // Promise that we will get the data
         const dataPromise = fetchData(API_URL_ANSWER);
-        CloseScanner();
+        
         // start the animation
         await FadeOut();
+        CloseScanner();
+        ClearRenderer();
 
         // wait till we get the data
         const data = await dataPromise;

@@ -8,6 +8,7 @@ import { ListStage } from '../Stages/ListStage.js';
 import { StartStage } from '../Stages/StartStage.js';
 import { QuestionStage } from '../Stages/QuestionStage.js';
 import { LeaderBoardStage } from '../Stages/LeaderBoardStage.js';
+import { Stages } from '../Stages/Stages.js';
 
 import { Message } from '../Utils/Message.js';
 import { fetchData } from '../Utils/Utils.js';
@@ -25,6 +26,8 @@ export class App {
         this.score = 0;
 
         this.currentQuestion = null;
+        this.currentQuestionIndex = 0;
+        this.numOfQuestions = 0;
         this.currentQuestionData = null;
 
         this.appState = new AppState();
@@ -34,7 +37,13 @@ export class App {
             new QuestionStage(this),
             new LeaderBoardStage(this),
         ];
-        this.StageList[this.appState.getCurentStage()].OnStart();
+        this.LoadCookies();
+        
+        console.log(this.session);
+        if(!this.session || !this.name) {
+            this.appState.setStage(Stages.List);
+            this.StageList[this.appState.getCurentStage()].OnStart();
+        }
     }
 
     async ChangeStage() {
@@ -49,16 +58,39 @@ export class App {
         this.session = null;
         this.name = null;
         this.treasureHuntID = null;
+        this.session = null;
+        this.name = null;
+
+        this.numOfQuestions = null;
+        this.treasureHuntName = null;
+        this.treasureHuntID = null;
+
+        this.score = 0;
+
+        this.currentQuestion = null;
+        this.currentQuestionIndex = 0;
+        this.numOfQuestions = 0;
+        this.currentQuestionData = null;
+
+        this.appState = new AppState();
+        document.cookie = "app=; max-age=0; path=/;";
     }
 
+//#region Cookies
     SaveData() {
+        
         let data = {
             session: this.session,
             name: this.name,
             treasureHuntID: this.treasureHuntID,
             score: this.score,
             stage: this.appState.getCurentStage(),
+
+            currentQuestionIndex : this.currentQuestionIndex,
+            numOfQuestions : this.numOfQuestions,
             questionData: this.currentQuestionData,
+
+            timestamp: Date.now(),
         };
 
         document.cookie = "app=" + JSON.stringify(data) + "; path=/";
@@ -66,7 +98,9 @@ export class App {
 
     LoadCookies() {
         let cookies = document.cookie.split("; ");
+
         console.log("Load cookie");
+
         for (let c of cookies) {
             let parts = c.split("=");
             let key = parts.shift();
@@ -80,16 +114,24 @@ export class App {
                 if(data.session === null) {
                     break;
                 }
+                if(data.name === null) {
+                    break;
+                }
 
                 this.session = data.session;
                 this.name = data.name;
                 console.log(data.name);
                 this.treasureHuntID = data.treasureHuntID;
                 this.score = data.score;
-
+                
+                
                 this.appState.setStage(data.stage);
                 console.log("Stage: " + this.appState.getCurentStage());
+                
 
+                this.numOfQuestions = data.numOfQuestions;
+                console.log(data.currentQuestionIndex);
+                this.currentQuestionIndex = data.currentQuestionIndex;
                 this.currentQuestionData = data.question;
 
                 this.StageList[this.appState.getCurentStage()].OnStart();
@@ -99,7 +141,7 @@ export class App {
         const tmpMSG = new Message("No cookies to load");
         tmpMSG.Display();
     }
-
+//#endregion
     SetTreasureHuntID(id) {
         this.treasureHuntID = id;
         console.log(this.treasureHuntID);
@@ -108,7 +150,15 @@ export class App {
 
     
 
-    GetLocation() {
+    
+// eror messages
+//ui improvments
+//progressive web app
+// analytics
+// coments
+
+//#region location
+GetLocation() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(SendLocationToAPI, ErrorGettingLocation);
         }
@@ -117,11 +167,6 @@ export class App {
             messageTMP.Display();
         }
     }
-// eror messages
-//ui improvments
-//progressive web app
-// analytics
-// coments
 
     GetAsyncLocation() {
         return new Promise((resolve, reject) => {
@@ -188,7 +233,7 @@ export class App {
 
         
     }
-
+//#endregion
 
 }
 
@@ -197,7 +242,7 @@ export const app = new App();
 
 
 window.addEventListener("beforeunload", () => {
-
+    console.log(app.currentQuestionIndex);
     app.SaveData();
 });
 

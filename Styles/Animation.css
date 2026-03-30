@@ -1,5 +1,5 @@
 
-
+/* #region Correct animation */
 .correct-animation-container {
     color: #4FC3F7;
     width: 300px;
@@ -41,8 +41,9 @@
         opacity: 0;
     }
 }
+/* #endregion*/
 
-
+/* #region Wrong animation */
 .wrong-animation-container {
     margin: auto;
     width: 300px;
@@ -85,6 +86,7 @@
           opacity: 0;
       }
 }
+/* #endregion */
 
 /*#region Fade */
 .fade-in {
@@ -112,20 +114,28 @@
 
 
 .loader {
+  position: absolute;
   width: 50px;
   height: 50px;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(0deg);
 
   border: 3px solid #ffffff;
   border-bottom-color: #134d8b;
   border-radius: 50%;
   animation: rotation 1s linear infinite;
+  z-index: 9999999;
 }
+
+
     
 @keyframes rotation {
   0% {
-      transform: rotate(0deg);
+    transform: translate(-50%, -50%) rotate(0deg);
   }
   100% {
-      transform: rotate(360deg);
+    transform: translate(-50%, -50%) rotate(360deg);
   }
 }

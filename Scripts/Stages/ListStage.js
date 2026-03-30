@@ -6,6 +6,7 @@ import { fetchData } from '../Utils/Utils.js';
 
 import { Message } from '../Utils/Message.js';
 import { FadeIn, FadeOut } from '../Animations/AfterQuestionAnims.js';
+import { AddLoadingAnimation, RemoveLoadingAnimation } from '../Animations/Loading.js';
 
 
 const API_URL_LIST = 'https://codecyprus.org/th/api/list';
@@ -23,8 +24,9 @@ export class ListStage extends Stage {
         FadeIn();
 
         ClearRenderer();
-
+        AddLoadingAnimation();
         fetchData(API_URL_LIST).then (data => {
+            RemoveLoadingAnimation();
             const container = document.getElementById("rendered-area");
 
             const treasureHunts = data.treasureHunts;
