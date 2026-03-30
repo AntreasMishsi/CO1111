@@ -1,4 +1,10 @@
+/* Layers: 
 
+2: Modals
+3: Messages
+4: Loading-animation
+
+*/
 
 .message-container {
     position: absolute;
@@ -38,7 +44,7 @@
     -webkit-box-shadow: 1px 2px 15px -1px rgba(0, 0, 0, 0.39);
     -moz-box-shadow: 1px 2px 15px -1px rgba(0, 0, 0, 0.39);
     /* Message should always be on top*/
-    z-index: 1000;
+    z-index: 4;
 
     word-wrap: break-word;
     overflow-wrap: break-word;

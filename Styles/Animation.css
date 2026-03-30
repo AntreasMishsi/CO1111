@@ -1,3 +1,11 @@
+/* Layers: 
+
+2: Modals
+3: Messages
+4: Loading-animation
+
+*/
+
 
 /* #region Correct animation */
 .correct-animation-container {
@@ -128,7 +136,7 @@
   border-bottom-color: #134d8b;
   border-radius: 50%;
   animation: rotation 1s linear infinite;
-  z-index: 9999999;
+  z-index: 4;
 }
     
 @keyframes rotation {

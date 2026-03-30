@@ -57,16 +57,15 @@ export class QuestionStage extends Stage {
 
         navbar.innerHTML = `
         <div class="navbar-wrapper">
-            <h2>Name: ${this.app.name}</h2>
-            <h2>Score: ${this.app.score}</h2>
-            <h2>Question ${this.app.currentQuestionIndex + 1} of ${this.app.numOfQuestions}</h2>
+            <h2 class="question-stage-navbar-name">Name: ${this.app.name}</h2>
+            <h2 class="question-stage-navbar-score">Score: ${this.app.score}</h2>
+            <h2 class="question-stage-navbar-question-number">Question ${this.app.currentQuestionIndex + 1} of ${this.app.numOfQuestions}</h2>
         </div>     
     `
         return navbar;
     }
 
     AskQuestion() {
-
         const API_URL_QUESTION = `https://codecyprus.org/th/api/question?session=${this.app.session}`;
         const API_URL_SCORE = `https://codecyprus.org/th/api/score?session=${this.app.session}`;
 
