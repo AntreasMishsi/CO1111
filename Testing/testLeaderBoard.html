@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <title>LeaderBoard</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+
+      <link rel="stylesheet" href="../Styles/Message.css">
+      <link rel="stylesheet" href="../Styles/Animation.css">
+      <link rel="stylesheet" href="../Styles/main.css">
+   </head>
+   <body>
+    <div class="message-container" id="message-container"></div>
+    <div id="loading-animation" class="loading-container"></div>
+        <h1>LeaderBoard</h1>
+        <p>A demo to test LeaderBoard</p>
+       
+       
+
+        <div class="leaderboard-wrapper">
+            <h2 class="leaderboard-title">Leaderboard</h2>
+            <div class="your-score-box">
+                <span class="your-score-label">Name: Testing</span>
+                <span class="your-score-value">Testing pts</span>
+            </div>
+            <div class="leaderboard-controls">
+                <p>Enter a number of leaderboard entries to display</p>
+                <input id="x" type="number" min="1" max="10000">
+                <p>Sorted: </p>
+                <input type="checkbox" name="sorted" id="sorted">
+                
+                <button id="loadLeaderboard" class="leaderboard-btn">Load Leaderboard</button>
+            </div>
+            <div id="leaderboard"></div>
+            
+        </div>
+
+        <script type="module" src="../Scripts/UnitTests/TestLeaderboard.js"></script>
+   </body>
+</html>

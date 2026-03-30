@@ -7,6 +7,7 @@ import { sleep } from "../Utils/Utils.js";
 import { CloseScanner } from "../Utils/Scanner.js";
 
 import { ClearRenderer, RENDERED_AREA_ID } from "../Utils/ClearRenderer.js";
+import { Message } from "../Utils/Message.js";
 
 export class BooleanQuestion extends Question {
     constructor(props) {
@@ -38,11 +39,22 @@ export class BooleanQuestion extends Question {
         // Add click listener for the button to get the answer
         const submitButton = document.getElementById("submitAnswer");
         submitButton.addEventListener("click", () => {
-            submitButton.disabled = true;
             const selected = document.querySelector(
                 'input[name="boolean_question"]:checked',
             );
-            this.Answear(selected.value === "true");
+            if (!selected) {
+                new Message("Please select an answer first").Display();
+            }
+            else {
+                if(this.requiresLocation) {
+                    this.AnswerWithLocation(selected.value === "true");
+                }
+                else {
+                    this.Answear(selected.value === "true");
+                }
+            }
+            
+            
         });
 
         if (this.canBeSkipped) {
@@ -59,9 +71,7 @@ export class BooleanQuestion extends Question {
         const API_URL_ANSWER = `https://codecyprus.org/th/api/answer?session=${this.parentStage.app.session}&answer=${answear}`;
         
 
-        if(this.requiresLocation) {
-            await this.parentStage.app.SendLocationToApiAsync();
-        }
+        
         console.log('Check the await');
         // Promise that we will get the data
         const dataPromise = fetchData(API_URL_ANSWER);

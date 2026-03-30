@@ -43,7 +43,13 @@ export class IntegerQuestion extends Question {
             const input = document.getElementById("integerInput").value;
             const number = parseInt(input, 10); // Convert string to integer
             if (!isNaN(number)) {
-                this.Answear(number); // Pass the integer to the Answer method
+                if(this.requiresLocation) {
+                    this.AnswerWithLocation(number);
+                }
+                else {
+                    this.Answear(number); 
+                }
+                
             } else {
                 const tmpMSG = new Message("Please enter a valid integer.");
                 tmpMSG.Display();
@@ -65,9 +71,7 @@ export class IntegerQuestion extends Question {
         this.DisableButtons();
         const API_URL_ANSWER = `https://codecyprus.org/th/api/answer?session=${this.parentStage.app.session}&answer=${answear}`;
 
-        if(this.requiresLocation) {
-            await this.parentStage.app.SendLocationToApiAsync();
-        }
+       
         // Promise that we will get the data
         const dataPromise = fetchData(API_URL_ANSWER);
 

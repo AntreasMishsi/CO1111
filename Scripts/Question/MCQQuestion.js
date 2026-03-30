@@ -49,7 +49,13 @@ export class MCQQuestion extends Question {
         submitButton.addEventListener("click", () => {
 
             const selected = document.querySelector('input[name="mcq_question"]:checked');
-            this.Answear(selected.value);
+            if(this.requiresLocation) {
+                this.AnswerWithLocation(selected.value);
+            }
+            else {
+                this.Answear(selected.value);
+            }
+            
         });
         if(this.canBeSkipped) {
             const skipButton = document.getElementById("skipButton");
@@ -66,9 +72,7 @@ export class MCQQuestion extends Question {
         this.DisableButtons();
         const API_URL_ANSWER = `https://codecyprus.org/th/api/answer?session=${this.parentStage.app.session}&answer=${answear}`;
 
-        if(this.requiresLocation) {
-            await this.parentStage.app.SendLocationToApiAsync();
-        }
+        
         // Promise that we will get the data
         const dataPromise = fetchData(API_URL_ANSWER);
 

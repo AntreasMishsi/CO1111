@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <title>AppState</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <style>
+        table {
+            width: 100%;
+            border: 1px solid blue
+        }
+        th, td {
+            border-bottom: 1px solid gray;
+            text-align: left;
+        }
+      </style>
+   </head>
+   <body>
+      <h1>App state</h1>
+      <p>A demo to test AppState class</p>
+      <hr/>
+      <p>Stages of AppState:</p>
+        <ul>
+            <li>0: List</li>
+            <li>1: Start</li>
+            <li>2: Question</li>
+            <li>3: Leaderboard</li>
+        </ul>
+      <hr/>
+      <form >
+            <p>Enter a number to set the current stage</p>
+            <input id="x" type="number" min="1" max="100">
+            <button id="set-stage-button" type="button" >Set stage</button>
+            <p>Move to the next stage</p>
+            <button id="next-stage-button" type="button">Next stage</button>
+      </form>
+      <p id="answear">Current stage: 0. There is no X yet</p>
+      <hr/>
+
+      <h1>Test for AppState</h1>
+      <table id="test-results-table">
+         <tr>
+            <th>Call</th>
+            <th>Value</th>
+            <th>Expected</th>
+            <th>Computed</th>
+            <th>Passed</th>
+         </tr>
+      </table>
+      <script type="module" src="../Scripts/UnitTests/TestAppState.js"></script>
+   </body>
+</html>

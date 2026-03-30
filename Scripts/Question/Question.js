@@ -1,4 +1,4 @@
-
+import { SendLocationToAPI } from "../App/App.js";
 
 export class Question {
     constructor({
@@ -42,7 +42,13 @@ export class Question {
         throw new Error("Abstract method 'Display' must be implemented by subclass");
     }
 
-    Answear() {
+    async AnswerWithLocation(answear) {
+        navigator.geolocation.getCurrentPosition(async (position) => {
+            await SendLocationToAPI(position);
+            await this.Answear(answear);
+        });
+    }
+    Answear(answear) {
         throw new Error("Abstract method 'Answear' must be implemented by subclass");
     }
 

@@ -9,6 +9,8 @@ import { CloseScanner } from "../Utils/Scanner.js";
 
 import { Message } from "../Utils/Message.js";
 import { ClearRenderer } from "../Utils/ClearRenderer.js";
+import { SendLocationToAPI } from "../App/App.js";
+
 export class NumericQuestion extends Question {
 
 
@@ -42,7 +44,13 @@ export class NumericQuestion extends Question {
             const number = parseFloat(input); // Convert string to float
 
             if (!isNaN(number)) {
-                this.Answear(number); // Pass the float to the Answer method
+                if(this.requiresLocation) {
+                    this.AnswerWithLocation(number);
+                }
+                else {
+                    this.Answear(number); 
+                } 
+                // Pass the float to the Answer method
             } else {
                 const tmpMSG = new Message("Please enter a valid number.");
                 tmpMSG.Display();
@@ -60,14 +68,13 @@ export class NumericQuestion extends Question {
         }
     }
 
+    
 
     async Answear(answear) {
         this.DisableButtons();
         const API_URL_ANSWER = `https://codecyprus.org/th/api/answer?session=${this.parentStage.app.session}&answer=${answear}`;
 
-        if(this.requiresLocation) {
-            await this.parentStage.app.SendLocationToApiAsync();
-        }
+        
         // Promise that we will get the data
         const dataPromise = fetchData(API_URL_ANSWER);
 

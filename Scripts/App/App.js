@@ -157,6 +157,7 @@ export class App {
         tmpMSG.Display();
     }
 //#endregion
+
     SetTreasureHuntID(id) {
         this.treasureHuntID = id;
         console.log(this.treasureHuntID);
@@ -166,14 +167,10 @@ export class App {
     
 
     
-// eror messages
-//ui improvments
-//progressive web app
-// analytics
-// coments
+
 
 //#region location
-GetLocation() {
+    GetLocation() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(SendLocationToAPI, ErrorGettingLocation);
         }
@@ -263,7 +260,7 @@ window.addEventListener("beforeunload", () => {
 
 
 
-function SendLocationToAPI(position) {
+export function SendLocationToAPI(position) {
     const API_URL = `https://codecyprus.org/th/api/location?session=${app.session}&latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`;
     fetchData(API_URL).then((data) => {
         if(data.status === "OK") {
