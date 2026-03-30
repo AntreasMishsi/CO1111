@@ -26,6 +26,7 @@ html {
     display: flex;
     gap: 10px;
     font-size: 17px;
+    font-family: Arial,sans-serif;
     margin-top: 40px;
     margin-right: 10px;
 
@@ -52,6 +53,7 @@ html {
 .btn_title {
     color: white;
     font-size: 18px;
+    font-family: Arial,sans-serif;
     text-align: center;
     position: relative;
     top: 110px;
@@ -67,6 +69,7 @@ html {
 /*start btn*/
 .btn {
     font-size: 17px;
+    font-family: Arial,sans-serif;
     padding: 12px 40px;
     border-radius: 40px;
     background: black;
@@ -112,6 +115,7 @@ html {
     transform: translateX(-50%);
     color: white;
     font-size: 13px;
+    font-family: Arial,sans-serif;
 }
 
 /*social media icons*/
@@ -176,6 +180,7 @@ html {
 /*Copyright at the bottom*/
 .copyright {
     font-size: 6px;
+    font-family: Arial,sans-serif;
     color: gray;
     text-align: center;
     margin-top: 20px;
