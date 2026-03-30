@@ -10,13 +10,13 @@
   "theme_color": "teal",
   "icons": [
     {
-      "src": "Resources/logo.png",
+      "src": "Resources/pictures/logo.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "Resources/logo.png",
+      "src": "Resources/pictures/logo.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
