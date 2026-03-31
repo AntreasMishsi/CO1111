@@ -169,6 +169,7 @@ html {
     padding: 20px;
     border-radius: 20px;
     text-align: center;
+    font-family: Arial,sans-serif;
 }
 /*Close btn for modals*/
 .close-btn {
