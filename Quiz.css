@@ -13,6 +13,8 @@ html {
     display: flex;
     justify-content: space-between;
     color: white;
+     position: relative;
+    z-index: 10;
 }
 
 /*logo*/
