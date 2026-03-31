@@ -31,12 +31,13 @@ html {
     font-family: Arial,sans-serif;
     margin-top: 40px;
     margin-right: 10px;
+}
 
-    .testing-link{
+ .testing-link{
         color: white;
         text-decoration: none;
     }
-}
+
 /*body*/
 .body {
     position: absolute;
