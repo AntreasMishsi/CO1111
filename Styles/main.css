@@ -16,7 +16,7 @@ html, body {
     font-family: sans-serif;
 }
 body {
-    background: linear-gradient(135deg, #9370Db,#008aff , #8A2BE2,#FF1493);
+    background: linear-gradient(135deg, #9370Db,#0059ff , #8A2BE2,#FF1493);
     background-size: 400% 400%;
     animation: bgMove 30s ease infinite;
     min-height: 100vh;
