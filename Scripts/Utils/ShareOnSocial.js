@@ -1,5 +1,5 @@
 import { app } from "../App/App.js";
-
+// share the message to twitter
 export function ShareToTwitter() {
     const text = `I just completed the ${app.treasureHuntName}, and got ${app.score}!!!`;
 

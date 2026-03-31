@@ -16,22 +16,24 @@ import { TextQuestion } from '../Question/TextQuestion.js';
 
 import { FadeIn, FadeOut } from '../Animations/AfterQuestionAnims.js';
 import { AddLoadingAnimation, RemoveLoadingAnimation } from '../Animations/Loading.js';
-// User A - stated that he would like to see his nickname during question stage
 
+//stage responsible for displaying questions
 export class QuestionStage extends Stage {
+
     constructor(app) {
         super(app); 
     }
 
     async OnStart() {
-        
+        // show some buttons
         document.getElementById('scan-btn').style.display = 'flex';
         document.getElementById('leaderboard-btn').style.display = 'flex';
         
         
         const container = document.getElementById(RENDERED_AREA_ID);
-        this.app.StartGettingLocation();
+        this.app.StartGettingLocation(); // start getting location
 
+        // dictionary for questions
         this.QuestionTypes = {
             "INTEGER": IntegerQuestion,
             "BOOLEAN": BooleanQuestion,
@@ -41,16 +43,20 @@ export class QuestionStage extends Stage {
         };
 
         if (this.app.currentQuestionData) {
+            // this means we are loading from cookies, because app class allready has question which was not answeared
             const questionClass = this.QuestionTypes[this.app.currentQuestionData.questionType];
             const question = new questionClass({...this.app.currentQuestionData, parentStage: this});
             question.Display(RENDERED_AREA_ID);
         } else {
+            // just notmal program flow ask the question
             this.AskQuestion();
         }
         
     }
 
     GenerateNavBar() {
+        // navbar is the same for all questions
+        // this is a template for this
         const navbar = document.createElement("div");
         navbar.id = "question-stage-navbar";
         navbar.className = "question-stage-navbar";
@@ -70,15 +76,16 @@ export class QuestionStage extends Stage {
         const API_URL_SCORE = `https://codecyprus.org/th/api/score?session=${this.app.session}`;
 
         AddLoadingAnimation();
-        const data = Promise.all([
-            fetchData(API_URL_QUESTION),
+        const data = Promise.all([ // wait till both request are satified
+            fetchData(API_URL_QUESTION), //
             fetchData(API_URL_SCORE)])
             .then(([questionData, scoreData]) => {
-                RemoveLoadingAnimation();
+                RemoveLoadingAnimation(); //remove the loading animation
 
                 this.app.score = scoreData.score;
 
                 if(questionData.completed === true){
+                    // if there are no more questions move to leaderboard stage
                     CloseScanner();
                     this.app.ChangeStage();
                     return;
@@ -86,23 +93,24 @@ export class QuestionStage extends Stage {
                 console.log(questionData);
 
                 if(questionData.status !== "OK") {
+                    // if there is an error when displaying requestion a question
                     console.log(questionData.errorMessages[0]);
                     const tmpMSG = new Message(questionData.errorMessages[0]);
                     tmpMSG.Display();
                 }
                 else {
-                    
+                    // display the question qith fade in
                     ClearRenderer();
                     this.app.SaveData();
                     FadeIn();
 
                     
-
+                    // save the question for cookies
                     this.app.currentQuestionData = questionData;
                     
-                    const questionClass = this.QuestionTypes[questionData.questionType];
+                    const questionClass = this.QuestionTypes[questionData.questionType]; // get the question class from dictionary
                     this.app.currentQuestion = questionClass;
-                    const question = new questionClass({...questionData, parentStage: this});
+                    const question = new questionClass({...questionData, parentStage: this}); // put the data we got from json into class
 
                     
                     

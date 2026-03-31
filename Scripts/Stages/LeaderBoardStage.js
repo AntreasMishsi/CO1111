@@ -8,7 +8,7 @@ import { AddLoadingAnimation, RemoveLoadingAnimation }  from '../Animations/Load
 
 import { FadeIn, FadeOut } from '../Animations/AfterQuestionAnims.js';
 
-
+// stage which display the leaderboard
 export class LeaderBoardStage extends Stage {
 
     constructor(app) {
@@ -17,11 +17,11 @@ export class LeaderBoardStage extends Stage {
 
     async OnStart() {
         FadeIn();
-        this.app.StopGettingLocation();
+        this.app.StopGettingLocation(); // stop getting location
         const container = document.getElementById(RENDERED_AREA_ID);
 
 
-
+        //render the html
         container.innerHTML = `
         
         <div class="leaderboard-wrapper">
@@ -42,6 +42,7 @@ export class LeaderBoardStage extends Stage {
        
         
         `;
+        // add the evenlistencers
         document.getElementById("start-again-button").addEventListener("click", () => {
             this.app.Reset();
         });
@@ -70,7 +71,7 @@ export class LeaderBoardStage extends Stage {
 
         const API_URL =
             `https://codecyprus.org/th/api/leaderboard?session=${this.app.session}${sorted}`;
-        AddLoadingAnimation();
+        AddLoadingAnimation(); // add loading animation
         fetchData(API_URL).then(data => {
             RemoveLoadingAnimation();
 
@@ -82,11 +83,12 @@ export class LeaderBoardStage extends Stage {
 
             const playerName = this.app.name;
 
+            //find the player index
             const playerIndex = data.leaderboard.findIndex(
                 p => p.player === this.app.name
             );
             
-
+            //render html
             leaderboard_container.innerHTML = `
                 <table class="lb-modal-table">
                     <thead>
@@ -100,12 +102,12 @@ export class LeaderBoardStage extends Stage {
                 </table>
             `;
             const tableBody = document.getElementById("leaderboard-body");
-
+            //
             data.leaderboard.slice(0,limit).forEach((player, index) => {
 
                 const row = document.createElement("tr");
                 row.classList.add("fade-in");
-
+                // highlight the user if some his score is in the leaderboard
                 if (index === playerIndex) {
                     row.classList.add("highlight-row");
                 }
@@ -119,7 +121,8 @@ export class LeaderBoardStage extends Stage {
 
                 tableBody.appendChild(row);
             });
-
+            // if user is not in the top 30
+            // add him in the bottom of the table
             if (playerIndex >= limit && playerIndex !== -1) {
 
                 const player = data.leaderboard[playerIndex];
@@ -140,7 +143,7 @@ export class LeaderBoardStage extends Stage {
 
         
     }
-
+    // on end clean the stage
     async OnEnd() {
         await FadeOut();
         ClearRenderer();

@@ -22,7 +22,7 @@ export class NumericQuestion extends Question {
 
         const container = document.getElementById(parentId);
         container.appendChild(this.parentStage.GenerateNavBar());
-        // Render the form with radio buttons
+        // Render the form
         container.innerHTML += `
             <div id="integerForm" class="integerForm">
                 <p>${this.questionText}</p>
@@ -58,7 +58,7 @@ export class NumericQuestion extends Question {
 
 
         });
-
+        // if can be skipped add an event listener for this
         if(this.canBeSkipped) {
             const skipButton = document.getElementById("skipButton");
             skipButton.addEventListener("click", () => {

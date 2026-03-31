@@ -1,4 +1,3 @@
-
 let containerEl = null;
 let totalDots = 0;
 //initializes the progress dots by creating dot elements inside the container

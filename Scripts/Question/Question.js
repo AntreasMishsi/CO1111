@@ -1,6 +1,7 @@
 import { SendLocationToAPI } from "../App/App.js";
 import { Message } from "../Utils/Message.js";
 
+// base class of question
 export class Question {
     constructor({
                     // data that is return by api for question
@@ -38,18 +39,21 @@ export class Question {
     }
 
 
-
+    // a method which will render the html
     Display(parentId) {
         throw new Error("Abstract method 'Display' must be implemented by subclass");
     }
 
+    // answer method for questions that require location
     async AnswerWithLocation(answear) {
-        this.DisableButtons();
+        this.DisableButtons(); // diable buttons to avoid double api request
         navigator.geolocation.getCurrentPosition(async (position) => {
-            await SendLocationToAPI(position);
-            await this.Answear(answear);
+            // if can get geolocation
+            await SendLocationToAPI(position); // send the data geolocation to api
+            await this.Answear(answear); // after answear the question
         },
         (err) => {
+            // if we cannot get the location notify the user
             console.log("Error");
             new Message("Location now available").Display();
             this.UnlockButtons();
@@ -57,10 +61,11 @@ export class Question {
         
         );
     }
+    // abstract method for answering question
     Answear(answear) {
         throw new Error("Abstract method 'Answear' must be implemented by subclass");
     }
-
+    // disable buttons to avoid double requests
     DisableButtons() {
         const skipButton = document.getElementById("skipButton");
         if(skipButton) {
@@ -69,6 +74,7 @@ export class Question {
        
         document.getElementById("submitAnswer").disabled = true;
     }
+    // unlocks the buttons if th
     UnlockButtons() {
         const skipButton = document.getElementById("skipButton");
         if(skipButton) {

@@ -1,9 +1,8 @@
 import { Message } from "./Message.js";
-// v
 let scanner = null;
 let currentCamera = 0;
 
-let cameras = [];
+let cameras = []; // store the cameras
 
 export function OpenScanner() {
 
@@ -32,7 +31,7 @@ export function OpenScanner() {
 
     Instascan.Camera.getCameras().then(function(allcams){
     cameras = allcams;
-
+    // no cameras found notify the user
     if(cameras.length === 0){
         alert("No cameras found");
         return;
@@ -47,12 +46,14 @@ export function OpenScanner() {
 
 
     scanner.addListener('scan', function(Code){
+        // if we saw some qr code put the data into scan resely
         document.getElementById("camera-scan-result").innerHTML = Code;
     });
 }
 
 // change the camera
 export function ChangeCamera() {
+    // check if scanner exists
     if(scanner) {
         scanner.stop();
 
@@ -71,6 +72,7 @@ export function ChangeCamera() {
 }
 
 export function CloseScanner() {
+    // if scanner exists close it
     if (scanner) {
         scanner.stop();
         scanner = null;

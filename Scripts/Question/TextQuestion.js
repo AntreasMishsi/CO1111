@@ -10,9 +10,11 @@ import { CloseScanner } from "../Utils/Scanner.js";
 
 import { Message } from "../Utils/Message.js";
 import { ClearRenderer } from "../Utils/ClearRenderer.js";
+
+
 export class TextQuestion extends Question {
 
-
+    // just inherit the constructor
     constructor(props) {
         super(props);
     }

@@ -6,7 +6,7 @@ import { fetchData } from '../Utils/Utils.js';
 import { Message } from '../Utils/Message.js';
 import { FadeIn, FadeOut } from '../Animations/AfterQuestionAnims.js';
 import { AddLoadingAnimation, RemoveLoadingAnimation } from '../Animations/Loading.js';
-
+//stage where you enter you nickname
 export class StartStage extends Stage {
 
     constructor(app) {
@@ -14,10 +14,10 @@ export class StartStage extends Stage {
     }
 
     async OnStart() {
-        this.UnlockAllButtons();
+        this.UnlockAllButtons(); // unlock all buttons
         FadeIn();
         const container = document.getElementById(RENDERED_AREA_ID);
-
+        //render html
         container.innerHTML = `
         <div class="form-container fade-in">
                 <div class="forms start-form">
@@ -28,37 +28,36 @@ export class StartStage extends Stage {
                         <input class="surname" id="nickname-field" type="text" name="Firstname" placeholder="Name">
                         <input class="submit-btn" type="submit" name="Submit" placeholder="Submit" id="submit-name-button">
                     </form>
-                    <button class="load-data-button" id="load-data-buttton">Load data</button>
+                    
                 </div>
         </div>
 		`
         
-        document.getElementById("load-data-buttton").addEventListener("click", (event) => {
-            
-            this.app.LoadCookies();
-        });
-
+        // add event listener
         document.getElementById("startForm").addEventListener("submit", (event) => {
             event.preventDefault();
 
-            const nickname = document.getElementById("nickname-field").value;
-            this.LockAllButtons();
+            const nickname = document.getElementById("nickname-field").value; // get value from nickname field
+            this.LockAllButtons(); // lock all buttons to avoid double api requests
 
             const API_URL_START = `https://codecyprus.org/th/api/start?player=${nickname}&app=TreasureHuntApp&treasure-hunt-id=${this.app.treasureHuntID}`;
-            AddLoadingAnimation();
+            AddLoadingAnimation(); // add loading animation
+
             const data = fetchData(API_URL_START).then(data => {
-                RemoveLoadingAnimation();
+                RemoveLoadingAnimation(); // remove loading anumation
                 if(data.status === "OK") {
                     this.app.session = data.session;
                     this.app.numOfQuestions = data.numOfQuestions;
                     this.app.name = nickname;
-                    
+                    // if everything ok move on to next stage and save data
                     this.app.SaveData();
                     this.app.ChangeStage();
                 }
                 else {
-                    this.UnlockAllButtons();
 
+                    this.UnlockAllButtons(); // unlock button because we will need to make another api requests
+
+                    // notify user that something went wrong
                     console.log(data.errorMessages[0]);
                     const tmpMSG = new Message(data.errorMessages[0]);
                     tmpMSG.Display();

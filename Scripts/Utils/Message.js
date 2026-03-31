@@ -19,12 +19,12 @@ export class Message {
         message.innerText = this.text;
         
         container.appendChild(message);
-        
+        // add the class neded for animation
         requestAnimationFrame(() => {
             message.classList.add("received");
         });
 
-
+        // delete after the time it was needed
         setTimeout(() => {
             message.classList.remove("received");
             message.addEventListener("transitionend", () => {
