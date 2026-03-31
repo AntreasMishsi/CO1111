@@ -57,7 +57,7 @@ export class MCQQuestion extends Question {
                 if (this.requiresLocation) {
                     this.AnswerWithLocation(selected.value);
                 } else {
-                    this.Answer(selected.value);
+                    this.Answear(selected.value);
                 }
             }
             else {

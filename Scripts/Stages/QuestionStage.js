@@ -44,6 +44,7 @@ export class QuestionStage extends Stage {
 
         if (this.app.currentQuestionData) {
             // this means we are loading from cookies, because app class allready has question which was not answeared
+            console.log(this.app.currentQuestionData);
             const questionClass = this.QuestionTypes[this.app.currentQuestionData.questionType];
             const question = new questionClass({...this.app.currentQuestionData, parentStage: this});
             question.Display(RENDERED_AREA_ID);

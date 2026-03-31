@@ -67,10 +67,9 @@ export class App {
         this.session = null;
         this.name = null;
         this.treasureHuntID = null;
-        this.session = null;
-        this.name = null;
+      
 
-        this.numOfQuestions = null;
+        this.numOfQuestions = 0;
         this.treasureHuntName = null;
         this.treasureHuntID = null;
 
@@ -116,6 +115,7 @@ export class App {
     }
 
     LoadCookies() {
+        
         let cookies = document.cookie.split("; ");
 
         console.log("Load cookie");
@@ -137,7 +137,9 @@ export class App {
                     break;
                 }
                 const SESSION_TIME = 30 * 60 * 1000;
+                console.log("Cookies:");
                 console.log(data);
+                console.log(new Date(data.timestamp).toString());
                 // if session expired reset everything
                 if (!data.timestamp || (Date.now() - data.timestamp > SESSION_TIME)) {
                     console.log("Cookie expired (more than 30 minutes)");
@@ -152,16 +154,16 @@ export class App {
                 console.log(data.name);
                 this.treasureHuntID = data.treasureHuntID;
                 this.score = data.score;
-                
+                this.curentTime = data.timestamp;
                 
                 this.appState.setStage(data.stage);
-                console.log("Stage: " + this.appState.getCurentStage());
+                
                 
 
                 this.numOfQuestions = data.numOfQuestions;
                 console.log(data.currentQuestionIndex);
                 this.currentQuestionIndex = data.currentQuestionIndex;
-                this.currentQuestionData = data.question;
+                this.currentQuestionData = data.questionData;
 
                 this.StageList[this.appState.getCurentStage()].OnStart();
                 return;
@@ -170,6 +172,7 @@ export class App {
         const tmpMSG = new Message("No cookies to load");
         tmpMSG.Display();
     }
+
 //#endregion
 
     // when we have treasure hunt id we can move on to the next stage

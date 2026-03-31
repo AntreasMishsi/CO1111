@@ -3,7 +3,7 @@ import { Message } from "../Utils/Message.js";
 
 // base class of question
 export class Question {
-    constructor({
+        constructor({
                     // data that is return by api for question
                     status,
                     completed,
@@ -22,21 +22,21 @@ export class Question {
                     score = 0,
 
                 } = {}) {
-        this.status = status;
-        this.completed = completed;
-        this.questionText = questionText;
-        this.questionType = questionType;
-        this.canBeSkipped = canBeSkipped;
-        this.requiresLocation = requiresLocation;
-        this.numOfQuestions = numOfQuestions;
-        this.currentQuestionIndex = currentQuestionIndex;
-        this.correctScore = correctScore;
-        this.wrongScore = wrongScore;
-        this.skipScore = skipScore;
+                    this.status = status;
+                    this.completed = completed;
+                    this.questionText = questionText;
+                    this.questionType = questionType;
+                    this.canBeSkipped = canBeSkipped;
+                    this.requiresLocation = requiresLocation;
+                    this.numOfQuestions = numOfQuestions;
+                    this.currentQuestionIndex = currentQuestionIndex;
+                    this.correctScore = correctScore;
+                    this.wrongScore = wrongScore;
+                    this.skipScore = skipScore;
 
-        this.parentStage = parentStage;
-        this.score = score;
-    }
+                    this.parentStage = parentStage;
+                    this.score = score;
+                }
 
 
     // a method which will render the html
