@@ -1,3 +1,5 @@
+/REGISTERS SERVICE WORKER WHEN THE PAGE LOADS/
+
 window.onload = () => {
     "use strict";
 

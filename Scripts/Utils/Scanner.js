@@ -1,13 +1,20 @@
 import { Message } from "./Message.js";
 let scanner = null;
+
+//currently active camera
 let currentCamera = 0;
 
-let cameras = []; // store the cameras
+// array for cameras
+let cameras = [];
 
+
+//opens the scanner or closes it if its already ative
 export function OpenScanner() {
 
+//video preview
     document.getElementById('preview').classList.add('active');
 
+// if its already active it closes it
     if (scanner) {
         scanner.stop();
         scanner = null;
@@ -15,7 +22,7 @@ export function OpenScanner() {
         return;
     }
 
-    // scanner options
+    //scanner options
     var opts= {
         continuous: true,
         video: document.getElementById('preview'),
@@ -26,12 +33,14 @@ export function OpenScanner() {
         scanPeriod: 1
     };
 
+    
+//new instance scanner
     scanner = new Instascan.Scanner(opts);
 
-
+//all available cameras
     Instascan.Camera.getCameras().then(function(allcams){
     cameras = allcams;
-    // no cameras found notify the user
+
     if(cameras.length === 0){
         alert("No cameras found");
         return;
@@ -44,7 +53,7 @@ export function OpenScanner() {
         console.error(e);
     });
 
-
+//event listener whenthe camera scans the qr code
     scanner.addListener('scan', function(Code){
         // if we saw some qr code put the data into scan resely
         document.getElementById("camera-scan-result").innerHTML = Code;
@@ -57,20 +66,22 @@ export function ChangeCamera() {
     if(scanner) {
         scanner.stop();
 
-        // move to next camera
+        //move to next camera
         currentCamera = (currentCamera + 1) % cameras.length;
 
-        // start new camera
+        //start new camera
         scanner.start(cameras[currentCamera]).catch(e => {
             console.error("Camera switch failed:", e);
         });
 
+    // scan listener
         scanner.addListener('scan',function(Code){
             document.getElementById("camera-scan-result").innerHTML = Code;
     });
     }
 }
 
+//closes the scanner and hides the preview
 export function CloseScanner() {
     // if scanner exists close it
     if (scanner) {

@@ -13,6 +13,8 @@ html {
     display: flex;
     justify-content: space-between;
     color: white;
+     position: relative;
+    z-index: 10;
 }
 
 /*logo*/
@@ -29,12 +31,13 @@ html {
     font-family: Arial,sans-serif;
     margin-top: 40px;
     margin-right: 10px;
+}
 
-    .testing-link{
+ .testing-link{
         color: white;
         text-decoration: none;
     }
-}
+
 /*body*/
 .body {
     position: absolute;
@@ -166,6 +169,7 @@ html {
     padding: 20px;
     border-radius: 20px;
     text-align: center;
+    font-family: Arial,sans-serif;
 }
 /*Close btn for modals*/
 .close-btn {
